@@ -15,7 +15,7 @@ function SVGRunway({ runways, windDirection, isGrass, isClosed }) {
 	};
 
 	return (
-		<svg viewBox="0 0 200 200" width="auto" height="12vw" className='svg-runways' xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" version="1.0">
+		<svg viewBox="0 0 200 200" height="12vw" className='svg-runways' xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" version="1.0">
 			<defs>
 				<marker id='head' orient="auto" markerWidth='5' markerHeight='12' refX='2' refY='1.8'>
 					<path d='M 0 0 V 4 L 6 2 Z' fill={windColor} />

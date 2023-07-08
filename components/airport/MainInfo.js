@@ -12,10 +12,18 @@ function MainInfo() {
 
 	if (!airport) return <Skeleton />
 
-	const windDirection = airport.metar?.parsed?.wind?.direction || airport.closestAirport?.metar?.parsed?.wind?.direction || '';
-	let metar = airport.metar || airport.closestAirport.metar;
 
-	if(!Object.keys(airport.metar).length) metar = null;
+	const windDirection = airport.metar?.parsed?.wind?.direction || airport.closestAirport?.metar?.parsed?.wind?.direction || '';
+
+
+	let metar = airport.metar;
+	let externalMetar = false;
+
+	if(!metar || Object.keys(metar).length === 0) {
+		externalMetar = true;
+		metar = airport.closestAirport.metar;
+	}
+
 	const taf = airport.taf || airport.closestAirport.taf;
 
 
@@ -52,6 +60,9 @@ function MainInfo() {
 						<WeatherIcon metar={metar} props={{ color: "white", boxSize: { base: '20', xl: '36'} }} />
 						<Heading size={{ base: 'md', xl: 'lg'}} color="white">{metar.raw}</Heading>
 						<Text color='darkAlpha.400' fontWeight='bold'>{taf}</Text>
+						{
+								externalMetar && <Text color="white" fontWeight=''>Usando METAR mas cercano {airport.closestAirport.oaciCode} | {airport.closestAirport.localCode} - {Math.round(airport.closestAirport.distance)} NM de distancia</Text>
+						}
 					</>
 
 				}

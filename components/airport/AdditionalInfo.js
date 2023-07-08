@@ -60,11 +60,11 @@ function AdditionalInfo() {
 				</Box>
 				<VStack w='100%' minH='50%' py='3'>
 					{
-						airport.aip.charts.length &&
+						airport.aip.charts?.length &&
 							<Button onClick={() => setChartsOpen(true)} size='lg' gap='3' variant='outline' w='90%' justifyContent='flex-start' color='brand.text' leftIcon={<Icon as={VscBookmark} boxSize='8' color='brand.text' />}>Cartas | AIP</Button>
 					}
 					{
-						airport.telephones.length &&
+						airport.telephones?.length &&
 							<Button onClick={() => setTelephonesOpen(true)} size='lg' gap='3' variant='outline' w='90%' justifyContent='flex-start' color='brand.text' leftIcon={<Icon as={BsTelephone} boxSize='8' color='brand.text' />}>Telefonos</Button>
 					}
 					{
@@ -72,7 +72,7 @@ function AdditionalInfo() {
 							<Button onClick={() => setFuelOpen(true)} size='lg' gap='3' variant='outline' w='90%' justifyContent='flex-start' color='brand.text' leftIcon={<Icon as={RiGasStationFill} boxSize='8' color='brand.text' />}>Combustible</Button>
 					}
 					{
-						airport.norms.length &&
+						airport.norms?.length &&
 							<Button onClick={() => setNormsOpen(true)} size='lg' gap='3' variant='outline' w='90%' justifyContent='flex-start' color='brand.text' leftIcon={<Icon as={BsCardChecklist} boxSize='8' color='brand.text' />}>Normas</Button>
 					}
 					{
@@ -80,7 +80,7 @@ function AdditionalInfo() {
 							<Button onClick={() => setHelpersOpen(true)} size='lg' gap='3' variant='outline' w='90%' justifyContent='flex-start' color='brand.text' leftIcon={<Icon as={BsEye} boxSize='8' color='brand.text' />}>Ayudas</Button>
 					}
 					{
-						airport.ats.length &&
+						airport.ats?.length &&
 							<Button onClick={() => setFrecuenciesOpen(true)} size='lg' gap='3' variant='outline' w='90%' justifyContent='flex-start' color='brand.text' leftIcon={<Icon as={GiRadioTower} boxSize='8' color='brand.text' />}>Frecuencias</Button>
 					}
 					{
