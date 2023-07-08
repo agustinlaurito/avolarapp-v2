@@ -1,4 +1,4 @@
-const API_ENDPOINT = 'http://192.168.0.10:3001';
+const API_ENDPOINT = 'https://airportsmicroservice-production.up.railway.app';
 
 async function getHeaders() {
 
