@@ -22,7 +22,7 @@ function MainInfo() {
 	return(
 		<VStack shadow="2xl" h="100%" w="100%" bg="white" rounded="3xl">
 
-			<Heading color='brand.text' textAlign='center' size='xl' p='5'>{airport.shortName}</Heading>
+			<Heading color='brand.text' textAlign='center' size={{ base: 'md',lg:'lg', xl: 'xl' }} p='5'>{airport.shortName}</Heading>
 
 			<Stack w='90%' direction='row' justify='center' gap='5'>
 				{
@@ -39,7 +39,6 @@ function MainInfo() {
 				}
 			</Stack>
 
-			<Spacer />
 
 			<VStack boxShadow='table' w='90%' rounded="xl" bg="brand.accent.500" p="6" textAlign='center' m="5">
 				{
@@ -50,8 +49,8 @@ function MainInfo() {
 						</HStack>
 					:
 					<>
-						<WeatherIcon metar={metar} props={{ color: "white", boxSize: '36' }} />
-						<Heading size="lg" color="white">{metar.raw}</Heading>
+						<WeatherIcon metar={metar} props={{ color: "white", boxSize: { base: '20', xl: '36'} }} />
+						<Heading size={{ base: 'md', xl: 'lg'}} color="white">{metar.raw}</Heading>
 						<Text color='darkAlpha.400' fontWeight='bold'>{taf}</Text>
 					</>
 

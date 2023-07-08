@@ -16,7 +16,7 @@ function Page({ params }) {
 	const localCode = params.params[0];
 	const { airport, setAirport } = useAirportContext();
 
-	const isMobile = useBreakpointValue({ base: true, md: false });
+	const isMobile = useBreakpointValue({ base: true, md: true, lg: false });
 
 
 	useEffect(() => {
@@ -32,7 +32,7 @@ function Page({ params }) {
 
 				<Nav />
 
-				<HStack py='6' h="100%" alignItems="flex-start" w="100%" px="5" gap={5} flexWrap={isMobile ? 'wrap' : 'nowrap'}>
+				<HStack py={{ base: 6, md: 2, xl: 6 }} h="100%" alignItems="flex-start" w="100%" px="5" gap={5} flexWrap={isMobile ? 'wrap' : 'nowrap'}>
 					<Box h="100%" flex={isMobile ? "100%" : "20%"}>
 						<BasicInfo />
 					</Box>

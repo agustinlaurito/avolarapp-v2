@@ -14,6 +14,13 @@ const theme = extendTheme({
 		table: 'rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;',
 		test: 'rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;'
 	},
+	breakpoints: {
+		sm: '480px',
+		md: '768px',
+		lg: '992px',
+		xl: '1370px',
+		'2xl': '1536px',
+	},
 	colors: {
 		brand:  {
 			background: '#F8F9FF',

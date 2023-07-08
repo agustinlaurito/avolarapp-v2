@@ -16,7 +16,7 @@ function BasicInfo() {
 
 	return(
 		<VStack shadow="2xl" h="100%" w="100%" bg="brand.accent.500" rounded="3xl">
-			<Center p={{base: '20', md: ''}} roundedTop="3xl" bg='white' w="100%" h="100%" textAlign="center">
+			<Center p={{base: '20', md: ''}} roundedTop="3xl" bg='white' w="100%" h={{ base: '15%', xl: '100%' }} textAlign="center">
 				<Heading justifySelf="center" color="brand.text" size="3xl">{airport.localCode}</Heading>
 			</Center>
 
@@ -28,8 +28,8 @@ function BasicInfo() {
 						<HStack py="2" color="white">
 							<Icon boxSize={{ base: 8 }} as={MdLocalAirport} />
 							<VStack alignItems="flex-start" gap="0">
-								<Heading>{airport.oaciCode + " | " + airport.iataCode}</Heading>
-								<Text fontSize={{ base: 16 }} fontWeight="bold">{"OACI | IATA"}</Text>
+								<Heading fontSize={{ base: '3xl', md: 'xl' ,xl: '3xl' }}>{airport.oaciCode + " | " + airport.iataCode}</Heading>
+								<Text fontSize={{ base: 16, md: 'sm', xl: 16 }} fontWeight="bold">{"OACI | IATA"}</Text>
 							</VStack>
 						</HStack>
 						<Divider opacity=".2" w="55%" placeSelf="center" />
@@ -39,7 +39,7 @@ function BasicInfo() {
 
 				<HStack py="2" color="white">
 					<Icon boxSize={{ base: 8 }} as={FaMapMarkerAlt} />
-					<Heading>{airport.region}</Heading>
+					<Heading fontSize={{ base: '3xl', md: 'xl', xl: '3xl' }}>{airport.region}</Heading>
 				</HStack>
 
 				<Divider opacity=".2" w="55%" placeSelf="center" />
@@ -47,8 +47,8 @@ function BasicInfo() {
 				<HStack py="2" color="white">
 					<Icon boxSize={{ base: 8 }} as={BiRadar} />
 					<VStack alignItems="flex-start" gap="0">
-						<Heading>{airport.fir.code}</Heading>
-						<Text fontSize={{ base: 16 }} fontWeight="bold">{airport.fir.name}</Text>
+						<Heading fontSize={{ base: '3xl', md: 'xl', xl: '3xl' }}>{airport.fir.code}</Heading>
+						<Text  fontSize={{ base: 16, md: 'sm', xl: 16 }} fontWeight="bold">{airport.fir.name}</Text>
 					</VStack>
 				</HStack>
 
@@ -57,8 +57,8 @@ function BasicInfo() {
 				<HStack py="2" color="white">
 					<Icon boxSize={{ base: 8 }} as={MdHeight} />
 					<VStack alignItems="flex-start" gap="0">
-						<Heading>{Math.trunc(airport.elevation * 3.281) + "Ft"}</Heading>
-						<Text fontSize={{ base: 16 }} fontWeight="bold">{Math.trunc(airport.elevation) + "Mts"}</Text>
+						<Heading fontSize={{ base: '3xl', md: 'xl', xl: '3xl' }}>{Math.trunc(airport.elevation * 3.281) + "Ft"}</Heading>
+						<Text fontSize={{ base: 16, md: 'sm', xl: 16 }} fontWeight="bold">{Math.trunc(airport.elevation) + "Mts"}</Text>
 					</VStack>
 				</HStack>
 
@@ -67,8 +67,8 @@ function BasicInfo() {
 				<HStack py="2" color="white">
 					<Icon boxSize={{ base: 8 }} as={ImAccessibility} />
 					<VStack alignItems="flex-start" gap="0">
-						<Heading>{airport.public ? "Público " : "Privado "}</Heading>
-						<Text fontSize={{ base: 16 }} fontWeight="bold">{airport.controlled ? "Controlado" : "No controlado"}</Text>
+						<Heading fontSize={{ base: '3xl', md: 'xl', xl: '3xl' }}>{airport.public ? "Público " : "Privado "}</Heading>
+						<Text fontSize={{ base: 16, md: 'sm', xl: 16 }} fontWeight="bold">{airport.controlled ? "Controlado" : "No controlado"}</Text>
 					</VStack>
 				</HStack>
 
@@ -77,8 +77,8 @@ function BasicInfo() {
 				<HStack py="2" color="white">
 					<Icon boxSize={{ base: 8 }} as={BiCurrentLocation} />
 					<VStack gap="0" alignItems="flex-start">
-						<Heading>{airport.geometry.coordinates.lat.toFixed(2) + "," + airport.geometry.coordinates.lng.toFixed(2)}</Heading>
-						<Text fontSize={{ base: 16 }} fontWeight="bold">{airport.coordinates[0] + " , " + airport.coordinates[1]} </Text>
+						<Heading fontSize={{ base: '3xl', md: 'xl', xl: '3xl' }}>{airport.geometry.coordinates.lat.toFixed(2) + "," + airport.geometry.coordinates.lng.toFixed(2)}</Heading>
+						<Text fontSize={{ base: 16, md: 'sm', xl: 16 }} fontWeight="bold">{airport.coordinates[0] + " , " + airport.coordinates[1]} </Text>
 					</VStack>
 				</HStack>
 
