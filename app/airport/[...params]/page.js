@@ -26,8 +26,8 @@ function Page({ params }) {
 	}, []);
 
 	return(
-		<VStack>
-			<VStack minHeight="100vh" height={isMobile ? '100%' : '100vh'} bgGradient='linear(to-r, rgba(245,177,97,1) 0.4%, rgba(236,54,110,1) 100.2%)'>
+		<VStack w='100%'>
+			<VStack w='100%' minHeight="100vh" height={isMobile ? '100%' : '100vh'} bgGradient='linear(to-r, rgba(245,177,97,1) 0.4%, rgba(236,54,110,1) 100.2%)'>
 
 				<Nav />
 
@@ -46,7 +46,6 @@ function Page({ params }) {
 			</VStack>
 			<Footer />
 		</VStack>
-
 	)
 
 }
