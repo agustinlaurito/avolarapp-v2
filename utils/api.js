@@ -1,4 +1,4 @@
-const API_ENDPOINT = 'https://airportsmicroservice-production.up.railway.app';
+const API_ENDPOINT = 'https://logbook-microservice-production.up.railway.app';
 // const API_ENDPOINT = 'http://localhost:3001';
 
 async function getHeaders() {
