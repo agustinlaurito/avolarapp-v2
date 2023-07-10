@@ -70,7 +70,7 @@ const Nav = () => {
 		>
 			<Link href='/'>
 				<HStack>
-					<Image src="/images/logo.png" alt="logo" boxSize='35px' mr="5" />
+					<Image src="/images/logo.png" alt="logo" boxSize='35px' />
 					{isLargerThanMD && <Text fontSize={{ base: 'sm', md: 'xl' }} color="brand.text" fontWeight="bold">
 						A Volar App
 					</Text>}
@@ -81,7 +81,7 @@ const Nav = () => {
 			<Flex alignItems="center" gap='2'>
 
 				<Text fontWeight="semibold" color="brand.text" fontSize={{base: 'xs', md: 'md'}}>Proximamente!</Text>
-				<Button isDisabled colorScheme='brand.accent' variant='solid' mr={{ base: '0', md: '2' }} size={{ base: 'sm', md: 'md' }}>Ir a Mi Libro de Vuelo</Button>
+				<Button isDisabled colorScheme='brand.accent' variant='solid' mr={{ base: '0', md: '2' }} size={{ base: 'xs', md: 'md' }}>Ir a Mi Libro de Vuelo</Button>
 
 				<Spacer />
 
