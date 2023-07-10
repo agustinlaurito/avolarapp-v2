@@ -80,12 +80,12 @@ const Nav = () => {
 
 			<Flex alignItems="center" gap='2'>
 
-				<Text fontWeight="semibold" color="brand.text" fontSize="md">Proximamente!</Text>
+				<Text fontWeight="semibold" color="brand.text" fontSize={{base: 'xs', md: 'md'}}>Proximamente!</Text>
 				<Button isDisabled colorScheme='brand.accent' variant='solid' mr={{ base: '0', md: '2' }} size={{ base: 'sm', md: 'md' }}>Ir a Mi Libro de Vuelo</Button>
 
 				<Spacer />
 
-				<Text fontWeight="semibold" fontSize="md">{zuluTime}Z</Text>
+				<Text fontWeight="semibold" fontSize={{ base: 'xs', md: 'md' }}>{zuluTime}Z</Text>
 			</Flex>
 		</Flex>
 	);

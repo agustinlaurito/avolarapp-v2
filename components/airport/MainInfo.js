@@ -78,7 +78,7 @@ export default MainInfo;
 function Skeleton() {
 
 	return (
-		<VStack shadow="2xl" h="100%" w="100%" bg="white" rounded="3xl">
+		<VStack shadow="2xl" h={{ base: '80vh', md: '100%' }} w="100%" bg="brand.accent.500" rounded="3xl">
 			<Center h='60%'>
 				<Spinner color="brand.500" size="xl" />
 

@@ -1,5 +1,4 @@
 function SVGRunway({ runways, windDirection, isGrass, isClosed }) {
-	console.log("windDirection: ", windDirection);
 
 	let scalateArrow = 1;
 
