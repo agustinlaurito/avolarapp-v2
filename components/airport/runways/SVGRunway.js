@@ -1,4 +1,5 @@
 function SVGRunway({ runways, windDirection, isGrass, isClosed }) {
+	console.log("windDirection: ", windDirection);
 
 	let scalateArrow = 1;
 
@@ -11,7 +12,7 @@ function SVGRunway({ runways, windDirection, isGrass, isClosed }) {
 	const rotated = {
 		"transformBox": "fill-box",
 		"transformOrigin": "center",
-		"transform": `rotate(${windDirection}deg) scale(${scalateArrow})`,
+		"transform": `rotate(${windDirection - 180}deg) scale(${scalateArrow})`,
 	};
 
 	return (
@@ -39,7 +40,7 @@ function SVGRunway({ runways, windDirection, isGrass, isClosed }) {
 				<path id="cabecera1" d="m36.32184,100.22988" opacity="NaN" strokeWidth="3" stroke={strokeColor} fill="#3a405a" />
 			</g>
 			{
-				windDirection && <line style={rotated} x1="50%" y1="5%" x2="50%" y2="90%" stroke={windColor} strokeDasharray='5,5' strokeWidth="3" markerEnd="url(#head)" />
+				windDirection !== undefined && <line style={rotated} x1="50%" y1="5%" x2="50%" y2="90%" stroke={windColor} strokeDasharray='5,5' strokeWidth="3" markerEnd="url(#head)" />
 			}
 		</svg>
 	);

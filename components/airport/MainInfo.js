@@ -38,7 +38,7 @@ function MainInfo() {
 						<VStack rounded="3xl" py='4' px='2' border="3px solid rgba(76, 85, 108, 0.5)" key={index}>
 							<Heading size="lg" color="brand.text">{runway.numbers}</Heading>
 							<Box transform={`rotate(${runway.numbers.split('/')[1]}0deg)`}>
-								<SVGRunway isClosed={String(runway.surface).toUpperCase().includes("CERRADA", "CLOSED", "CLSD")} isGrass={runway.surface.toUpperCase().includes("TIERRA")} runways={runway.numbers.split('/')} windDirection={metar ? windDirection - runway.numbers.split('/')[0] : null} />
+								<SVGRunway isClosed={String(runway.surface).toUpperCase().includes("CERRADA", "CLOSED", "CLSD")} isGrass={runway.surface.toUpperCase().includes("TIERRA")} runways={runway.numbers.split('/')} windDirection={metar ? windDirection - runway.numbers.split('/')[0] * 10 : null} />
 							</Box>
 							<Text textAlign="center" fontWeight="bold">{runway.width}</Text>
 							<Text textAlign="center" color="brand.text">{runway.surface}</Text>
