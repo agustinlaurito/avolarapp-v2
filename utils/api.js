@@ -4,7 +4,7 @@ const API_ENDPOINT = 'https://airportsmicroservice-production.up.railway.app';
 async function getHeaders() {
 
 	return {
-		"x-api-key": "4f9bf0c1-d119-4520-9987-a0222a8c194b",
+		"x-api-key": process.env.NEXT_PUBLIC_API_KEY,
 	};
 };
 
