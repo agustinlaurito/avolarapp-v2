@@ -47,7 +47,7 @@ function SearchAutocomplete() {
 				<AutoCompleteList w='full'>
 					{ list.map((airport, cid) => (
 						<AutoCompleteItem
-							onClick={() => { router.push(`/airport/${airport.localCode}`); setAirport(null)}}
+							onClick={() => { setValue(airport.localCode); router.push(`/airport/${airport.localCode}`); setAirport(null)}}
 							key={`option-${cid}`}
 							value={airport.description}
 							textTransform="capitalize"
