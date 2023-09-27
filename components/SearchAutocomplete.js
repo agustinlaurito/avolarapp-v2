@@ -17,7 +17,9 @@ import { useAirportContext } from "@/app/context/airport";
 function SearchAutocomplete() {
 
 	const router = useRouter();
-	const { setAirport } = useAirportContext()
+	const { setAirport } = useAirportContext();
+
+	const [value, setValue] = useState('');
 
 	const [list, setList] = useState(AIRPORTS);
 
@@ -27,10 +29,21 @@ function SearchAutocomplete() {
 
 	}, []);
 
+
+
+	// useEffect(() => {
+	// 	document.addEventListener('keydown', function(event){
+	// 		if(event.key === 'Enter') {
+	// 			router.push(`/airport/${value}`);
+	// 			setAirport(null);
+	// 		}
+	// 	});
+	// }, []);
+
 	return (
 		<FormControl size="lg">
-			<AutoComplete openOnFocus suggestWhenEmpty={false}>
-				<AutoCompleteInput bg="white" variant='flushed' borderRadius="xl" shadow='table' fontSize={{ base: 'xs', md: 'md' }} placeholder="Ingresa un aeropuerto ..." pl={{ base: 2, md: 5 }} />
+			<AutoComplete  openOnFocus suggestWhenEmpty={false}>
+				<AutoCompleteInput value={value} onChange={e => setValue(e.target.value)} bg="white" variant='flushed' borderRadius="xl" shadow='table' fontSize={{ base: 'xs', md: 'md' }} placeholder="Ingresa un aeropuerto ..." pl={{ base: 2, md: 5 }} />
 				<AutoCompleteList w='full'>
 					{ list.map((airport, cid) => (
 						<AutoCompleteItem
