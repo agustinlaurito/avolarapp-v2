@@ -14,7 +14,7 @@ function Loading() {
 
 				<Nav />
 
-				<HStack py={{ base: 6, md: 2, xl: 6 }} h="100%" alignItems="flex-start" w="100%" px="5" gap={5} flexWrap={isMobile ? 'wrap' : 'nowrap'}>
+				{/* <HStack py={{ base: 6, md: 2, xl: 6 }} h="100%" alignItems="flex-start" w="100%" px="5" gap={5} flexWrap={isMobile ? 'wrap' : 'nowrap'}>
 					<Box h="100%" flex={isMobile ? "100%" : "20%"}>
 						<VStack shadow="2xl" h={{ base: '80vh', md: '100%' }} w="100%" bg="brand.accent.500" rounded="3xl">
 							<Center roundedTop="3xl" bg='white' w="100%" h="40%" textAlign="center">
@@ -52,7 +52,10 @@ function Loading() {
 							</Center>
 						</VStack>
 					</Box>
-				</HStack>
+				</HStack> */}
+				<Center h='100%' w='100%'>
+					<Spinner color="white" size="xl" />
+				</Center>
 
 			</VStack>
 			<Footer />
