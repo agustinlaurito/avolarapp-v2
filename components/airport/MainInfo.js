@@ -50,7 +50,7 @@ function MainInfo() {
 
 			<VStack boxShadow='table' w='90%' rounded="xl" bg="brand.accent.500" p="6" textAlign='center' m="5">
 				{
-					!metar ?
+					!metar || externalMetar ?
 						<HStack>
 							<Icon as={PiWarningCircleLight} color="white" boxSize={10} mr='5' />
 							<Heading size="lg" color="white">Sin datos de METAR</Heading>

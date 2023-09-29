@@ -1,7 +1,11 @@
 import { Icon } from "@chakra-ui/react";
 import { WiCloud, WiStrongWind , WiDaySunny , WiNightClear, WiDayCloudy, WiDayStormShowers, WiDayShowers, WiDaySnow, WiRain} from "react-icons/wi";
 function WeatherIcon ({ metar, props }){
+
 	const data = metar.parsed;
+
+	if(!data) return;
+
 	if(data.cavok === true){
 		if(data.wind.speedKt > 10){
 			return <Icon as={WiStrongWind} {...props} />;
