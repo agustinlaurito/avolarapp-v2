@@ -24,7 +24,7 @@ function ChartsModal({ isOpen , onClose}) {
 	const { airport } = useAirportContext();
 
 	return(
-		<Modal isOpen={isOpen} onClose={onClose}>
+		<Modal size='6xl' isOpen={isOpen} onClose={onClose}>
 			<ModalOverlay />
 			<ModalContent mx={{ base: 5, md: 0}}>
 				<ModalHeader textAlign="center">
@@ -35,6 +35,15 @@ function ChartsModal({ isOpen , onClose}) {
 					<VStack justifyContent="center" gap='5'>
 						{
 							airport.aip.charts.map((chart, index) =>
+								<Link href={chart.href} isExternal key={index}>
+									<Button variant='outline' colorScheme='brand.accent' size='lg' leftIcon={<Icon as={MdOutlineOpenInNew} />}>{chart.text}</Button>
+								</Link>
+							)
+						}
+					</VStack>
+					<VStack justifyContent="center" gap='5'>
+						{
+							airport.aip.ad.map((chart, index) =>
 								<Link href={chart.href} isExternal key={index}>
 									<Button variant='outline' colorScheme='brand.accent' size='lg' leftIcon={<Icon as={MdOutlineOpenInNew} />}>{chart.text}</Button>
 								</Link>

@@ -60,7 +60,7 @@ function AdditionalInfo() {
 				</Box>
 				<VStack w='100%' minH='50%' py='3'>
 					{
-						airport.aip.charts?.length &&
+						(airport.aip.charts?.length || airport.aip.ad?.length)  &&
 							<Button onClick={() => setChartsOpen(true)} size='lg' gap='3' variant='outline' w='90%' justifyContent='flex-start' color='brand.text' leftIcon={<Icon as={VscBookmark} boxSize='8' color='brand.text' />}>Cartas | AIP</Button>
 					}
 					{
