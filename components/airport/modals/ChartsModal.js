@@ -31,22 +31,18 @@ function ChartsModal({ isOpen , onClose}) {
 					<Heading color="brand.text">Cartas</Heading>
 				</ModalHeader>
 				<ModalCloseButton />
-				<ModalBody my='5'>
+				<ModalBody my='5' mx='5'>
 					<VStack justifyContent="center" gap='5'>
 						{
 							airport.aip.charts.map((chart, index) =>
-								<Link href={chart.href} isExternal key={index}>
-									<Button variant='outline' colorScheme='brand.accent' size='lg' leftIcon={<Icon as={MdOutlineOpenInNew} />}>{chart.text}</Button>
-								</Link>
+								<Button onClick={() => window.open(chart.href, "_blank")} w='full' key={index} variant='outline' colorScheme='brand.accent' size='lg' leftIcon={<Icon as={MdOutlineOpenInNew} />}>{chart.text}</Button>
 							)
 						}
 					</VStack>
 					<VStack justifyContent="center" gap='5'>
 						{
 							airport.aip.ad.map((chart, index) =>
-								<Link href={chart.href} isExternal key={index}>
-									<Button variant='outline' colorScheme='brand.accent' size='lg' leftIcon={<Icon as={MdOutlineOpenInNew} />}>{chart.text}</Button>
-								</Link>
+								<Button onClick={() => window.open(chart.href, "_blank")} w='full' key={index} variant='outline' colorScheme='brand.accent' size='lg' leftIcon={<Icon as={MdOutlineOpenInNew} />}>{chart.text}</Button>
 							)
 						}
 					</VStack>
