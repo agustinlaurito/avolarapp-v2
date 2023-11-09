@@ -43,7 +43,7 @@ function TelephonesModal({ isOpen , onClose}) {
 						{
 							airport.telephones.map((telephone,index) =>
 								<HStack border='1px solid rgba(76, 85, 108, 0.5)' rounded='xl' p='2' key={index} w='100%'>
-									<Image src='/images/MADHEL.PNG' alt='MADHEL' boxSize='12' mr='2' />
+									<Image src='/images/MADHEL.png' alt='MADHEL' boxSize='12' mr='2' />
 									<VStack alignItems='flex-start'>
 										<Text fontWeight='bold' color='brand.text'>{telephone.type || 'No Especificado'}</Text>
 										<Text fontSize='xs' color='blackAlpha.800'>{telephone.number}</Text>
