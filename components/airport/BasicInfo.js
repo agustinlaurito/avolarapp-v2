@@ -1,6 +1,6 @@
 'use client'
 
-import { Center, Divider, HStack, Heading, Icon, Spacer, Spinner, Text, VStack } from "@chakra-ui/react";
+import { Center, Divider, HStack, Heading, Icon, Skeleton, Spacer, Spinner, Text, VStack } from "@chakra-ui/react";
 
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { BiRadar, BiCurrentLocation } from 'react-icons/bi';
@@ -12,7 +12,7 @@ function BasicInfo() {
 
 	const { airport } = useAirportContext();
 
-	if(!airport) return <Skeleton />
+	if(!airport) return <Loader />;
 
 	return(
 		<VStack shadow="2xl" h="100%" w="100%" bg="brand.accent.500" rounded="3xl">
@@ -92,21 +92,11 @@ function BasicInfo() {
 
 export default BasicInfo;
 
-function Skeleton() {
-
+function Loader() {
 	return(
-		<VStack shadow="2xl" h={{ base: '80vh', md: '100%' }} w="100%" bg="brand.accent.500" rounded="3xl">
-			<Center roundedTop="3xl" bg='white' w="100%" h="40%" textAlign="center">
-				<Spinner color="brand.500" size="xl" />
-			</Center>
-
-			<Center h="100%" w="60%">
-
-				<Spinner color="brand.500" size="xl" />
-
-			</Center>
+		<VStack h={{ base: '80vh', md: '100%' }} w="100%" >
+			<Skeleton height="100%" width="100%" rounded="3xl" />
 		</VStack>
-
 	)
 
 };

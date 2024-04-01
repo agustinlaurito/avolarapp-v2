@@ -21,7 +21,7 @@ function Page({ params }) {
 
 	useEffect(() => {
 
-		getAirportByLocalCode(localCode).then(airport => setAirport(airport));
+		getAirportByLocalCode(localCode).then(airport => { setAirport(airport); console.log(airport) });
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);

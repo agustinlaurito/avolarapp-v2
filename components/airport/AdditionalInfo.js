@@ -1,6 +1,6 @@
 'use client';
 
-import { AspectRatio, Box, Button, Center, Divider, HStack, Heading, Icon, IconButton, Spacer, Spinner, Text, VStack } from "@chakra-ui/react";
+import { AspectRatio, Box, Button, Center, Divider, HStack, Heading, Icon, IconButton, Skeleton, Spacer, Spinner, Text, VStack } from "@chakra-ui/react";
 import { TbBrandWindy } from 'react-icons/tb';
 import { MdLocalAirport } from 'react-icons/md';
 import { GiRadioTower } from 'react-icons/gi';
@@ -33,7 +33,7 @@ function AdditionalInfo() {
 	const [windyOpen, setWindyOpen] = useState(false);
 
 
-	if (!airport) return <Skeleton />
+	if (!airport) return <Loader />
 
 	return(
 		<>
@@ -101,19 +101,11 @@ function AdditionalInfo() {
 
 export default AdditionalInfo;
 
-function Skeleton() {
+function Loader() {
 
 	return (
-		<VStack shadow="2xl" h={{ base: '80vh', md: '100%' }} w="100%" bg="brand.accent.500" rounded="3xl">
-			<Center roundedTop="3xl" bg='white' w="100%" h="40%" textAlign="center">
-				<Spinner color="brand.500" size="xl" />
-			</Center>
-
-			<Center h="100%" w="60%">
-
-				<Spinner color="brand.500" size="xl" />
-
-			</Center>
+		<VStack h={{ base: '80vh', md: '100%' }} w="100%" >
+			<Skeleton height="100%" width="100%" rounded="3xl" />
 		</VStack>
 
 	)

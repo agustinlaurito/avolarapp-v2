@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Center, Divider, HStack, Stack, Heading, Icon, Spacer, Spinner, Text, VStack } from "@chakra-ui/react";
+import { Box, Center, Divider, HStack, Stack, Heading, Icon, Spacer, Spinner, Text, VStack, Skeleton } from "@chakra-ui/react";
 import WeatherIcon from "./metar/WeatherIcon";
 import SVGRunway from "./runways/SVGRunway";
 import { PiWarningCircleLight } from 'react-icons/pi';
@@ -10,7 +10,7 @@ function MainInfo() {
 
 	const { airport } = useAirportContext();
 
-	if (!airport) return <Skeleton />
+	if (!airport) return <Loader />
 
 
 	const windDirection = airport.metar?.parsed?.wind?.direction || airport.closestAirport?.metar?.parsed?.wind?.direction || '';
@@ -75,19 +75,12 @@ function MainInfo() {
 
 export default MainInfo;
 
-function Skeleton() {
+function Loader() {
 
 	return (
-		<VStack shadow="2xl" h={{ base: '80vh', md: '100%' }} w="100%" bg="brand.accent.500" rounded="3xl">
-			<Center h='60%'>
-				<Spinner color="brand.500" size="xl" />
-
-			</Center>
-			<Center w='90%' rounded="xl" bg="brand.accent.500" h='40%' p="6" textAlign='center' m="5">
-				<Spinner color="brand.500" size="xl" />
-			</Center>
+		<VStack h={{ base: '80vh', md: '100%' }} w="100%" >
+			<Skeleton height="100%" width="100%" rounded="3xl" />
 		</VStack>
-
 	)
 
 };
