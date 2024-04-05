@@ -80,8 +80,8 @@ const Nav = () => {
 
 			<Flex alignItems="center" gap='2'>
 
-				<Text fontWeight="semibold" color="brand.text" fontSize={{base: 'xs', md: 'md'}}>Proximamente!</Text>
-				<Button isDisabled colorScheme='brand.accent' variant='solid' mr={{ base: '0', md: '2' }} size={{ base: 'xs', md: 'md' }}>Ir a Mi Libro de Vuelo</Button>
+				{/* <Text fontWeight="semibold" color="brand.text" fontSize={{base: 'xs', md: 'md'}}>Proximamente!</Text> */}
+				<Button onClick={() => window.open('https://libro.avolarapp.com.ar', '_blank')} colorScheme='brand.accent' variant='solid' mr={{ base: '0', md: '2' }} size={{ base: 'xs', md: 'md' }}>Ir a Mi Libro de Vuelo</Button>
 
 				<Spacer />
 
