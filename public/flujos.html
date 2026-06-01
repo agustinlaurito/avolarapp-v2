@@ -1,0 +1,1602 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A320 Normal Procedures Flows | LATAM</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --surface2: #f0f2f5;
+  --border: #dde1e8;
+  --border-strong: #c4c9d4;
+  --pf: #1d6ef5;
+  --pf-light: #e8f0fe;
+  --pf-mid: #bdd0fc;
+  --pm: #d97706;
+  --pm-light: #fef3e2;
+  --pm-mid: #fcd68a;
+  --both: #059669;
+  --both-light: #d1fae5;
+  --both-mid: #6ee7b7;
+  --text: #1a1f2e;
+  --text-2: #4b5563;
+  --text-3: #9ca3af;
+  --red: #dc2626;
+  --red-light: #fee2e2;
+  --amber: #d97706;
+  --amber-light: #fef3c7;
+  --modal-bg: rgba(15, 20, 40, 0.55);
+  --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.08);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* ── HEADER ── */
+.doc-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 20px 36px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  box-shadow: 0 1px 0 var(--border), 0 2px 12px rgba(0,0,0,0.05);
+}
+.header-left { display: flex; align-items: center; gap: 14px; }
+.header-badge {
+  background: var(--pf);
+  color: white;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+.header-left h1 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.3px;
+}
+.header-left p { font-size: 11px; color: var(--text-3); margin-top: 1px; }
+.legend {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-2);
+}
+.legend-pill {
+  width: 28px; height: 10px;
+  border-radius: 5px;
+}
+.legend-pill.pf { background: var(--pf); }
+.legend-pill.pm { background: var(--pm); }
+.legend-pill.both { background: var(--both); }
+
+/* ── SUB-NAV ── */
+.subnav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 36px;
+  display: flex;
+  gap: 2px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  position: sticky;
+  top: 57px;
+  z-index: 190;
+}
+.subnav::-webkit-scrollbar { display: none; }
+.subnav a {
+  color: var(--text-3);
+  text-decoration: none;
+  font-size: 11.5px;
+  font-weight: 500;
+  padding: 10px 12px;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+.subnav a:hover { color: var(--text); border-bottom-color: var(--border-strong); }
+
+/* ── CONTENT ── */
+.content { max-width: 1280px; margin: 0 auto; padding: 24px 36px 80px; }
+
+/* ── PHASE ── */
+.phase {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 24px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.phase-header {
+  padding: 13px 20px;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.phase-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--text-3);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2px 7px;
+  letter-spacing: 0.5px;
+}
+.phase-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.3px;
+}
+.phase-sub {
+  font-size: 11px;
+  color: var(--text-3);
+  margin-left: auto;
+  font-style: italic;
+}
+.phase-intro {
+  padding: 11px 20px;
+  font-size: 12px;
+  color: var(--text-2);
+  background: #fafbfc;
+  border-bottom: 1px solid var(--border);
+  line-height: 1.6;
+}
+.phase-intro strong { color: var(--text); }
+
+/* ── FLOW GRID ── */
+.flow-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.flow-col { padding: 14px 16px; }
+.flow-col.pf-col { border-right: 1px solid var(--border); }
+
+.col-header {
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.col-header.pf { color: var(--pf); border-color: var(--pf); }
+.col-header.pm { color: var(--pm); border-color: var(--pm); }
+.col-header-icon { width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 900; color: white; flex-shrink: 0; }
+.col-header.pf .col-header-icon { background: var(--pf); }
+.col-header.pm .col-header-icon { background: var(--pm); }
+
+/* ── ACTION ITEM ── */
+.action-item {
+  display: flex;
+  align-items: stretch;
+  border-radius: 7px;
+  margin-bottom: 4px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: box-shadow 0.12s, border-color 0.12s, transform 0.1s;
+  overflow: hidden;
+  background: var(--surface);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+.action-item:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transform: translateY(-1px);
+}
+.action-item.pf-item { border-color: var(--pf-mid); }
+.action-item.pm-item { border-color: var(--pm-mid); }
+.action-item.both-item { border-color: var(--both-mid); }
+.action-item:hover.pf-item { border-color: var(--pf); }
+.action-item:hover.pm-item { border-color: var(--pm); }
+.action-item:hover.both-item { border-color: var(--both); }
+
+.action-stripe {
+  width: 4px;
+  flex-shrink: 0;
+}
+.pf-item .action-stripe { background: var(--pf); }
+.pm-item .action-stripe { background: var(--pm); }
+.both-item .action-stripe { background: var(--both); }
+
+.action-body {
+  flex: 1;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.action-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--text);
+  flex: 1;
+}
+.action-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.pf-item .action-value { color: var(--pf); background: var(--pf-light); }
+.pm-item .action-value { color: var(--pm); background: var(--pm-light); }
+.both-item .action-value { color: var(--both); background: var(--both-light); }
+
+.action-info-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-right: 8px;
+  transition: background 0.12s;
+}
+.action-item:hover .action-info-btn {
+  background: var(--pf-light);
+  border-color: var(--pf);
+}
+.action-item.pm-item:hover .action-info-btn {
+  background: var(--pm-light);
+  border-color: var(--pm);
+}
+.action-item.both-item:hover .action-info-btn {
+  background: var(--both-light);
+  border-color: var(--both);
+}
+.action-info-btn svg { width: 11px; height: 11px; }
+
+/* ── MODAL ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--modal-bg);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  backdrop-filter: blur(4px);
+}
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.modal {
+  background: var(--surface);
+  border-radius: 14px;
+  width: 100%;
+  max-width: 580px;
+  max-height: 85vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-lg);
+  transform: translateY(16px) scale(0.97);
+  transition: transform 0.22s cubic-bezier(0.34,1.36,0.64,1);
+  border: 1px solid var(--border);
+}
+.modal-overlay.open .modal {
+  transform: translateY(0) scale(1);
+}
+.modal-header {
+  padding: 16px 20px 14px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--surface2);
+}
+.modal-role-badge {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+.modal-role-badge.pf { background: var(--pf-light); color: var(--pf); border: 1px solid var(--pf-mid); }
+.modal-role-badge.pm { background: var(--pm-light); color: var(--pm); border: 1px solid var(--pm-mid); }
+.modal-role-badge.both { background: var(--both-light); color: var(--both); border: 1px solid var(--both-mid); }
+.modal-titles { flex: 1; min-width: 0; }
+.modal-item-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.3px;
+  line-height: 1.3;
+}
+.modal-phase-label {
+  font-size: 11px;
+  color: var(--text-3);
+  margin-top: 2px;
+}
+.modal-value-chip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+.modal-value-chip.pf { background: var(--pf-light); color: var(--pf); border: 1.5px solid var(--pf-mid); }
+.modal-value-chip.pm { background: var(--pm-light); color: var(--pm); border: 1.5px solid var(--pm-mid); }
+.modal-value-chip.both { background: var(--both-light); color: var(--both); border: 1.5px solid var(--both-mid); }
+.modal-close {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.12s;
+  margin-top: -2px;
+}
+.modal-close:hover { background: var(--red-light); border-color: var(--red); }
+.modal-close:hover svg path { stroke: var(--red); }
+.modal-close svg { width: 12px; height: 12px; }
+.modal-body {
+  padding: 18px 20px;
+  overflow-y: auto;
+  flex: 1;
+}
+.modal-section { margin-bottom: 16px; }
+.modal-section:last-child { margin-bottom: 0; }
+.modal-section-title {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 7px;
+}
+.modal-desc {
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.65;
+}
+.modal-fcom-box {
+  background: #f8f9fc;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--pf);
+  border-radius: 6px;
+  padding: 10px 13px;
+  font-size: 12px;
+  color: var(--text-2);
+  line-height: 1.6;
+  font-style: italic;
+}
+.modal-fcom-box.pm-box { border-left-color: var(--pm); }
+.modal-fcom-box.both-box { border-left-color: var(--both); }
+.modal-fcom-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.modal-fcom-label::before {
+  content: '';
+  display: inline-block;
+  width: 8px; height: 8px;
+  background: var(--pf);
+  border-radius: 2px;
+}
+.pm-box .modal-fcom-label::before { background: var(--pm); }
+.both-box .modal-fcom-label::before { background: var(--both); }
+
+.modal-caution {
+  background: var(--amber-light);
+  border: 1px solid #fcd34d;
+  border-left: 3px solid var(--amber);
+  border-radius: 6px;
+  padding: 9px 12px;
+  font-size: 12px;
+  color: #92400e;
+  line-height: 1.6;
+}
+.modal-caution-title {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 4px;
+}
+.modal-warning {
+  background: var(--red-light);
+  border: 1px solid #fca5a5;
+  border-left: 3px solid var(--red);
+  border-radius: 6px;
+  padding: 9px 12px;
+  font-size: 12px;
+  color: #7f1d1d;
+  line-height: 1.6;
+}
+.modal-warning-title {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 4px;
+}
+.modal-note {
+  background: #f0f4ff;
+  border: 1px solid var(--pf-mid);
+  border-radius: 6px;
+  padding: 9px 12px;
+  font-size: 12px;
+  color: #1e3a8a;
+  line-height: 1.6;
+}
+.modal-note-title {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--pf);
+  margin-bottom: 4px;
+}
+
+.gap { height: 8px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="doc-header">
+  <div class="header-left">
+    <div class="header-badge">FCOM</div>
+    <div>
+      <h1>A319/A320/A321 — Normal Procedures Flows</h1>
+      <p>LATAM Airlines Group · Rev. 20 MAR 2025 · Documento de estudio — tocá cada ítem para ver el FCOM</p>
+    </div>
+  </div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-pill pf"></div>PF</div>
+    <div class="legend-item"><div class="legend-pill pm"></div>PM</div>
+    <div class="legend-item"><div class="legend-pill both"></div>BOTH</div>
+  </div>
+</div>
+
+<!-- SUBNAV -->
+<nav class="subnav">
+  <a href="#sop09">After Start</a>
+  <a href="#sop10">Taxi</a>
+  <a href="#sop11">Before Takeoff</a>
+  <a href="#sop12">Takeoff</a>
+  <a href="#sop13">After Takeoff</a>
+  <a href="#sop14">Climb</a>
+  <a href="#sop15">Cruise</a>
+  <a href="#sop16">Descent Prep</a>
+  <a href="#sop17">Descent</a>
+  <a href="#sop19">Landing</a>
+  <a href="#sop21">After Landing</a>
+  <a href="#sop22">Parking</a>
+</nav>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="modal-role-badge" id="modal-role-badge">PF</div>
+      <div class="modal-titles">
+        <div class="modal-item-name" id="modal-item-name">ENG MODE selector</div>
+        <div class="modal-phase-label" id="modal-phase-label">SOP-09 · After Start</div>
+      </div>
+      <div class="modal-value-chip" id="modal-value-chip">NORM</div>
+      <button class="modal-close" onclick="closeModalDirect()">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="#6b7280" stroke-width="2.5" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<div class="content" id="app"></div>
+
+<script>
+// ─── DATA ─────────────────────────────────────────────────────────────────────
+const PHASES = [
+{
+  id: 'sop09',
+  num: 'SOP-09',
+  title: 'After Start',
+  sub: 'Cuando los motores están en marcha',
+  intro: 'El <strong>PF</strong> selecciona ENG MODE → NORM para habilitar la operación normal de los packs. A partir de ahí comienza el flow. El PF recorre su lado del overhead (izquierdo/centro) y la consola central; el PM recorre su lado (overhead derecho) terminando en la consola pedestal.',
+  pf: [
+    {
+      name: 'ENG MODE selector', value: 'NORM',
+      why: 'Pone los motores en modo operacional normal, habilitando los packs de aire acondicionado y la presurización. Durante el start el selector estaba en NORM, IGN, o START según el procedimiento.',
+      fcom: 'When the engines have started, the PF sets the ENG MODE selector to NORM to permit normal pack operation. At this time, the After Start Flow Pattern begins.',
+      note: 'After start, to avoid thermal shock, operate the engine at idle or near idle for at least 2 min (5 min if shutdown > 2h) before advancing to high power. Taxi time at idle may be included in the warm-up period.'
+    },
+    {
+      name: 'APU BLEED pb-sw', value: 'OFF',
+      why: 'Una vez que los motores están corriendo y proveen bleed air, el APU bleed se apaga para evitar la ingestión de gases de escape del motor a través del conducto del APU.',
+      fcom: 'APU BLEED pb-sw — OFF (PF). This action enables to avoid ingestion of engine exhaust gases.',
+      note: 'El APU puede continuar encendido para proveer electricidad si la GPU no está disponible, pero el bleed debe estar OFF.'
+    },
+    {
+      name: 'APU MASTER SW', value: 'OFF',
+      why: 'Si el APU ya no es necesario para energía eléctrica (motores alimentan los buses y/o GPU disponible), se apaga completamente. Reduce desgaste del APU.',
+      fcom: 'If the APU is not required: APU MASTER SW pb-sw — OFF (PF).',
+      note: 'Solo apagar si ya no se necesita energía del APU. Si se está en single-engine taxi o se necesita el APU bleed por alguna falla, mantenerlo.'
+    },
+    {
+      name: 'ENG 1+2 ANTI ICE', value: 'AS RQRD',
+      why: 'Protege el inlet de los motores contra acumulación de hielo en condiciones de icing. El calor de bleed air se dirige al borde de ataque del inlet. Activar en condiciones de icing en tierra.',
+      fcom: 'Turn on engine anti-ice during all ground operations when icing conditions exist or are anticipated. If ENG ANTI ICE pb-sw is set to ON and the valve(s) do not open (FAULT light remains on), increase the N2 of the associated engine by about 5%. If ENG ANTI ICE pb-sw is set to ON, the IGNITION memo appears on the ECAM because continuous ignition is automatically selected.',
+      caution: 'In icing conditions (visible moisture + OAT ≤ +10°C), the flight crew must turn on the engine anti-ice and should NOT wait until seeing ice building up. During engine operations on ground in icing conditions with OAT at +3°C or below, ice accretion may affect the engine fan blades, spinner, or stators of the LP compressor. Apply the engine ice shedding procedure (N1 accelerations) at defined intervals.'
+    },
+    {
+      name: 'WING ANTI ICE', value: 'AS RQRD',
+      why: 'Protege los slats 3, 4 y 5 contra acumulación de hielo usando bleed air. En tierra, al activarlo los anti-ice valves se abren ~30 segundos para el self-test y luego se cierran mientras el avión está en tierra.',
+      fcom: 'WING ANTI ICE pb-sw — AS RQRD. On ground when wing anti-ice is switched on, the anti-ice valves open for about 30 s for self-test sequence, then close as long as the aircraft is on ground.',
+      note: 'En tierra el wing A/I no provee protección real (valves se cierran), pero es necesario hacer el test antes del vuelo. En vuelo se usa normalmente en climb/approach con icing conditions y SAT > -40°C.'
+    },
+    {
+      name: 'ECAM STATUS', value: 'CHECK',
+      why: 'Verificar que no hay anomalías de sistemas activas antes de taxear. Si el STATUS (STS) aparece en el EWD, presionar el STATUS pb para ver las restricciones operacionales activas.',
+      fcom: 'ECAM STATUS — CHECK (BOTH). The PM checks and the PF crosschecks that there is no status reminder (STS) on the E/WD. If STS appears on the E/WD, press the STATUS pb to display the STATUS page.',
+      note: 'Los STATUS items pueden incluir restricciones de operación como: AUTOLAND degradado, anti-skid inhibido, etc. Evaluar su impacto operacional antes de continuar.'
+    },
+    {
+      name: 'NW STRG DISC memo', value: 'CHECK NOT DISPLAYED',
+      why: 'Si el memo NW STRG DISC aparece en el ECAM, significa que el tow bar aún está conectado al nose gear. Taxear con el nosewheel desconectado puede causar pérdida de control de dirección.',
+      fcom: 'NW STRG DISC MEMO — CHECK NOT DISPLAYED (PF). This memo illuminates when the nose wheel steering is disconnected (tow bar connected).',
+      caution: 'NUNCA taxear si el NW STRG DISC memo está activo. La tripulación debe verificar visualmente o contactar a la rampa para confirmar que el tow bar fue removido.'
+    },
+    {
+      name: 'FLAPS position', value: 'CHECK',
+      why: 'El PF crosscheckea la posición de flaps seteada por el PM con la indicación real en el ECAM EWD y con la configuración de T/O en el FMS PERF page.',
+      fcom: 'FLAPS — CHECK POSITION (PF). Check the FMS PERF T.O page flaps setting, verify and announce the position of the flaps on the ECAM upper display. Announce: "CONF 1+F", "CONF 2" or "CONF 3".',
+      note: 'El PF anuncia la configuración verbalmente para el CRM. Este es el segundo check (el PM ya lo verificó). Si hay discrepancia entre EWD y FMS PERF, resolver antes de continuar.'
+    },
+    {
+      name: 'CLEAR TO DISCONNECT', value: 'ANNOUNCE',
+      why: 'El PF anuncia a la rampa que puede retirar los chocks, desconectar el interphone y hacer la seña de "clear". Solo después de que los motores están en marcha y el avión está listo para moverse.',
+      fcom: 'CLEAR TO DISCONNECT — ANNOUNCE (PF). The ground crew removes the chocks, disconnects the interphone, and makes the hand signal on the left or right side.',
+      note: 'Esperar la seña del mecánico de rampa antes de liberar el parking brake.'
+    },
+    {
+      name: 'GND EQPT & MECHANIC', value: 'REMOVED (BOTH)',
+      why: 'Ambos pilotos verifican visualmente que todo el personal y equipamiento de rampa está despejado del área de movimiento del avión antes de iniciar el taxi.',
+      fcom: 'GND EQPT & MECHANIC — REMOVED (BOTH). Both crewmembers must verify that all Ground Personnel and Equipment are clear of the aircraft taxi area.',
+    },
+    {
+      name: 'AFTER START C/L', value: 'COMPLETE',
+      why: 'Completar el After Start Checklist (READ & DO). El PM lee cada ítem, el PF o PM actúa según corresponda. Último gate antes de iniciar el taxi.',
+      fcom: 'AFTER START C/L — COMPLETE (BOTH).'
+    }
+  ],
+  pm: [
+    {
+      name: 'GND SPLRS', value: 'ARM',
+      why: 'Arma los ground spoilers para despliegue automático en el touchdown. El sistema usa los WoW (Weight on Wheels) sensors y la posición del thrust lever para activarlos automáticamente al aterrizar.',
+      fcom: 'GROUND SPOILERS — GND SPLRS — ARM (PM). The ground spoilers are armed for automatic deployment upon landing. If not armed, they will NOT deploy automatically at touchdown, resulting in reduced braking effectiveness and longer landing distance.',
+      caution: 'Si los GND SPLRS no están armados al aterrizar, no se desplegarán automáticamente. Esto degrada significativamente la performance de frenado y puede resultar en un runway excursion en pistas cortas o contaminadas.'
+    },
+    {
+      name: 'RUD TRIM RESET pb', value: 'PRESS',
+      why: 'Reposiciona el rudder trim al neutro. Si quedó trim residual del vuelo anterior (ej: corrección de un motor apagado), podría generar un momento de guiñada inesperado en el despegue.',
+      fcom: 'RUDDER TRIM — RUD TRIM RESET pb — PRESS (PM). Press the RESET pb on the RUDDER TRIM panel.',
+      note: 'After the reset, the flight crew may observe an indication of up to 0.3° (L or R) in the RUD TRIM position indication. This is normal.'
+    },
+    {
+      name: 'RUD TRIM', value: 'CHECK NEUTRAL',
+      why: 'Verificación visual después del RESET que el trim quedó efectivamente en cero (o cerca). Un rudder trim no neutro en el despegue genera guiñada que el PF debe corregir con los pedales.',
+      fcom: 'RUD TRIM — CHECK NEUTRAL (PM). After pressing RESET pb, verify the rudder trim position indicator shows neutral.',
+      note: 'Una tolerancia de hasta ±0.3° es aceptable y normal después del reset.'
+    },
+    {
+      name: 'FLAPS lever', value: 'SET FOR TAKEOFF',
+      why: 'Selecciona la configuración de flaps calculada en la performance de despegue (CONF 1, 2 o 3). La configuración está indicada en el EFB PERF PAGE y en el FMS PERF T/O page.',
+      fcom: 'FLAPS lever — SET FOR TAKEOFF (PM). Set the flaps as shown on the EFB. Check and announce the position of the flaps on the ECAM upper display. Announce: "CONF 1+F", "CONF 2" or "CONF 3".',
+      note: 'If taxiing in icing conditions with rain, slush or snow: maintain the flaps retracted until the aircraft reaches the holding point of the takeoff runway. This prevents contamination of the slats/flaps mechanism.'
+    },
+    {
+      name: 'FLAPS position', value: 'CHECK',
+      why: 'El PM verifica que la posición real de los flaps en el ECAM EWD coincide con la configuración seleccionada en la palanca y la del EFB. Primer check del PM antes del crosscheck del PF.',
+      fcom: 'FLAPS — CHECK POSITION (PM). Check and announce the position of the flaps on the ECAM upper display. Announce: "CONF 1+F", "CONF 2" or "CONF 3".',
+    },
+    {
+      name: 'PITCH TRIM handwheel', value: 'SET',
+      why: 'Ajusta el pitch trim al valor calculado basado en el CG de la load sheet. Reduce la fuerza de sidestick necesaria para rotar en VR y asegura una actitud de despegue consistente.',
+      fcom: 'PITCH TRIM — PITCH TRIM handwheel — SET (PM). Set takeoff CG on pitch trim handwheel. The value is obtained from the EFB performance computation.',
+      note: 'El pitch trim incorrecto afecta la V-speeds y la performance de rotación. Un CG muy atrás con el trim mal seteado puede llevar a una rotación brusca.'
+    },
+    {
+      name: 'ECAM STATUS', value: 'CHECK',
+      why: 'El PM realiza el check primario del ECAM STATUS. Verifica que no hay STATUS items activos que puedan afectar la operación.',
+      fcom: 'ECAM STATUS — CHECK (BOTH). The PM checks and the PF crosschecks that there is no status reminder (STS) on the E/WD.',
+    }
+  ]
+},
+{
+  id: 'sop10',
+  num: 'SOP-10',
+  title: 'Taxi',
+  sub: 'Push-back → holding point de pista activa',
+  intro: 'El <strong>PM</strong> obtiene el taxi clearance y gestiona luces, frenos, radar y los AFS/Flight Instruments. El <strong>PF</strong> conduce el avión y verifica frenos, luces y los flight controls. El check de FLIGHT CONTROLS se realiza "at a convenient stage, before or during taxi".',
+  pf: [
+    {
+      name: 'NOSE sw', value: 'TAXI',
+      why: 'Activa la taxi light (white forward-looking light). El PF controla las luces de taxi porque es quien conduce y necesita visibilidad hacia adelante.',
+      fcom: 'NOSE sw — TAXI (PF). During taxi, the PF may request the PM to set the exterior lights. When crossing or taxiing along an active runway: NOSE sw — T.O., LAND sw — ON, STROBE sw — ON, WING sw — ON. When the aircraft is stopped on ground, these lights must be turned OFF.',
+      note: 'Al cruzar una pista activa: NOSE → T.O., LAND → ON, STROBE → ON, WING → ON. Estas luces son obligatorias cuando el avión está en o cruzando una pista activa.'
+    },
+    {
+      name: 'RWY TURN OFF sw', value: 'ON',
+      why: 'Enciende las luces laterales de la nariz (runway turnoff lights). Iluminan los lados de la pista durante el taxi nocturno y en intersecciones. Mejoran la visibilidad lateral.',
+      fcom: 'RWY TURN OFF sw — ON (PF). When the aircraft is stopped on ground, these lights must be turned OFF.'
+    },
+    {
+      name: 'PARK BRK handle', value: 'OFF',
+      why: 'Libera el parking brake para iniciar el movimiento de taxi. Verificar inmediatamente la presión de frenos en cero antes de aplicar thrust.',
+      fcom: 'PARK BRK handle — OFF (PF). BRAKES PRESSURE — CHECK AT ZERO (PF). The flight crew may observe slight residual pressure on the triple indicator for a short period of time.'
+    },
+    {
+      name: 'BRAKES PRESSURE', value: 'CHECK ZERO',
+      why: 'Confirma que los frenos están liberados y que no hay presión residual que pueda frenar el movimiento de taxi. Una presión residual puede indicar un problema hidráulico.',
+      fcom: 'BRAKES PRESSURE — CHECK AT ZERO (PF). The flight crew may observe slight residual pressure on the triple indicator for a short period of time.',
+      note: 'Una pequeña presión residual durante un período corto es normal. Si la presión no cae a cero, reportar al mantenimiento antes de continuar.'
+    },
+    {
+      name: 'BRAKE PEDALS / BRAKES', value: 'PRESS / CHECK',
+      why: 'Primer check de frenos en movimiento. Verificar respuesta efectiva de los frenos antes de ganar velocidad. En pistas largas o inclinadas, no depender de la respuesta inicial.',
+      fcom: 'BRAKE PEDALS — PRESS (PF). BRAKES — CHECK (PF).',
+      caution: 'If the aircraft was parked in wet conditions for a long time, the first brake application at low speed is less effective. Apply brakes progressively.'
+    },
+    {
+      name: 'FLIGHT CONTROLS', value: 'CHECK (BOTH)',
+      why: 'Verificar deflección completa de todas las superficies de control: sidestick full aft/fwd/left/right y rudder. En el ECAM FCTL page, todas las superficies deben moverse en la dirección correcta.',
+      fcom: 'FLIGHT CONTROLS — CHECK (BOTH). Check the flight controls at a convenient stage, before or during taxi.',
+      note: 'Este check debe realizarse a baja velocidad en un lugar donde no interfiera con el tráfico. Verificar en ECAM FCTL page que ailerons, elevators, spoilers y rudder se mueven correctamente. También verificar que no hay FAULT lights.'
+    },
+    {
+      name: 'PFD / ND', value: 'CHECK (PF-PM)',
+      why: 'Verificar que los displays del PF muestran datos correctos: airspeed bugs (V1, VR, V2), altitud del FCU, rumbo, FMA modes activos y la SID activa en el ND.',
+      fcom: 'PFD/ND — CHECK (PF-PM). Check that the PFD (e.g. airspeeds, initial target altitude, heading, FMA modes) and the ND indications (SID) are in accordance with the departure.',
+      note: 'Verificar específicamente: V1/VR/V2 en la speed tape, altitud cleared en el FCU (y en el PFD), modo TRK/HDG o NAV, y que la SID muestra la ruta correcta en el ND.'
+    }
+  ],
+  pm: [
+    {
+      name: 'TAXI clearance', value: 'OBTAIN',
+      why: 'El PM es el responsable primario de comunicaciones durante el taxi. Obtiene el taxi clearance del ATC incluyendo la ruta de taxi, pista activa y holding point. Lee back con todos los detalles críticos.',
+      fcom: 'TAXI clearance — OBTAIN (PM). When the ground crew makes the hand signal: obtain taxi clearance.',
+      note: 'El read-back debe incluir: call sign, pista asignada, instrucciones de ruta y holding point. En aeropuertos concurridos, usar airport moving map (si disponible) para tracking de la ruta.'
+    },
+    {
+      name: 'BRK FAN pb-sw', value: 'AS RQRD',
+      why: 'Si la temperatura de los frenos supera el límite (indicado por un arco en el WHEEL SD page del ECAM), activar el ventilador de enfriamiento para reducir la temperatura antes del despegue.',
+      fcom: 'BRK FAN pb-sw — AS RQRD (PM). If an arc is displayed above the brake temperature on the WHEEL SD page, set to ON the BRK FAN pb-sw.',
+      note: 'La temperatura límite de los frenos varía según el tipo de avión. El arco en el WHEEL SD indica que los frenos están demasiado calientes para un safe RTO. Normalmente requiere esperar en tierra hasta que bajen.'
+    },
+    {
+      name: 'BRAKES PRESSURE', value: 'CHECK ZERO',
+      why: 'El PM crosscheckea la presión de frenos junto con el PF. Redundancia crítica en el brake check.',
+      fcom: 'BRAKES PRESSURE — CHECK AT ZERO (PM).'
+    },
+    {
+      name: 'AUTO BRK MAX pb-sw', value: 'ON',
+      why: 'Preselecciona el autobrake en MAX para un eventual RTO. Si se rechaza el despegue, al soltar los thrust levers el sistema aplica máxima presión de frenos automáticamente, sin demora.',
+      fcom: 'AUTO BRK MAX pb-sw — ON (PM). The autobrake is set to MAX for RTO. This ensures maximum braking effectiveness if a rejected takeoff is required.',
+      note: 'El autobrake MAX para RTO es diferente al autobrake para landing (LOW, MED, MAX). En landing se usa LO, 2, 3 o MAX según la distancia disponible. Este MAX es específicamente para el rejected takeoff.'
+    },
+    {
+      name: 'ATC clearance', value: 'CONFIRM',
+      why: 'Durante el taxi, el PM confirma con el PF que el ATC clearance recibido está cargado correctamente en el FMS y que la altitud cleared es la correcta en el FCU.',
+      fcom: 'ATC clearance — CONFIRM (PM).'
+    },
+    {
+      name: 'CLEARED ALTITUDE on FCU', value: 'CHECK',
+      why: 'Confirma que la altitud de salida del ATC clearance está seteada en el FCU. Un FCU con la altitud incorrecta puede resultar en una deviación de altitud (altitude bust) que genera un TCAS RA o incursión de espacio aéreo.',
+      fcom: 'CLEARED ALTITUDE ON FCU — CHECK (PM). On the PFD, crosscheck and confirm the cleared altitude.',
+      note: 'En muchos países, la primera altitud cleared es la altitud mínima de seguridad o la primera restricción de la SID. Verificar que corresponde con el ATC clearance leído back.'
+    },
+    {
+      name: 'HDG on FCU', value: 'IF RQRD, PRESET',
+      why: 'Si el ATC espera dar un vector de radar después del despegue, presetear el heading en el FCU permite una respuesta rápida sin necesidad de programar bajo alta carga de trabajo.',
+      fcom: 'HDG ON FCU — IF REQUIRED, PRESET (PM). If a heading is required by the ATC after takeoff, in the case of a radar vector departure, preset the heading on the FCU. NAV mode will be disarmed. RWY TRK mode will keep the aircraft on the runway track.',
+      note: 'Al presetear un HDG en el FCU con NAV activo, el NAV se desactiva. El avión seguirá el RWY TRK en el despegue y luego el HDG preseteado. Confirmar esta intención con el PF.'
+    },
+    {
+      name: 'BOTH FD', value: 'CHECK ON',
+      why: 'Ambos Flight Directors deben estar ON para proveer guidance durante el despegue. El FD comanda la actitud de rotación (SRS) y el track lateral (RWY TRK o NAV).',
+      fcom: 'BOTH FD — CHECK ON (PM).',
+      note: 'Si un FD está OFF en el despegue, el piloto del lado afectado no tiene guidance de actitud. En A320, si AP está conectado en el despegue, el FD se usa como referencia primaria.'
+    },
+    {
+      name: 'ATC CODE / MODE', value: 'CONFIRM / SET FOR T/O',
+      why: 'El transponder debe tener el squawk code correcto y estar configurado para pasar a modo ALT (modo C) al despegar, siendo visible para los controladores con información de altitud.',
+      fcom: 'ATC CODE/MODE — CONFIRM/SET FOR TAKEOFF (PM). The transponder mode will automatically change to ALT when airborne.',
+      note: 'En algunos aeropuertos, el ATC solicita "Squawk IDENT" para confirmar identificación. El PM también debe estar preparado para esto.'
+    },
+    {
+      name: 'RADAR', value: 'ON',
+      why: 'Activa el weather radar para verificar el departure path. En tierra, muchos operadores mantienen el radar en STBY para evitar radiación al personal, pero se activa antes de entrar a pista.',
+      fcom: 'RADAR — ON (PM). To check the departure path, set the MULTISCAN sw to MAN. The flight crew can then set the radar to the AUTO position. Gain must be manually set to +8 when MULTISCAN sw is set to AUTO and when flying below FL 150.',
+      note: 'Consider selecting the radar display on the PF side, and TERR ON ND on the PM side only, to tener máxima información disponible.'
+    },
+    {
+      name: 'PRED W/S SYSTEM', value: 'AUTO',
+      why: 'Activa el sistema de detección predictiva de windshear. Alertará WINDSHEAR AHEAD durante el approach o el T/O roll si detecta cizalladura en el recorrido.',
+      fcom: 'PREDICTIVE WINDSHEAR SYSTEM — AUTO (PM). In AUTO, the system will provide windshear alerts during takeoff and approach phases.',
+      note: 'El Predictive Windshear System (PWS) usa el weather radar para detectar cizalladura hasta 3 NM por delante. Si se activa durante el roll: "TOGA, TOGA, TOGA — Windshear ahead".'
+    },
+    {
+      name: 'T.O CONFIG pb', value: 'TEST',
+      why: 'Test del sistema de warning de configuración de despegue. Al presionar el pb, el ECAM debe mostrar una alerta de T.O CONFIG NOT NORMAL si algún sistema no está en la configuración correcta para el despegue.',
+      fcom: 'T.O CONFIG pb — TEST (PM). Press the T.O CONFIG pb on the ECP, and check that the EWD displays the T.O CONFIG message.',
+      note: 'Si el T.O CONFIG warning NO aparece al presionar el pb, hay un problema con el sistema de warning. Reportar al mantenimiento.'
+    },
+    {
+      name: 'T.O MEMO', value: 'CHECK NO BLUE',
+      why: 'El TO MEMO en el ECAM EWD lista todos los ítems requeridos para el despegue. Items en azul = acción pendiente. Items en blanco = completado. El memo debe mostrar todos los ítems en blanco antes de taxear a pista.',
+      fcom: 'T.O MEMO — CHECK NO BLUE (PM). Check that the EWD does not display any blue line in the T.O memo section. Blue items indicate pending actions required before takeoff.',
+      note: 'Los ítems del T.O MEMO incluyen: AUTOBRAKE MAX, SIGNS ON, CABIN READY, SPLRS ARMED, FLAPS SET, etc. Cada ítem azul indica una acción que aún no se realizó.'
+    },
+    {
+      name: 'CABIN REPORT', value: 'RECEIVE (PF-PM)',
+      why: 'El PM recibe la confirmación de la cabin crew de que la cabina está asegurada y lista para el despegue. Verificar CABIN READY en el EWD o recibir el reporte vía interphone (un buzzer).',
+      fcom: 'CABIN REPORT — RECEIVE (PF-PM). Check CABIN READY in the EWD, or obtain the cabin report from the purser via one interphone buzzer sound.',
+    },
+    {
+      name: 'TAXI C/L', value: 'COMPLETE (BOTH)',
+      why: 'Completa el checklist de Taxi. Confirma que todos los ítems fueron verificados antes de entrar a pista. El FLAPS item del checklist usa una técnica específica de cross-check entre EWD y FMS PERF.',
+      fcom: 'TAXI C/L — COMPLETE (BOTH). Note: The FLAPS SETTING checklist item should be confirmed by both pilots: PF compares and announces the flaps setting on the EWD and FMS PERF page (e.g. "CONF 1+F, CONF 1+F"). PM compares and announces the flaps setting on the EWD and EFB.',
+    }
+  ]
+},
+{
+  id: 'sop11',
+  num: 'SOP-11',
+  title: 'Before Takeoff — Line-Up',
+  sub: 'Al ingresar a la pista activa',
+  intro: 'El <strong>PM</strong> realiza el flow más completo de esta fase: TCAS, luces, GPS, FMA, packs, y cabin. El <strong>PF</strong> confirma pista, approach path, exterior lights y FMA. Ambos realizan la verificación final de la pista.',
+  pf: [
+    {
+      name: 'TAKEOFF RUNWAY', value: 'CONFIRM (BOTH)',
+      why: 'Ambos pilotos confirman visualmente que la pista en la que están es la correcta (marcas de umbral, indicador de pista, ILS id, ATIS). Previene Wrong Runway Departures (WRD), uno de los eventos de safety más críticos.',
+      fcom: 'TAKEOFF RUNWAY — CONFIRM (BOTH). Both pilots verify the runway designation matches the departure clearance.',
+      caution: 'Wrong Runway Departures son un riesgo crítico. Verificar SIEMPRE visualmente las marcas de la pista antes de iniciar el roll, independientemente de la confianza en el ATC clearance.'
+    },
+    {
+      name: 'APPROACH PATH', value: 'CLEAR OF TRAFFIC',
+      why: 'PF y PM buscan tráfico en el approach y en la pista. El TCAS puede no detectar tráfico de baja altitud. La verificación visual es obligatoria antes de cada despegue.',
+      fcom: 'APPROACH PATH — CLEAR OF TRAFFIC (PF-PM). Both pilots visually check that the approach path and runway are clear of traffic before initiating the takeoff roll.',
+      note: 'En aeropuertos con visibilidad reducida o en la oscuridad, usar el TCAS como herramienta adicional, pero nunca como único medio de verificación.'
+    },
+    {
+      name: 'STROBE sw', value: 'ON',
+      why: 'Obligatorio al entrar a pista activa. Los strobes son la señal visual más visible de que el avión está en la pista. Máxima visibilidad para tráfico circundante, en especial tráfico de approach.',
+      fcom: 'STROBE sw — ON (PF). Strobes must be ON when on or crossing an active runway.',
+    },
+    {
+      name: 'WING sw', value: 'ON',
+      why: 'Las wing lights mejoran la visibilidad del avión desde los laterales. Son especialmente importantes en condiciones de baja visibilidad o al cruzar intersecciones.',
+      fcom: 'WING sw — ON (PF).',
+    },
+    {
+      name: 'FMA', value: 'CHECK (BOTH)',
+      why: 'Verificar los modos activos y armados en el FMA antes del despegue. Ambos pilotos deben anunciar y cruzar-verificar los modos para evitar surprise modes durante el departure.',
+      fcom: 'FMA — CHECK (PF-PM). Both pilots verify the active and armed FMA modes are correct for the departure. Expected: MAN FLEX/TOGA in thrust column, SRS in pitch column, RWY TRK or NAV in lateral column.',
+      note: 'Anunciar el FMA en voz alta: "MAN FLEX, SRS, NAV" o similar. Si el modo lateral no es el esperado (ej: TRK en lugar de NAV), verificar si un HDG fue preseteado.'
+    },
+    {
+      name: 'SLIDING TABLE / EFB', value: 'STOW (BOTH)',
+      why: 'Objetos sueltos en el cockpit pueden interferir con los controles durante una maniobra de emergencia (GPWS escape, TCAS RA, TOGA). Stowear todo antes de iniciar el roll.',
+      fcom: 'SLIDING TABLE — STOW (PF-PM). ALL EFB (with no mounted equipment) — STOW (PF-PM). Secure all loose items in the cockpit before takeoff roll.',
+    }
+  ],
+  pm: [
+    {
+      name: 'LINE-UP CLEARANCE', value: 'OBTAIN',
+      why: 'PM obtiene el line-up y/o takeoff clearance del ATC. Lee back el número de pista y cualquier condición (hold short, immediate takeoff, etc.).',
+      fcom: 'LINE-UP CLEARANCE — OBTAIN (PM). Obtain and readback the line-up or takeoff clearance, including runway designation and any conditions.',
+    },
+    {
+      name: 'TCAS MODE selector', value: 'TA / TA·RA',
+      why: 'Al entrar a pista, el TCAS debe estar en modo operacional completo para detectar y resolver conflictos de tráfico. En tierra se usa STBY. En pista, TA o TA/RA según las operaciones locales.',
+      fcom: 'TCAS MODE — TA or TA/RA (PM). Select the appropriate TCAS mode before entering the runway. Some airports require TA ONLY due to proximity alerts with traffic below.',
+      note: 'TA ONLY: solo da advisories de tráfico, sin resolución. TA/RA: da advisories y resolución activa (CLIMB, DESCEND). Normalmente TA/RA durante todo el vuelo excepto en tierra.'
+    },
+    {
+      name: 'PACK 1+2 pb-sw', value: 'AS RQRD',
+      why: 'Normalmente los packs se apagan durante el despegue con FLEX para maximizar performance (especialmente en calor, pista corta o peso alto). Los motores proveen más thrust sin el sangrado de bleed air.',
+      fcom: 'PACK 1 pb-sw and PACK 2 pb-sw — AS RQRD (PM). Packs are usually set off during FLEX takeoff to maximize performance. They are turned back on after takeoff.',
+      note: 'Con TOGA (despegue a potencia máxima), los packs generalmente se mantienen ON. Con FLEX, se apagan. Verificar los SOP del operador y la performance para el vuelo específico.'
+    },
+    {
+      name: 'GPS 1+2 CHECK', value: 'BOTH IN NAV',
+      why: 'Confirma que ambos GPS están operacionales en modo NAV y que la posición es válida antes del despegue. Esencial para RNP/RNAV departures.',
+      fcom: 'GPS 1+2 on GPS MONITOR page — CHECK BOTH IN NAV (PM). Verify both GPS systems are in NAV mode and providing valid position information.',
+      note: 'Si GPS PRIMARY no está disponible en el PROG page, la accuracy del FMS puede no ser suficiente para procedimientos RNP. Notificar al ATC.'
+    },
+    {
+      name: 'GPS PRIMARY on PROG', value: 'CHECK AVAILABLE',
+      why: 'Confirma que el FMGC tiene GPS PRIMARY disponible en la PROG page. Si no está disponible, la accuracy puede ser HIGH pero basada solo en IRS/DME, lo que puede no ser suficiente para RNP departures.',
+      fcom: 'GPS PRIMARY on PROG page — CHECK AVAILABLE (PM).',
+    },
+    {
+      name: 'CABIN CREW', value: 'ADVISE',
+      why: 'El PM informa a la cabin crew via PA o interphone que el despegue es inminente. La tripulación de cabina toma sus asientos y se asegura. Es el último punto para reportar algún problema de cabina al flight deck.',
+      fcom: 'CABIN CREW — ADVISE (PM). Inform the cabin crew that takeoff is imminent so they take their seats and secure.',
+    },
+    {
+      name: 'LINE-UP C/L', value: 'COMPLETE (BOTH)',
+      why: 'Completa el checklist Before Takeoff / Line-Up. Es el último checklist antes del despegue. Confirma que el avión está en la configuración correcta.',
+      fcom: 'LINE-UP C/L — COMPLETE (BOTH). This is the final checklist before initiating the takeoff roll.',
+    }
+  ]
+},
+{
+  id: 'sop12',
+  num: 'SOP-12',
+  title: 'Takeoff',
+  sub: 'Inicio del roll → retracción del tren',
+  intro: 'El <strong>PF</strong> controla el avión y el thrust. El <strong>PM</strong> obtiene el clearance, monitorea parámetros, y anuncia velocidades críticas (80 kt, V1, VR, Positive Climb). El PF (Captain) mantiene la mano en los thrust levers hasta V1.',
+  pf: [
+    {
+      name: 'TAKEOFF ANNOUNCE', value: '"TAKING OFF"',
+      why: 'El PF anuncia "Taking Off" o "My controls" para establecer comunicación clara de CRM: quién vuela y quién monitorea. Evita ambigüedad sobre quién tiene los controles durante la fase crítica.',
+      fcom: 'TAKEOFF — ANNOUNCE (PF). The PF announces the beginning of the takeoff roll to establish clear CRM and crew awareness.',
+    },
+    {
+      name: 'THRUST — initial ref', value: '~1.05 EPR / 50% N1',
+      why: 'Primero setear un thrust de referencia estabilizado (~50% N1 o 1.05 EPR), esperar que ambos motores se estabilicen simétricamente, y luego avanzar a FLX o TOGA. Evita N1 spikes y asimetría de thrust al inicio del roll.',
+      fcom: 'TAKEOFF THRUST SETTING: The below procedure is the standard takeoff procedure. However, rolling takeoff is permitted. TAKEOFF — ANNOUNCE (PF). THRUST — 1.05 EPR (PF). Then advance to FLX or TOGA.',
+      note: 'Un rolling takeoff (sin detenerse en el umbral) está permitido si el ATC lo autoriza y la pista es suficiente. En ese caso, se puede avanzar directamente a FLX/TOGA sin el step de estabilización.'
+    },
+    {
+      name: 'SIDESTICK (no tailwind)', value: 'HALF FORWARD',
+      why: 'Con viento cruzado ≤20kt o sin viento de cola: aplicar sidestick medio adelante hasta 80kt para contrarrestar el nose-up pitch effect generado por el thrust en el suelo. Evita que la nariz se levante prematuramente antes de VR.',
+      fcom: 'If the crosswind is at or below 20 kt and there is no tailwind: SIDESTICK — HALF FORWARD (PF). To counter the nose-up effect of setting engine takeoff thrust, apply half forward sidestick until the airspeed reaches 80 kt. Release the sidestick gradually to reach neutral at 100 kt.',
+    },
+    {
+      name: 'SIDESTICK (tailwind/>20kt)', value: 'FULL FORWARD',
+      why: 'Con viento de cola o crosswind >20kt: sidestick full adelante hasta 80kt. El viento de cola y el mayor crosswind aumentan el nose-up effect y requieren más deflexión para mantener la rueda de nariz en pista.',
+      fcom: 'In the case of tailwind, or if crosswind is above 20 kt: SIDESTICK — FULL FORWARD (PF). To counter the nose-up effect, apply full forward sidestick until the airspeed reaches 80 kt. Release gradually to reach neutral at 100 kt.',
+    },
+    {
+      name: 'THRUST LEVERS', value: 'FLX or TOGA',
+      why: 'Después de la estabilización, avanzar los thrust levers al detent de FLX (Flex Temperature takeoff, reducción de thrust) o TOGA (máxima potencia) según el performance calculado.',
+      fcom: 'THRUST LEVERS — FLX or TOGA (PF). Once the thrust levers are set to FLX or TOGA detent, the Captain maintains the hand on the thrust levers until the aircraft reaches V1.',
+      note: 'FLX es el modo normal cuando la pista y las condiciones lo permiten. Reduce el desgaste del motor. TOGA se usa cuando se requiere máxima performance (pista corta, obstáculos, condiciones degradadas).'
+    },
+    {
+      name: 'At VR — ROTATE', value: '~12-15° pitch',
+      why: 'Al callout "Rotate" del PM, aplicar sidestick aft suavemente a una tasa de ~3°/seg. Objetivo: actitud de ~12.5-15° de pitch en modo SRS. No rotar antes de VR para evitar problemas de obstacle clearance.',
+      fcom: 'At VR: rotate the aircraft to achieve the Flight Director guidance (SRS). Apply a smooth, progressive aft sidestick input at approximately 3°/sec pitch rate.',
+      note: 'Rotar demasiado rápido puede causar tail strike (especialmente en pistas cortas o con CG atrás). Rotar demasiado lento retrasa el liftoff y puede consumir pista.'
+    },
+    {
+      name: 'After liftoff: GEAR UP', value: 'ORDER',
+      why: 'Solo ordenar gear up cuando el altímetro y el VSI confirman positive climb. Nunca en pista. El orden "Gear Up" es del PF y la ejecución es del PM.',
+      fcom: 'After liftoff, when positive rate of climb is confirmed: order GEAR UP (PF). The PM confirms "Gear Up" and executes.',
+      note: 'En aeropuertos de montaña o con obstáculos cercanos, puede ser necesario mantener el gear DOWN hasta superar el obstáculo (según el procedure de despegue específico).'
+    }
+  ],
+  pm: [
+    {
+      name: 'TAKEOFF CLEARANCE', value: 'OBTAIN',
+      why: 'PM obtiene y lee back el clearance de despegue. Solo iniciar el roll cuando el PF confirme que el clearance fue recibido.',
+      fcom: 'TAKEOFF CLEARANCE — OBTAIN (PM). Obtain and readback the takeoff clearance. The PF will not initiate the roll until clearance is confirmed.',
+    },
+    {
+      name: 'ENG params monitor', value: 'MONITOR',
+      why: 'El PM monitorea N1, EGT y parámetros de ambos motores al avanzar el thrust. Cualquier anomalía antes de V1 puede justificar un RTO. Después de V1, solo se aborta por catástrofe (motor fire, etc.).',
+      fcom: 'Engine parameters are monitored by PM during the takeoff roll. Any significant anomaly detected before V1 must be announced to the PF.',
+    },
+    {
+      name: 'At 80 kt', value: 'CALLOUT "80 KNOTS"',
+      why: 'El PM anuncia "80 knots". El PF responde "Checked". Es el último punto considerado razonable para abortar por razones no críticas (problemas de maniobrabilidad en tierra, cabina no asegurada, etc.).',
+      fcom: 'At 80 kt: PM calls out "EIGHTY KNOTS" — PF responds "CHECKED". This is the last reasonable point for a non-critical rejected takeoff.',
+      note: 'Algunos operadores usan 100 kt como el "go/no-go point" informal. Pasada esta velocidad, el RTO debe ser solo por razones críticas (engine failure, fire, etc.).'
+    },
+    {
+      name: 'At V1', value: 'CALLOUT "V1"',
+      why: 'V1 es la velocidad de decisión: el último punto en el que un RTO puede detenerse dentro de la distancia aceleración-parada (ASDA). El PF levanta la mano de los thrust levers al escuchar V1.',
+      fcom: 'At V1: PM calls out "V ONE". The Captain removes the hand from the thrust levers at V1. After V1, the takeoff is continued regardless (except for catastrophic failure).',
+      caution: 'Después de V1, el despegue SIEMPRE continúa. La única excepción son situaciones catastróficas (engine fire, loss of control, etc.). Un RTO después de V1 casi siempre resulta en runway excursion.'
+    },
+    {
+      name: 'At VR', value: 'CALLOUT "ROTATE"',
+      why: 'El PM anuncia "Rotate" exactamente en VR. El PF inicia la rotación. El PM monitorea la actitud de rotación para confirmar que el avión está alcanzando la actitud target.',
+      fcom: 'At VR: PM calls out "ROTATE". PF initiates the rotation at the appropriate rate to achieve the SRS guidance.',
+    },
+    {
+      name: 'Positive climb', value: '"POSITIVE CLIMB"',
+      why: 'El PM anuncia "Positive climb" cuando el altímetro y el VSI confirman subida. Este es el trigger para que el PF ordene "Gear Up".',
+      fcom: 'PM announces "POSITIVE CLIMB" when both the altimeter and VSI indicate a positive rate of climb. PF then orders "GEAR UP".',
+      note: 'En aeropuertos cercanos al nivel del mar, el primer positivo del VSI puede aparecer en pista. Esperar el altímetro también antes de anunciar positive climb.'
+    },
+    {
+      name: 'GEAR UP (execution)', value: 'UP — VERIFY',
+      why: 'Al ordenar "Gear Up" el PF, el PM responde "Gear Up" y ejecuta. Luego verifica que los tres trenes muestran IN TRANSIT y finalmente UP en el ECAM DOOR/WHEEL page.',
+      fcom: 'Upon PF order "GEAR UP": PM announces "GEAR UP", selects gear lever UP, and confirms the gear indication transitions from DOWN to IN TRANSIT to UP.',
+    }
+  ]
+},
+{
+  id: 'sop13',
+  num: 'SOP-13',
+  title: 'After Takeoff',
+  sub: 'Gear up · Retracción de flaps · Climb establecido',
+  intro: 'Después del liftoff, el <strong>PM</strong> gestiona la configuración del avión: APU, anti-ice, TCAS, MCDU. El <strong>PF</strong> vuela el avión y monitorea el perfil de climb en el MCDU PERF CLB page.',
+  pf: [
+    {
+      name: 'PF MCDU', value: 'PERF CLB',
+      why: 'El PF muestra PERF CLB para monitorear cuándo el avión alcanzará la altitud del FCU, la velocidad de climb óptima (ECON speed), y el OPT/REC MAX FL. Permite anticipar los requerimientos de la fase de climb.',
+      fcom: 'PF MCDU — PERF CLB (PF). PF MCDU should be showing the PERF CLB page allowing the PF to monitor when the aircraft will reach the FCU selected altitude. The PROG page displays OPT FL and REC MAX FL.',
+    }
+  ],
+  pm: [
+    {
+      name: 'APU BLEED pb-sw', value: 'OFF',
+      why: 'Si el APU bleed estaba ON para el T/O, apagarlo después ya que los motores alimentan el sistema. Si el APU estaba OFF para el T/O (performance), no aplica.',
+      fcom: 'APU BLEED pb-sw — OFF (PM). If the APU was used to supply the air conditioning during takeoff, turn off the APU bleed after takeoff.',
+    },
+    {
+      name: 'APU MASTER SW', value: 'OFF',
+      why: 'Apagar el APU si ya no es necesario para energía eléctrica o bleed. Reduce desgaste.',
+      fcom: 'APU MASTER SW pb-sw — OFF (PM). If the APU was used during takeoff, turn it off after takeoff unless it is required for other reasons.',
+    },
+    {
+      name: 'ENG MODE selector', value: 'AS RQRD',
+      why: 'Normalmente en NORM. Seleccionar IGN/START si hay turbulencia severa, lluvia intensa o heavy rain durante el climb (riesgo de compressor stall o flameout en condiciones adversas).',
+      fcom: 'ENG MODE selector — AS RQRD (PM). Select IGN/START if severe turbulence or heavy rain is encountered.',
+      note: 'Con ENG ANTI ICE ON, la ignición continua se selecciona automáticamente (FADEC). En ese caso el ENG MODE selector puede permanecer en NORM.'
+    },
+    {
+      name: 'TCAS MODE', value: 'TA/RA',
+      why: 'Si se había seteado TA durante la salida por restricciones del aeropuerto, cambiar a TA/RA para resolución de conflictos completa durante el climb y crucero.',
+      fcom: 'TCAS MODE — TA/RA (PM). If the takeoff was performed with TA only, change to TA/RA after takeoff.',
+    },
+    {
+      name: 'ENG ANTI ICE pb-sw', value: 'AS RQRD',
+      why: 'Activar en icing conditions (visible moisture + TAT ≤+10°C). En A320, el ENG anti-ice automáticamente selecciona ignición continua (FADEC). El IGNITION memo aparece en el ECAM.',
+      fcom: 'ENG ANTI-ICE pb-sw — AS RQRD (PM). Engine anti-ice must be set to ON when icing conditions exist or are anticipated, except during climb and cruise when the SAT is below -40°C (-40°F). With ENG ANTI ICE ON, the FADEC automatically selects continuous ignition. The IGNITION memo appears on ECAM.',
+    },
+    {
+      name: 'WING ANTI ICE pb-sw', value: 'AS RQRD',
+      why: 'Activar en icing conditions durante el climb (SAT > -40°C). Usa bleed air para calentar el borde de ataque del slat 3, 4 y 5.',
+      fcom: 'WING ANTI ICE pb-sw — AS RQRD (PM). Activate in icing conditions during climb. Not required when SAT is at or below -40°C.',
+    },
+    {
+      name: 'PM MCDU', value: 'F-PLN',
+      why: 'El PM muestra la F-PLN para monitorear la ruta activa y estar listo para capturar eventuales cambios de clearance del ATC (direct-to, altitude changes, etc.).',
+      fcom: 'PM MCDU — F-PLN (PM). The PM should be showing the F-PLN page allowing the flight crew to enter any ATC long-term revisions to the lateral or vertical flight plan.',
+    }
+  ]
+},
+{
+  id: 'sop14',
+  num: 'SOP-14',
+  title: 'Climb',
+  sub: 'Desde aceleración hasta nivel de crucero',
+  intro: 'Fase de relativamente bajo workload de procedimientos. El <strong>PF</strong> vuela y monitorea el perfil de subida; el <strong>PM</strong> gestiona sistemas, comunicaciones y prepara el FMS.',
+  pf: [
+    {
+      name: 'PF MCDU', value: 'PERF CLB',
+      why: 'Monitorear OPT FL, REC MAX FL, velocidad de climb y la estimación de llegada al nivel de crucero. El PROG page también es útil para crosscheck de accuracy.',
+      fcom: 'PF MCDU — PERF CLB (PF). Normal vertical mode is CLB or OP CLB with managed speed active. PF MCDU should be showing the PERF CLB page allowing PF to monitor when the aircraft will reach the FCU selected altitude.',
+    },
+    {
+      name: 'RADAR TILT', value: 'ADJUST AS RQRD',
+      why: 'El PF ajusta el tilt y la ganancia del radar según la altitud y condiciones. A mayor altitud, inclinar el beam hacia abajo para detectar precipitación en el nivel de vuelo actual o del crucero.',
+      fcom: 'RADAR — ADJUST AS APPROPRIATE (PF). Adjust radar tilt to detect weather at relevant altitudes during the climb phase.',
+    },
+    {
+      name: 'NAVIGATION ACCURACY', value: 'MONITOR (PF-PM)',
+      why: 'Verificar HIGH en el PROG page. Si la accuracy degrada a LOW, el FMS puede no cumplir RNP requerido. Causa típica: GPS PRIMARY loss. Notificar al ATC si no se puede mantener la accuracy requerida.',
+      fcom: 'NAVIGATION ACCURACY — MONITOR (PF-PM). Monitor the navigation accuracy on the PROG page. HIGH accuracy is required for RNP operations.',
+    }
+  ],
+  pm: [
+    {
+      name: 'PM MCDU', value: 'F-PLN',
+      why: 'Monitorear F-PLN para capturar cambios de clearance del ATC. El PM es responsable de las comunicaciones durante el climb.',
+      fcom: 'PM MCDU — F-PLN (PM). PM MCDU should be showing the F-PLN page allowing the flight crew to enter any ATC long-term revisions.',
+    },
+    {
+      name: 'EXPEDITE CLIMB', value: 'IF RQRD',
+      why: 'Si el ATC requiere un climb rápido a través de un nivel: Push EXPED pb en el FCU. El target speed pasa a Green Dot speed. FMA mostrará THR CLB/EXP CLB/NAV.',
+      fcom: 'EXPEDITE CLIMB: If ATC requires a rapid climb through a particular level, push the EXPED pb on the FCU. The target speed is now Green Dot speed. Check FMA: THR CLB/EXP CLB/NAV.',
+    }
+  ]
+},
+{
+  id: 'sop15',
+  num: 'SOP-15',
+  title: 'Cruise',
+  sub: 'En el nivel de crucero',
+  intro: 'Fase de administración y monitoreo. Ambos pilotos realizan chequeos periódicos de sistemas, fuel, posición y meteorología en destino. El <strong>PM</strong> obtiene weather y prepara las cartas de llegada.',
+  pf: [
+    {
+      name: 'RADAR TILT', value: 'ADJUST AS RQRD',
+      why: 'En crucero, ajustar el tilt negativo para detectar precipitación bajo el nivel de vuelo. Evaluar desvíos de ruta por CBs con tiempo suficiente de anticipación.',
+      fcom: 'RADAR — ADJUST AS APPROPRIATE (PF). Adjust radar tilt to scan for weather at and below cruise level. Evaluate route deviations with sufficient time.',
+    },
+    {
+      name: 'OXYGEN MASK', value: 'CHECK (BOTH)',
+      why: 'Check regular de las máscaras de oxígeno (presión, harness, micrófono). Requerimiento operacional periódico. En caso de decompresión, el acceso inmediato a la máscara es crítico.',
+      fcom: 'OXYGEN MASK — CHECK (PF-PM). Regular check of oxygen mask pressure, harness security, and microphone function. Required periodic operational check during cruise.',
+    }
+  ],
+  pm: [
+    {
+      name: 'WEATHER & LDG INFO', value: 'OBTAIN',
+      why: 'Obtener ATIS/METAR/TAF del destino y alternativas. Confirmar que las condiciones son compatibles con la performance de landing calculada y los mínimos del approach.',
+      fcom: 'WEATHER AND LANDING INFORMATION — OBTAIN (PM). Obtain weather and landing information for destination and alternates. Confirm conditions meet approach minima and landing performance requirements.',
+    },
+    {
+      name: 'NAVIGATION CHARTS', value: 'PREPARE (BOTH)',
+      why: 'Preparar cartas de llegada, STAR, approach y aeródromo. Ambos pilotos deben tener las cartas accesibles para el briefing de llegada.',
+      fcom: 'NAVIGATION CHARTS — PREPARE (BOTH). Prepare arrival, approach, and airport charts for the destination.',
+    },
+    {
+      name: 'CRUISE BRIEFING', value: 'PERFORM (BOTH)',
+      why: 'Briefing estructurado de llegada siguiendo el formato del FCTM: STAR/Approach/RWY/Mínima/Go-Around/Threats/Mitigations. Realizarlo bien antes del TOD para tener tiempo suficiente.',
+      fcom: 'CRUISE BRIEFING — PERFORM (BOTH). The arrival briefing structure from FCTM: (1) Set environment without distraction. (2) PM briefs: STAR/Transition, MORA/MSA, Runway and approach type, Approach minima, Go-around trajectory. PF briefs: guidance, landing flaps, stop margin, reverse, autobrake, runway exit, hotspots. (3) Threats. (4) Mitigations. (5) Miscellaneous.',
+    }
+  ]
+},
+{
+  id: 'sop16',
+  num: 'SOP-16',
+  title: 'Descent Preparation',
+  sub: 'Antes del TOD — programación del FMS y performance',
+  intro: 'El <strong>PF</strong> programa el FMS para la llegada. El <strong>PM</strong> crosscheckea toda la programación. La preparación debe estar completa antes del TOD. Toda la programación del FMS va primero.',
+  pf: [
+    {
+      name: 'ARRIVAL page', value: 'COMPLETE / CHECK',
+      why: 'Seleccionar y confirmar STAR, transition y approach type en el MCDU. Verificar que la ruta tiene continuidad sin discontinuidades. El PF hace la programación principal del FMS para la llegada.',
+      fcom: 'ARRIVAL page — COMPLETE/CHECK (PF). Select and confirm the STAR, transition, and approach. Verify route continuity in the F-PLN.',
+    },
+    {
+      name: 'PERF APPR page', value: 'COMPLETE / CHECK',
+      why: 'Ingresar QNH destino, temperatura, Vapp, Vls y configuración de flaps de landing. El FMGC calcula Vapp = Vls + 5kt + 1/3 headwind component (máximo +15kt).',
+      fcom: 'PERF APPR page — COMPLETE/CHECK (PF). Enter destination QNH, temperature, Vapp, Vls, and landing flap configuration. FMGC calculates: Vapp = Vls + 5 kt + 1/3 of headwind (max +15 kt).',
+      note: 'El wind addend (1/3 headwind) es para gusting winds. En viento estable, Vapp = Vls + 5 kt. Verificar siempre con el EFB performance data.'
+    },
+    {
+      name: 'PERF GO AROUND page', value: 'CHECK / MODIFY',
+      why: 'Verificar que el go-around tiene el SID/procedimiento correcto, la altitud de missed approach y la ruta esperada. Si se espera engine-out, modificar el EOSID.',
+      fcom: 'PERF GO AROUND page — CHECK/MODIFY (PF). Verify the go-around trajectory and altitude. Modify if an engine-out SID (EOSID) applies.',
+    },
+    {
+      name: 'FUEL PRED page', value: 'CHECK',
+      why: 'Comparar FUEL AT DEST vs la reserva mínima requerida. Si el fuel predicho es menor que el Alternate Fuel + Final Reserve (2.500 kg típico en A320), el Captain debe declarar Minimum Fuel.',
+      fcom: 'FUEL PRED page — CHECK (PF). Compare FUEL AT DEST with the minimum required fuel (alternate fuel + final reserve). If the predicted fuel at destination is less than required, declare MINIMUM FUEL to ATC.',
+      caution: 'Si el fuel en destino predicho está por debajo del alternate fuel + final reserve, se requiere declarar MINIMUM FUEL. Si el fuel total está por debajo de la reserva final, se declara MAYDAY FUEL.'
+    },
+    {
+      name: 'GPWS LDG FLAP 3 pb-sw', value: 'AS RQRD',
+      why: 'Activar si se planea aterrizar con CONF 3 en lugar de CONF FULL. Suprime la alerta "TOO LOW FLAPS" del GPWS para landing con Flap 3.',
+      fcom: 'GPWS LDG FLAP 3 pb-sw — AS RQRD (PF). Activate if landing with CONF 3 instead of CONF FULL is planned. This suppresses the "TOO LOW FLAPS" GPWS warning for a CONF 3 landing.',
+    }
+  ],
+  pm: [
+    {
+      name: 'ECAM STATUS', value: 'CHECK',
+      why: 'El PM revisa el STATUS del ECAM para verificar que no hay degradaciones de sistema que afecten la llegada (ej: autoland capability degradada, autobrake inhibido, anti-skid off).',
+      fcom: 'ECAM STATUS — CHECK (PM). Review the ECAM STATUS for any system degradations that may affect the arrival. Examples: autoland capability, autobrake availability, anti-skid status.',
+    },
+    {
+      name: 'LANDING CONDITIONS', value: 'CONFIRM (PF-PM)',
+      why: 'Confirmar RWY en uso, condición de pista (wet/dry/contaminated), viento, QNH actual y ATIS. Actualizar si la información cambió desde el briefing de crucero.',
+      fcom: 'LANDING CONDITIONS — CONFIRM (PF-PM). Confirm the runway in use, runway condition (wet/dry/contaminated), wind, current QNH, and ATIS. Update if information has changed since the cruise briefing.',
+    },
+    {
+      name: 'LANDING PERF DATA', value: 'COMPUTE / CROSSCHECK',
+      why: 'Calcular la performance de aterrizaje (LDG DIST, Vapp, autobrake setting, reverse requirement). Ambos pilotos crosscheckean el resultado. El PM verifica el cálculo del PF.',
+      fcom: 'LANDING PERF DATA — COMPUTE (PF-PM). CROSSCHECK (BOTH). Both pilots compute and crosscheck the landing performance data including landing distance, Vapp, autobrake setting, and reverse thrust requirement.',
+    },
+    {
+      name: 'FMS PREPARATION', value: 'CROSSCHECK',
+      why: 'El PM crosscheckea toda la programación del PF en el MCDU: STAR, approach, ILS freq/course, mínima, go-around. Es el "segundo par de ojos" crítico para evitar FMS programming errors.',
+      fcom: 'FMS PREPARATION — CROSSCHECK (PM). The PM crosschecks all PF MCDU programming: STAR, approach, ILS frequency and course, minima, go-around procedure.',
+    }
+  ]
+},
+{
+  id: 'sop17',
+  num: 'SOP-17',
+  title: 'Descent',
+  sub: 'Desde el TOD hasta interceptación del approach',
+  intro: 'El <strong>PF</strong> gestiona el perfil de descenso y la configuración de los displays. El <strong>PM</strong> maneja la presión barométrica, luces, anti-ice, comunicaciones y el cabin crew. El Approach Checklist se completa durante o al final del descenso.',
+  pf: [
+    {
+      name: 'RATE of DESCENT', value: 'ADJUST AS RQRD',
+      why: 'Monitorear que el perfil de descenso se mantiene dentro de la "cebra" del ND (DES profile). Si el avión va alto, considerar open descent (OP DES). Nunca usar "dive and drive" por debajo del DES profile.',
+      fcom: 'RATE OF DESCENT — ADJUST AS RQRD (PF). Monitor the descent profile on the ND. If the aircraft is above the DES profile, consider using OP DES mode to increase the descent rate.',
+    },
+    {
+      name: 'TERR ON ND', value: 'AS RQRD (PF-PM)',
+      why: 'Activar TERR display en ND cuando se desciende en áreas montañosas o con MORA elevada. Ambos pilotos deben tener terrain awareness visible.',
+      fcom: 'TERR ON ND — AS RQRD (PF-PM). Select TERR ON ND when descending in mountainous areas or areas with high MORA. Both pilots should have terrain awareness.',
+    },
+    {
+      name: 'BAROMETRIC REFERENCE', value: 'SET / CROSSCHECK (BOTH)',
+      why: 'Al pasar la transition altitude/level, ambos pilotos setean el QNH local simultáneamente. El PF en el altímetro del capitán y el FCU; el PM en el altímetro del copiloto. Cross-check en voz alta.',
+      fcom: 'BAROMETRIC REFERENCE — SET/CROSSCHECK (BOTH). At the transition altitude/level, both pilots simultaneously set the local QNH. Cross-check verbally: "QNH [value], set and crosschecked".',
+      caution: 'La transición de QNE (1013.25 hPa) a QNH es crítica. Un error en el QNH puede resultar en una altimetry error y violación de separación con el tráfico. Siempre leer back el QNH del ATIS y crosscheckear.'
+    },
+    {
+      name: 'EFIS CSTR', value: 'ON (PF-PM)',
+      why: 'Muestra las altitude constraints del procedimiento en el ND. Fundamental para verificar que el FMS respeta las altitudes de restricción de la STAR. Si una restricción no se muestra, puede indicar un error de programación.',
+      fcom: 'EFIS option pb — CSTR (PF-PM). Select CSTR on the EFIS OPTIONS to display altitude constraints from the flight plan on the ND. Verify the FMS is respecting the constraints.',
+    },
+    {
+      name: 'LS pb', value: 'AS RQRD',
+      why: 'Activar cuando se espera interceptar el ILS/LOC. Muestra los deflections del localizer y glideslope en el PFD. En algunos operadores se activa al inicio del approach.',
+      fcom: 'LS pb — AS RQRD (PF-PM). Select LS to display ILS/LOC deviation on the PFD. Select when approaching the ILS intercept point. The LS display shows localizer and glideslope deviations.',
+    },
+    {
+      name: 'APPROACH C/L', value: 'COMPLETE (BOTH)',
+      why: 'El Approach Checklist se realiza antes del FAP o cuando la workload lo permita. Incluye: ECAM, autobrake, landing lights, GPWS, y la configuración inicial de flaps del approach.',
+      fcom: 'APPROACH C/L — COMPLETE (BOTH). Complete the approach checklist before the final approach fix or when workload permits.',
+    }
+  ],
+  pm: [
+    {
+      name: 'ENG MODE selector', value: 'AS RQRD',
+      why: 'Seleccionar IGN/START si hay turbulencia severa, lluvia intensa, o para approaches en condiciones límite. Precaución contra un posible flameout al reducir thrust.',
+      fcom: 'ENG MODE selector — AS RQRD (PM). Select IGN/START if severe turbulence, heavy rain is encountered, or for approaches in limiting conditions.',
+    },
+    {
+      name: 'WING sw / LAND sw', value: 'ON',
+      why: 'Encender las landing lights y wing inspection lights. Muchos operadores las encen por debajo de FL100 o 10.000 ft. Mejoran la visibilidad del avión para el tráfico y para la cabina.',
+      fcom: 'WING sw — ON (PM). LAND sw — AS RQRD (PM). Turn on landing lights and wing lights during the descent, typically below FL100 or 10,000 ft.',
+    },
+    {
+      name: 'SEAT BELTS sw', value: 'ON',
+      why: 'El PM activa el fasten seatbelts sign para que la cabin crew asegure a los pasajeros en preparación para la llegada.',
+      fcom: 'SEAT BELTS sw — ON (PM). Activate the fasten seatbelts sign during descent to prepare passengers for arrival.',
+    },
+    {
+      name: 'CABIN CREW', value: 'ADVISE',
+      why: 'PA a la cabina informando que se inicia el descenso hacia el destino ("Cabin crew, prepare for landing"). La cabin crew prepara la cabina y se sienta para el aterrizaje.',
+      fcom: 'CABIN CREW — ADVISE (PM). Inform the cabin crew via PA of the descent/arrival to prepare the cabin for landing.',
+    },
+    {
+      name: 'NAVIGATION ACCURACY', value: 'MONITOR',
+      why: 'Verificar que la accuracy del FMS es suficiente para el tipo de approach. Si degrada a LOW en un RNP approach, puede requerir abortar el procedimiento y notificar al ATC.',
+      fcom: 'NAVIGATION ACCURACY — MONITOR (PM). Verify the navigation accuracy (HIGH/LOW) is appropriate for the planned approach. If accuracy degrades to LOW for an RNP approach, notify ATC.',
+    }
+  ]
+},
+{
+  id: 'sop19',
+  num: 'SOP-19',
+  title: 'Landing',
+  sub: 'Manual landing · Flare → runway vacated',
+  intro: 'El <strong>PF</strong> realiza el flare y controla el roll-out y la deceleración. El <strong>PM</strong> monitorea actitud, velocidad, callouts del radio altímetro, y verifica el despliegue de ground spoilers y el funcionamiento de la reversa.',
+  pf: [
+    {
+      name: 'AP (for manual ldg)', value: 'OFF',
+      why: 'Para el aterrizaje manual, el AP debe estar OFF. El FD puede mantenerse ON para dar guidance hasta el flare, aunque algunos pilotos lo apagan para un flare más intuitivo.',
+      fcom: 'AP — OFF (PF). For manual landing, the autopilot must be disconnected. The flight director may remain on to provide guidance.',
+    },
+    {
+      name: 'At ~30 ft RA: FLARE', value: 'PERFORM',
+      why: 'Iniciar el flare a ~30ft RA con un movimiento suave y progresivo del sidestick hacia atrás. Objetivo: actitud de ~10-15° de pitch en el touchdown. El A320 tiende a flotar — no mantener el sidestick muy atrás durante demasiado tiempo.',
+      fcom: 'FLARE — PERFORM (PF). AROUND 30 ft RA: In stabilized approach, the flare height is approximately 30 ft. Move both thrust levers to the IDLE detent, and begin a gentle progressive flare to enable the aircraft to touch down without a prolonged float. If the autothrust is engaged, it automatically disconnects when both thrust levers are set to the IDLE detent. At 20 ft, an automatic "RETARD" callout will trigger, as a reminder.',
+      note: 'Ground spoilers extension is inhibited if one or more thrust levers remain above the IDLE detent. Both levers must be at IDLE for ground spoilers to deploy.'
+    },
+    {
+      name: 'THRUST LEVERS (at 30ft)', value: 'IDLE',
+      why: 'Al iniciar el flare a ~30ft, reducir los thrust levers al IDLE detent de forma suave y progresiva. El A/THR se desconecta automáticamente. Los ground spoilers solo se despliegan con levers en IDLE.',
+      fcom: 'BOTH THRUST LEVERS — IDLE (PF). Move both thrust levers to the IDLE detent during the flare. At 20 ft RA, an automatic "RETARD" callout triggers as a reminder. If the autothrust is engaged, it automatically disconnects when both thrust levers are set to the IDLE detent.',
+      caution: 'If thrust levers are NOT at IDLE detent at touchdown, the ground spoilers will NOT deploy (ground spoiler extension is inhibited). This significantly increases landing distance.'
+    },
+    {
+      name: 'At touchdown: DEROTATION', value: 'INITIATE',
+      why: 'Al tocar el MLG, bajar suavemente la nariz con sidestick adelante. La rueda de nariz debe tocar suavemente — no dejarla caer abruptamente. Especialmente importante en vientos cruzados para mantener el track.',
+      fcom: 'DEROTATION — INITIATE (PF). As soon as the main landing gear touches down, initiate derotation by pushing the sidestick forward. Lower the nose wheel gently to the runway.',
+      note: 'La derotation rápida mejora el control direccional (más NWS authority) y activa el nose wheel steering más temprano.'
+    },
+    {
+      name: 'THRUST LEVERS (at T/D)', value: 'REV MAX or REV IDLE',
+      why: 'Seleccionar reversa inmediatamente al tocar. REV MAX si hay dudas sobre la distancia disponible. REV IDLE si la pista es larga. La reversa es más efectiva a alta velocidad — la mayor parte de la deceleración ocurre por encima de 80kt.',
+      fcom: 'BOTH THRUST LEVERS — REV MAX or REV IDLE (PF). The flight crew must select reverse thrust immediately after main landing gear touchdown. The flight crew must immediately select REV MAX if: an emergency exists, deceleration is not as expected, or a failure affects landing performance.',
+      caution: 'If at any time during the landing: an emergency exists, deceleration is not as expected, or a failure affects landing performance — immediately select REV MAX.'
+    },
+    {
+      name: 'At 70 kt: REVERSE IDLE', value: 'RETARD REV',
+      why: 'Reducir la reversa a idle a ~70kt para prevenir daño por FOD. La reversa a baja velocidad es menos efectiva y puede succionar FOD. La deceleración principal ocurre entre 130-80kt.',
+      fcom: 'At 70 kt: reduce reverse thrust to idle to prevent FOD ingestion. Reverse thrust is most effective at high speeds.',
+    }
+  ],
+  pm: [
+    {
+      name: 'ATTITUDE', value: 'MONITOR',
+      why: 'El PM monitorea la actitud de pitch en el PFD durante el flare. Si el pitch supera los límites (típicamente 10° para A320), anunciar "PITCH — PITCH" para alertar al PF y prevenir tail strike.',
+      fcom: 'ATTITUDE — MONITOR (PM). Monitor the pitch attitude on the PFD during the flare. If pitch exceeds safe limits, call out "PITCH — PITCH" to alert the PF.',
+      caution: 'Tail strike risk: In A320, tail strike occurs at approximately 11.1° pitch with full aft sidestick or at 9.9° in normal operation. Especially monitor on short fields or with aft CG.'
+    },
+    {
+      name: 'RA callouts', value: 'MONITOR',
+      why: 'El PM monitorea los callouts automáticos del radio altímetro (500, 100, 50, 40, 30, 20, 10). Si alguno no suena, anunciar manualmente. Son la referencia de altura crítica en el flare.',
+      fcom: 'Monitor radio altimeter callouts: 500, 100, 50, 40, 30, 20, 10 ft. If any callout is missing, call it out manually.',
+    },
+    {
+      name: '"RETARD" callout', value: 'ANNOUNCE IF NOT AUTO',
+      why: 'El sistema anuncia automáticamente "RETARD" a 20ft RA. Si no suena (ej: sin autoland activo en algunos configs), el PM debe anunciarlo para recordar al PF reducir el thrust antes del touchdown.',
+      fcom: '"RETARD" — ANNOUNCE IF NOT AUTOMATIC (PM). At 20 ft RA, an automatic "RETARD" callout will trigger. If it does not sound, the PM should call it out to remind the PF to retard the thrust levers.',
+    },
+    {
+      name: 'GND SPLRS deployment', value: 'VERIFY',
+      why: 'Verificar que los ground spoilers se desplegaron (indicación SPLR en ECAM FCTL). Si no salieron, la distancia de frenado aumenta significativamente. Anunciar al PF si no se deployan.',
+      fcom: 'GND SPLRS deployment — VERIFY (PM). Verify that ground spoilers deployed at touchdown. If spoilers did not deploy, announce to PF. Spoiler deployment requires: WoW on MLG AND thrust levers at IDLE detent.',
+      caution: 'Si los ground spoilers NO se despliegan en el touchdown, la distancia de frenado puede aumentar hasta un 30%. Especialmente crítico en pistas cortas o contaminadas.'
+    },
+    {
+      name: 'REVERSE THRUST', value: 'VERIFY SYMMETRY',
+      why: 'Monitorear que ambos motores están en reversa simétrica. Una reversa asimétrica genera guiñada que requiere corrección con rudder. Si un motor no entra en reversa, anunciar al PF.',
+      fcom: 'REVERSE THRUST — VERIFY (PM). Monitor that both engines have symmetric reverse thrust. If asymmetric reverse is detected, announce to PF. Use rudder to maintain directional control.',
+    }
+  ]
+},
+{
+  id: 'sop21',
+  num: 'SOP-21',
+  title: 'After Landing',
+  sub: 'Al vaciar la pista activa',
+  intro: 'Al salir de la pista activa, el <strong>PF</strong> desarma los ground spoilers y ajusta las luces. El <strong>PM</strong> realiza la mayor parte del flow: radar, ENG MODE, flaps, TCAS, y APU start.',
+  pf: [
+    {
+      name: 'GND SPLRS', value: 'DISARM',
+      why: 'Al vaciar la pista, el PF desarma los ground spoilers. Si se olvidan armados para el próximo vuelo podría causar confusión durante el checklist. Además, si el avión hiciera un hard stop en tierra, podrían desplegarse.',
+      fcom: 'GRND SPLRS — DISARM (PF). When the runway is vacated, disarm the ground spoilers to prevent inadvertent deployment during taxi.',
+    },
+    {
+      name: 'NOSE sw', value: 'TAXI',
+      why: 'Cambiar de T.O. a TAXI para el taxieo de llegada. Apagar landing lights y retract para no deslumbrar al personal de rampa y reducir desgaste.',
+      fcom: 'NOSE sw — TAXI (PF). Change from T.O. to TAXI mode for taxi-in. Turn off landing lights.',
+    },
+    {
+      name: 'STROBE sw', value: 'AUTO',
+      why: 'En AUTO, los strobes se apagan automáticamente cuando el Weight on Wheels está activado (en tierra). No deslumbra al personal de rampa.',
+      fcom: 'STROBE sw — AUTO (PF). In AUTO mode, strobes turn off automatically when on the ground (WoW activated).',
+    },
+    {
+      name: 'WING sw', value: 'OFF',
+      why: 'Wing lights OFF en tierra. Solo necesarias en vuelo para visibilidad lateral del avión.',
+      fcom: 'WING sw — OFF (PF).',
+    }
+  ],
+  pm: [
+    {
+      name: 'RADAR / PWS', value: 'OFF',
+      why: 'Apagar el weather radar y el predictive windshear system al vaciar la pista. El radar irradia al personal de rampa si queda encendido durante el taxi.',
+      fcom: 'RADAR — OFF (PM). PREDICTIVE WINDSHEAR SYSTEM — OFF (PM). Turn off the weather radar and PWS when vacating the runway to prevent radiation exposure to ground personnel.',
+    },
+    {
+      name: 'ENG MODE selector', value: 'NORM',
+      why: 'Volver al modo NORM si estaba en IGN/START por turbulencia o condiciones de precipitación. En tierra no se necesita continuous ignition.',
+      fcom: 'ENG MODE selector — NORM (PM). Return to NORM if IGN/START was selected for weather or turbulence during the approach.',
+    },
+    {
+      name: 'FLAPS', value: 'RETRACT',
+      why: 'Retraer los flaps al vaciar la pista. No retraer en la pista activa por razones de safety. Esperar la confirmación del PF de "runway vacated" antes de actuar.',
+      fcom: 'FLAPS — RETRACT (PM). Retract flaps after vacating the runway. Do not retract flaps on the active runway.',
+    },
+    {
+      name: 'TCAS / ATC', value: 'STBY / AS RQRD',
+      why: 'Poner el TCAS en STBY y el transponder ATC en STBY o según instrucciones del aeródromo.',
+      fcom: 'TCAS MODE — STBY (PM). ATC MODE — AS RQRD (PM). Set TCAS to STBY and transponder as required by airport procedures.',
+    },
+    {
+      name: 'APU MASTER SW', value: 'ON',
+      why: 'Iniciar el APU para que esté disponible al llegar al gate y proveer energía eléctrica y aire acondicionado cuando se apaguen los motores.',
+      fcom: 'APU MASTER SW pb-sw — ON (PM). Start the APU so it is ready to supply electrical power and bleed air when the engines are shut down at the gate.',
+    },
+    {
+      name: 'APU START pb-sw', value: 'ON',
+      why: 'Confirmar encendido del APU. El ECAM mostrará APU AVAIL cuando esté listo (~60 segundos). Permite conectar APU bleed y electrical antes de apagar los motores.',
+      fcom: 'APU START pb-sw — ON (PM). Confirm APU start. ECAM will show APU AVAIL when the APU is ready to supply power (approximately 60 seconds).',
+    },
+    {
+      name: 'ENG ANTI ICE', value: 'AS RQRD',
+      why: 'Si hay icing conditions en el taxi de llegada, mantener ENG anti-ice ON. Desactivar al llegar al parking cuando los motores se apagarán.',
+      fcom: 'ENG ANTI ICE — AS RQRD (PM). Maintain engine anti-ice if icing conditions exist during taxi-in. Turn off when engines are shut down at the gate.',
+    }
+  ]
+},
+{
+  id: 'sop22',
+  num: 'SOP-22',
+  title: 'Parking',
+  sub: 'Al llegar al gate · Engine shutdown',
+  intro: 'Al llegar al parking, el <strong>PF</strong> aplica el parking brake, gestiona external power y apaga los motores. El <strong>PM</strong> administra anti-ice, APU bleed, fuel pumps, transponder, y verifica el fuel final.',
+  pf: [
+    {
+      name: 'ACCU PRESS indicator', value: 'CHECK',
+      why: 'Verificar que el hydraulic accumulator tiene presión suficiente para el parking brake. El accumulator mantiene la presión del parking brake incluso después de apagar los motores y la hidráulica.',
+      fcom: 'ACCU PRESS indicator — CHECK (PF). Verify sufficient hydraulic accumulator pressure to maintain the parking brake. The accumulator provides brake pressure after engine shutdown.',
+    },
+    {
+      name: 'PARK BRK handle', value: 'ON',
+      why: 'Aplicar parking brake al detenerse en el parking. El ECAM EWD mostrará PARK BRK ON. No soltar hasta que los chocks estén colocados.',
+      fcom: 'PARK BRK handle — ON (PF). Apply the parking brake when stopped at the parking position. ECAM EWD will display PARK BRK.',
+    },
+    {
+      name: 'BRAKES PRESS indicator', value: 'CHECK',
+      why: 'Confirmar que la presión del accumulator se mantiene con el parking brake aplicado. Si la presión cae rápidamente, puede indicar una fuga en el sistema hidráulico.',
+      fcom: 'BRAKES PRESS indicator — CHECK (PF). Confirm hydraulic accumulator pressure is maintained with parking brake applied.',
+    },
+    {
+      name: 'EXT PWR pb', value: 'ON (if available)',
+      why: 'Si hay GPU disponible y conectado (AVAIL light en verde), conectar para reducir carga del APU. El APU seguirá si el GPU no puede alimentar toda la demanda.',
+      fcom: 'EXT PWR pb — CHECK AVAIL, then ON (PF). If external power is available (AVAIL light on), connect it to reduce APU load.',
+    },
+    {
+      name: 'All ENG MASTER levers', value: 'OFF',
+      why: 'Apagar los motores cerrando los fuel shutoff valves. Confirmar que el APU o GPU está cargando el bus eléctrico antes de apagar. Esperar parámetros estables (idle) antes de actuar.',
+      fcom: 'All ENG MASTER levers — OFF (PF). Shut down engines by closing the fuel shutoff valves. Ensure APU or GPU is supplying electrical power before engine shutdown. Check ENGINE PARAMETERS before shutdown.',
+    },
+    {
+      name: 'ENGINE PARAMETERS', value: 'CHECK',
+      why: 'Verificar que los motores se apagaron correctamente (N2 bajando, EGT decayendo, N1 a cero). Anomalías en el shutdown deben registrarse en el tech log.',
+      fcom: 'ENGINE PARAMETERS — CHECK (PF). After engine shutdown, verify N1, N2, EGT, and FF are decaying normally. Any anomalies must be reported in the technical log.',
+    },
+    {
+      name: 'WING sw / BEACON sw', value: 'OFF',
+      why: 'Apagar todas las luces exteriores. El BEACON OFF es la señal universal al personal de rampa de que los motores están apagados y es seguro acercarse al avión.',
+      fcom: 'WING sw — OFF (PF). BEACON sw — OFF (PF). The beacon light being OFF is the universal signal to ground crew that the engines are shut down and the aircraft is safe to approach.',
+      caution: 'NUNCA apagar el BEACON mientras los motores siguen girando. El beacon encendido es la señal de que los motores están en marcha.'
+    },
+    {
+      name: 'SLIDES', value: 'CHECK DISARMED',
+      why: 'Verificar que los toboganes de todas las puertas están en modo manual (desarmados). Si quedan en modo automático y alguien abre una puerta, el tobogán sale automáticamente causando un accidente grave.',
+      fcom: 'SLIDES — CHECK DISARMED (PF). Verify all door slides are in the manual (disarmed) mode. If slides remain armed and a door is opened from inside, the slide will deploy automatically.',
+      caution: 'Un tobogán accidentalmente desplegado puede causar lesiones graves al personal de cabina y requiere reempaque costoso. Siempre verificar que TODOS los toboganes están desarmados antes de abrir cualquier puerta.'
+    },
+    {
+      name: 'SEAT BELTS sw', value: 'OFF',
+      why: 'Apagar el fasten seatbelts sign al llegar al parking con los frenos aplicados. Los pasajeros pueden levantarse.',
+      fcom: 'SEAT BELTS sw — OFF (PF). Turn off the fasten seatbelts sign when stopped at the gate with parking brake applied.',
+    }
+  ],
+  pm: [
+    {
+      name: 'ANTI ICE', value: 'OFF',
+      why: 'Apagar ENG y WING anti-ice al llegar al parking. Ya no son necesarios. Reduce carga del sistema de bleed y evita el ruido de los anti-ice valves.',
+      fcom: 'ANTI-ICE — OFF (PM). Turn off all anti-ice systems at the parking position.',
+    },
+    {
+      name: 'APU BLEED pb-sw', value: 'AS RQRD',
+      why: 'Activar el APU bleed para proveer aire acondicionado desde el APU cuando los motores se apaguen. Asegura confort de pasajeros en el gate.',
+      fcom: 'APU BLEED pb-sw — AS RQRD (PM). Activate APU bleed to provide air conditioning when the engines are shut down.',
+    },
+    {
+      name: 'FUEL PUMPS', value: 'OFF',
+      why: 'Apagar todas las bombas de combustible. Si quedan ON, siguen circulando fuel y consumen energía eléctrica innecesariamente.',
+      fcom: 'FUEL PUMPS — OFF (PM). FUEL PUMPS/CTR XFR VALVES — OFF (PM). Turn off all fuel pumps after engine shutdown.',
+    },
+    {
+      name: 'ATC MODE', value: 'STBY',
+      why: 'Poner el transponder en STBY en el parking. No queremos transmitir datos de altimetría desde el ground.',
+      fcom: 'ATC MODE — STBY (PM). Set the transponder to STBY mode at the parking position.',
+    },
+    {
+      name: 'IRS PERFORMANCE', value: 'CHECK',
+      why: 'Verificar la performance de los IRS al final del vuelo. Errores de posición o deriva excesiva deben registrarse en el tech log para evaluación por mantenimiento.',
+      fcom: 'IRS PERFORMANCE — CHECK (PM). Check the IRS performance at the end of the flight. Report any excessive position error or drift in the technical log.',
+    },
+    {
+      name: 'FUEL QUANTITY', value: 'CHECK',
+      why: 'Verificar el fuel on board final vs el fuel predicho en el OFP/release. Una discrepancia significativa puede indicar un leak, un error de cálculo, o fuel burn excesivo que debe investigarse.',
+      fcom: 'FUEL QUANTITY — CHECK (PM). Compare the final fuel on board with the fuel predicted in the OFP. Report any significant discrepancy in the technical log.',
+    },
+    {
+      name: 'PARKING C/L', value: 'COMPLETE (BOTH)',
+      why: 'Completar el Parking Checklist. Es el último checklist del vuelo. Confirma que todos los sistemas están correctamente apagados o configurados.',
+      fcom: 'PARKING C/L — COMPLETE (BOTH). This is the final checklist of the flight.',
+    }
+  ]
+}
+];
+
+// ─── RENDER ───────────────────────────────────────────────────────────────────
+function infoIcon() {
+  return `<div class="action-info-btn">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="9" stroke="#9ca3af" stroke-width="1.8"/>
+      <path d="M12 11v5M12 8.5v.5" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  </div>`;
+}
+
+function renderItem(item, role) {
+  const cls = role === 'pf' ? 'pf-item' : role === 'pm' ? 'pm-item' : 'both-item';
+  return `<div class="action-item ${cls}" onclick="openModal(${JSON.stringify(item).replace(/"/g, '&quot;')}, '${role}')">
+    <div class="action-stripe"></div>
+    <div class="action-body">
+      <span class="action-name">${item.name}</span>
+      <span class="action-value">${item.value}</span>
+    </div>
+    ${infoIcon()}
+  </div>`;
+}
+
+const app = document.getElementById('app');
+app.innerHTML = PHASES.map(phase => `
+<div class="phase" id="${phase.id}">
+  <div class="phase-header">
+    <span class="phase-num">${phase.num}</span>
+    <span class="phase-title">${phase.title}</span>
+    <span class="phase-sub">${phase.sub}</span>
+  </div>
+  <div class="phase-intro">${phase.intro}</div>
+  <div class="flow-grid">
+    <div class="flow-col pf-col">
+      <div class="col-header pf"><div class="col-header-icon">P</div>PF — Pilot Flying</div>
+      ${phase.pf.map(i => renderItem(i, 'pf')).join('')}
+    </div>
+    <div class="flow-col">
+      <div class="col-header pm"><div class="col-header-icon">M</div>PM — Pilot Monitoring</div>
+      ${phase.pm.map(i => renderItem(i, 'pm')).join('')}
+    </div>
+  </div>
+</div>
+`).join('');
+
+// ─── MODAL ────────────────────────────────────────────────────────────────────
+function openModal(item, role) {
+  const overlay = document.getElementById('modal-overlay');
+  const badge = document.getElementById('modal-role-badge');
+  const nameEl = document.getElementById('modal-item-name');
+  const phaseEl = document.getElementById('modal-phase-label');
+  const valEl = document.getElementById('modal-value-chip');
+  const body = document.getElementById('modal-body');
+
+  // Find phase name
+  const phaseData = PHASES.find(p => 
+    p.pf.some(i => i.name === item.name && i.value === item.value) ||
+    p.pm.some(i => i.name === item.name && i.value === item.value)
+  );
+  const phaseName = phaseData ? `${phaseData.num} · ${phaseData.title}` : '';
+
+  badge.textContent = role === 'pf' ? 'PF' : role === 'pm' ? 'PM' : 'BOTH';
+  badge.className = `modal-role-badge ${role}`;
+  nameEl.textContent = item.name;
+  phaseEl.textContent = phaseName;
+  valEl.textContent = item.value;
+  valEl.className = `modal-value-chip ${role}`;
+
+  let html = '';
+
+  // Why
+  if (item.why) {
+    html += `<div class="modal-section">
+      <div class="modal-section-title">Por qué se hace</div>
+      <div class="modal-desc">${item.why}</div>
+    </div>`;
+  }
+
+  // FCOM text
+  if (item.fcom) {
+    html += `<div class="modal-section">
+      <div class="modal-fcom-box ${role}-box">
+        <div class="modal-fcom-label">FCOM — Texto original</div>
+        ${item.fcom}
+      </div>
+    </div>`;
+  }
+
+  // Caution
+  if (item.caution) {
+    html += `<div class="modal-section">
+      <div class="modal-caution">
+        <div class="modal-caution-title">⚠ Caution</div>
+        ${item.caution}
+      </div>
+    </div>`;
+  }
+
+  // Warning
+  if (item.warning) {
+    html += `<div class="modal-section">
+      <div class="modal-warning">
+        <div class="modal-warning-title">⛔ Warning</div>
+        ${item.warning}
+      </div>
+    </div>`;
+  }
+
+  // Note
+  if (item.note) {
+    html += `<div class="modal-section">
+      <div class="modal-note">
+        <div class="modal-note-title">📝 Note</div>
+        ${item.note}
+      </div>
+    </div>`;
+  }
+
+  body.innerHTML = html;
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(event) {
+  if (event.target === document.getElementById('modal-overlay')) {
+    closeModalDirect();
+  }
+}
+
+function closeModalDirect() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModalDirect();
+});
+</script>
+</body>
+</html>
