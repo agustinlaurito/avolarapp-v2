@@ -8,6 +8,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
+  --sticky-subnav-top: 57px;
+  --subnav-height: 42px;
   --bg: #f5f6f8;
   --surface: #ffffff;
   --surface2: #f0f2f5;
@@ -43,6 +45,7 @@ body {
   font-family: 'Inter', sans-serif;
   font-size: 13px;
   line-height: 1.5;
+  overflow-x: hidden;
 }
 
 /* ── HEADER ── */
@@ -59,6 +62,7 @@ body {
   box-shadow: 0 1px 0 var(--border), 0 2px 12px rgba(0,0,0,0.05);
 }
 .header-left { display: flex; align-items: center; gap: 14px; }
+.header-left > div { min-width: 0; }
 .header-badge {
   background: var(--pf);
   color: white;
@@ -74,12 +78,19 @@ body {
   font-weight: 700;
   color: var(--text);
   letter-spacing: -0.3px;
+  line-height: 1.3;
 }
-.header-left p { font-size: 11px; color: var(--text-3); margin-top: 1px; }
+.header-left p {
+  font-size: 11px;
+  color: var(--text-3);
+  margin-top: 1px;
+  line-height: 1.4;
+}
 .legend {
   display: flex;
   gap: 16px;
   align-items: center;
+  flex-wrap: wrap;
 }
 .legend-item {
   display: flex;
@@ -107,7 +118,7 @@ body {
   overflow-x: auto;
   scrollbar-width: none;
   position: sticky;
-  top: 57px;
+  top: var(--sticky-subnav-top);
   z-index: 190;
 }
 .subnav::-webkit-scrollbar { display: none; }
@@ -124,7 +135,11 @@ body {
 .subnav a:hover { color: var(--text); border-bottom-color: var(--border-strong); }
 
 /* ── CONTENT ── */
-.content { max-width: 1280px; margin: 0 auto; padding: 24px 36px 80px; }
+.content {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 24px clamp(16px, 4vw, 36px) 80px;
+}
 
 /* ── PHASE ── */
 .phase {
@@ -134,6 +149,7 @@ body {
   margin-bottom: 24px;
   overflow: hidden;
   box-shadow: var(--shadow);
+  scroll-margin-top: calc(var(--sticky-subnav-top) + var(--subnav-height) + 12px);
 }
 .phase-header {
   padding: 13px 20px;
@@ -240,6 +256,7 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
+  min-width: 0;
 }
 .action-name {
   font-family: 'JetBrains Mono', monospace;
@@ -247,6 +264,8 @@ body {
   font-weight: 500;
   color: var(--text);
   flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 .action-value {
   font-family: 'JetBrains Mono', monospace;
@@ -498,6 +517,168 @@ body {
 }
 
 .gap { height: 8px; }
+
+@media (max-width: 1024px) {
+  .doc-header {
+    padding: 16px 22px 14px;
+    gap: 14px;
+  }
+
+  .subnav {
+    padding: 0 22px;
+  }
+
+  .phase-header {
+    padding: 12px 16px;
+  }
+
+  .phase-intro {
+    padding: 10px 16px;
+  }
+
+  .flow-col {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 820px) {
+  .doc-header {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .header-left {
+    width: 100%;
+  }
+
+  .legend {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 12px;
+  }
+
+  .subnav {
+    padding: 0 16px;
+  }
+
+  .flow-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .flow-col.pf-col {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .phase-sub {
+    margin-left: 0;
+    width: 100%;
+    padding-left: 2px;
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    font-size: 12px;
+  }
+
+  .doc-header {
+    padding: 14px 12px;
+    gap: 10px;
+  }
+
+  .header-left {
+    gap: 10px;
+  }
+
+  .header-left h1 {
+    font-size: 13px;
+  }
+
+  .header-left p {
+    font-size: 10px;
+  }
+
+  .legend-item {
+    font-size: 10px;
+  }
+
+  .subnav {
+    padding: 0 10px;
+  }
+
+  .subnav a {
+    font-size: 11px;
+    padding: 10px 10px;
+  }
+
+  .content {
+    padding: 16px 10px 64px;
+  }
+
+  .phase {
+    border-radius: 10px;
+    margin-bottom: 16px;
+  }
+
+  .phase-header {
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .phase-title {
+    font-size: 13px;
+  }
+
+  .action-body {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 9px 10px;
+  }
+
+  .action-value {
+    font-size: 10px;
+  }
+
+  .action-info-btn {
+    width: 28px;
+    height: 28px;
+    margin-right: 6px;
+    margin-top: 6px;
+  }
+
+  .modal-overlay {
+    padding: 12px;
+  }
+
+  .modal {
+    max-height: 92vh;
+    border-radius: 12px;
+  }
+
+  .modal-header,
+  .modal-body {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+}
+
+@media (max-width: 420px) {
+  .phase-header {
+    padding: 10px 12px;
+  }
+
+  .phase-intro,
+  .flow-col {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .col-header {
+    letter-spacing: 1px;
+  }
+}
 </style>
 </head>
 <body>
@@ -1515,7 +1696,7 @@ function openModal(item, role) {
   const body = document.getElementById('modal-body');
 
   // Find phase name
-  const phaseData = PHASES.find(p => 
+  const phaseData = PHASES.find(p =>
     p.pf.some(i => i.name === item.name && i.value === item.value) ||
     p.pm.some(i => i.name === item.name && i.value === item.value)
   );
@@ -1597,6 +1778,21 @@ function closeModalDirect() {
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeModalDirect();
 });
+
+function updateStickyOffsets() {
+  const header = document.querySelector('.doc-header');
+  const subnav = document.querySelector('.subnav');
+  if (!header || !subnav) return;
+
+  const headerHeight = Math.ceil(header.getBoundingClientRect().height);
+  const subnavHeight = Math.ceil(subnav.getBoundingClientRect().height);
+
+  document.documentElement.style.setProperty('--sticky-subnav-top', `${headerHeight}px`);
+  document.documentElement.style.setProperty('--subnav-height', `${subnavHeight}px`);
+}
+
+window.addEventListener('load', updateStickyOffsets);
+window.addEventListener('resize', updateStickyOffsets);
 </script>
 </body>
 </html>
