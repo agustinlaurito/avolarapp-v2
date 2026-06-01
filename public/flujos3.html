@@ -1,0 +1,1771 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A320 Normal Procedures Flows | LATAM</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  --sticky-subnav-top: 57px;
+  --subnav-height: 42px;
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --surface2: #f0f2f5;
+  --border: #dde1e8;
+  --border-strong: #c4c9d4;
+  --pf: #1d6ef5;
+  --pf-light: #e8f0fe;
+  --pf-mid: #bdd0fc;
+  --pm: #d97706;
+  --pm-light: #fef3e2;
+  --pm-mid: #fcd68a;
+  --both: #059669;
+  --both-light: #d1fae5;
+  --both-mid: #6ee7b7;
+  --text: #1a1f2e;
+  --text-2: #4b5563;
+  --text-3: #9ca3af;
+  --red: #dc2626;
+  --red-light: #fee2e2;
+  --amber: #d97706;
+  --amber-light: #fef3c7;
+  --modal-bg: rgba(15, 20, 40, 0.55);
+  --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.08);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+/* ── HEADER ── */
+.doc-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 20px 36px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  box-shadow: 0 1px 0 var(--border), 0 2px 12px rgba(0,0,0,0.05);
+}
+.header-left { display: flex; align-items: center; gap: 14px; }
+.header-left > div { min-width: 0; }
+.header-badge {
+  background: var(--pf);
+  color: white;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+.header-left h1 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.3px;
+  line-height: 1.3;
+}
+.header-left p {
+  font-size: 11px;
+  color: var(--text-3);
+  margin-top: 1px;
+  line-height: 1.4;
+}
+.legend {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-2);
+}
+.legend-pill {
+  width: 28px; height: 10px;
+  border-radius: 5px;
+}
+.legend-pill.pf { background: var(--pf); }
+.legend-pill.pm { background: var(--pm); }
+.legend-pill.both { background: var(--both); }
+
+/* ── SUB-NAV ── */
+.subnav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 36px;
+  display: flex;
+  gap: 2px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  position: sticky;
+  top: var(--sticky-subnav-top);
+  z-index: 190;
+}
+.subnav::-webkit-scrollbar { display: none; }
+.subnav a {
+  color: var(--text-3);
+  text-decoration: none;
+  font-size: 11.5px;
+  font-weight: 500;
+  padding: 10px 12px;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+.subnav a:hover { color: var(--text); border-bottom-color: var(--border-strong); }
+
+/* ── CONTENT ── */
+.content {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 24px clamp(16px, 4vw, 36px) 80px;
+}
+
+/* ── PHASE ── */
+.phase {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 24px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  scroll-margin-top: calc(var(--sticky-subnav-top) + var(--subnav-height) + 12px);
+}
+.phase-header {
+  padding: 13px 20px;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.phase-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--text-3);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2px 7px;
+  letter-spacing: 0.5px;
+}
+.phase-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.3px;
+}
+.phase-sub {
+  font-size: 11px;
+  color: var(--text-3);
+  margin-left: auto;
+  font-style: italic;
+}
+.phase-intro {
+  padding: 11px 20px;
+  font-size: 12px;
+  color: var(--text-2);
+  background: #fafbfc;
+  border-bottom: 1px solid var(--border);
+  line-height: 1.6;
+}
+.phase-intro strong { color: var(--text); }
+
+/* ── FLOW GRID ── */
+.flow-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.flow-col { padding: 14px 16px; }
+.flow-col.pf-col { border-right: 1px solid var(--border); }
+
+.col-header {
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.col-header.pf { color: var(--pf); border-color: var(--pf); }
+.col-header.pm { color: var(--pm); border-color: var(--pm); }
+.col-header-icon { width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 900; color: white; flex-shrink: 0; }
+.col-header.pf .col-header-icon { background: var(--pf); }
+.col-header.pm .col-header-icon { background: var(--pm); }
+
+/* ── ACTION ITEM ── */
+.action-item {
+  display: flex;
+  align-items: stretch;
+  border-radius: 7px;
+  margin-bottom: 4px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: box-shadow 0.12s, border-color 0.12s, transform 0.1s;
+  overflow: hidden;
+  background: var(--surface);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+.action-item:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transform: translateY(-1px);
+}
+.action-item.pf-item { border-color: var(--pf-mid); }
+.action-item.pm-item { border-color: var(--pm-mid); }
+.action-item.both-item { border-color: var(--both-mid); }
+.action-item:hover.pf-item { border-color: var(--pf); }
+.action-item:hover.pm-item { border-color: var(--pm); }
+.action-item:hover.both-item { border-color: var(--both); }
+
+.action-stripe {
+  width: 4px;
+  flex-shrink: 0;
+}
+.pf-item .action-stripe { background: var(--pf); }
+.pm-item .action-stripe { background: var(--pm); }
+.both-item .action-stripe { background: var(--both); }
+
+.action-body {
+  flex: 1;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.action-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--text);
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.action-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.pf-item .action-value { color: var(--pf); background: var(--pf-light); }
+.pm-item .action-value { color: var(--pm); background: var(--pm-light); }
+.both-item .action-value { color: var(--both); background: var(--both-light); }
+
+.action-info-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-right: 8px;
+  transition: background 0.12s;
+}
+.action-item:hover .action-info-btn {
+  background: var(--pf-light);
+  border-color: var(--pf);
+}
+.action-item.pm-item:hover .action-info-btn {
+  background: var(--pm-light);
+  border-color: var(--pm);
+}
+.action-item.both-item:hover .action-info-btn {
+  background: var(--both-light);
+  border-color: var(--both);
+}
+.action-info-btn svg { width: 11px; height: 11px; }
+
+/* ── MODAL ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--modal-bg);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  backdrop-filter: blur(4px);
+}
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.modal {
+  background: var(--surface);
+  border-radius: 14px;
+  width: 100%;
+  max-width: 580px;
+  max-height: 85vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-lg);
+  transform: translateY(16px) scale(0.97);
+  transition: transform 0.22s cubic-bezier(0.34,1.36,0.64,1);
+  border: 1px solid var(--border);
+}
+.modal-overlay.open .modal {
+  transform: translateY(0) scale(1);
+}
+.modal-header {
+  padding: 16px 20px 14px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--surface2);
+}
+.modal-role-badge {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+.modal-role-badge.pf { background: var(--pf-light); color: var(--pf); border: 1px solid var(--pf-mid); }
+.modal-role-badge.pm { background: var(--pm-light); color: var(--pm); border: 1px solid var(--pm-mid); }
+.modal-role-badge.both { background: var(--both-light); color: var(--both); border: 1px solid var(--both-mid); }
+.modal-titles { flex: 1; min-width: 0; }
+.modal-item-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.3px;
+  line-height: 1.3;
+}
+.modal-phase-label {
+  font-size: 11px;
+  color: var(--text-3);
+  margin-top: 2px;
+}
+.modal-value-chip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+.modal-value-chip.pf { background: var(--pf-light); color: var(--pf); border: 1.5px solid var(--pf-mid); }
+.modal-value-chip.pm { background: var(--pm-light); color: var(--pm); border: 1.5px solid var(--pm-mid); }
+.modal-value-chip.both { background: var(--both-light); color: var(--both); border: 1.5px solid var(--both-mid); }
+.modal-close {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.12s;
+  margin-top: -2px;
+}
+.modal-close:hover { background: var(--red-light); border-color: var(--red); }
+.modal-close:hover svg path { stroke: var(--red); }
+.modal-close svg { width: 12px; height: 12px; }
+.modal-body {
+  padding: 18px 20px;
+  overflow-y: auto;
+  flex: 1;
+}
+.modal-section { margin-bottom: 16px; }
+.modal-section:last-child { margin-bottom: 0; }
+.modal-section-title {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 7px;
+}
+.modal-desc {
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.65;
+}
+.modal-fcom-box {
+  background: #f8f9fc;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--pf);
+  border-radius: 6px;
+  padding: 10px 13px;
+  font-size: 12px;
+  color: var(--text-2);
+  line-height: 1.6;
+  font-style: italic;
+}
+.modal-fcom-box.pm-box { border-left-color: var(--pm); }
+.modal-fcom-box.both-box { border-left-color: var(--both); }
+.modal-fcom-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.modal-fcom-label::before {
+  content: '';
+  display: inline-block;
+  width: 8px; height: 8px;
+  background: var(--pf);
+  border-radius: 2px;
+}
+.pm-box .modal-fcom-label::before { background: var(--pm); }
+.both-box .modal-fcom-label::before { background: var(--both); }
+
+.modal-caution {
+  background: var(--amber-light);
+  border: 1px solid #fcd34d;
+  border-left: 3px solid var(--amber);
+  border-radius: 6px;
+  padding: 9px 12px;
+  font-size: 12px;
+  color: #92400e;
+  line-height: 1.6;
+}
+.modal-caution-title {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 4px;
+}
+.modal-warning {
+  background: var(--red-light);
+  border: 1px solid #fca5a5;
+  border-left: 3px solid var(--red);
+  border-radius: 6px;
+  padding: 9px 12px;
+  font-size: 12px;
+  color: #7f1d1d;
+  line-height: 1.6;
+}
+.modal-warning-title {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 4px;
+}
+.modal-note {
+  background: #f0f4ff;
+  border: 1px solid var(--pf-mid);
+  border-radius: 6px;
+  padding: 9px 12px;
+  font-size: 12px;
+  color: #1e3a8a;
+  line-height: 1.6;
+}
+.modal-note-title {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--pf);
+  margin-bottom: 4px;
+}
+
+.gap { height: 8px; }
+/* ── TRIGGER BANNER ── */
+.phase-trigger {
+  padding: 10px 20px;
+  background: #fffbeb;
+  border-bottom: 1px solid #fde68a;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 11.5px;
+  color: #78350f;
+  line-height: 1.5;
+}
+.phase-trigger-icon {
+  font-size: 13px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.phase-trigger-text { flex: 1; }
+.phase-trigger-text strong { color: #92400e; font-weight: 600; }
+.phase-trigger-ref {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 600;
+  color: #b45309;
+  background: #fef3c7;
+  border: 1px solid #fde68a;
+  border-radius: 3px;
+  padding: 1px 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+
+@media (max-width: 1024px) {
+  .doc-header {
+    padding: 16px 22px 14px;
+    gap: 14px;
+  }
+
+  .subnav {
+    padding: 0 22px;
+  }
+
+  .phase-header {
+    padding: 12px 16px;
+  }
+
+  .phase-intro {
+    padding: 10px 16px;
+  }
+
+  .flow-col {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 820px) {
+  .doc-header {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .header-left {
+    width: 100%;
+  }
+
+  .legend {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 12px;
+  }
+
+  .subnav {
+    padding: 0 16px;
+  }
+
+  .flow-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .flow-col.pf-col {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .phase-sub {
+    margin-left: 0;
+    width: 100%;
+    padding-left: 2px;
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    font-size: 12px;
+  }
+
+  .doc-header {
+    padding: 14px 12px;
+    gap: 10px;
+  }
+
+  .header-left {
+    gap: 10px;
+  }
+
+  .header-left h1 {
+    font-size: 13px;
+  }
+
+  .header-left p {
+    font-size: 10px;
+  }
+
+  .legend-item {
+    font-size: 10px;
+  }
+
+  .subnav {
+    padding: 0 10px;
+  }
+
+  .subnav a {
+    font-size: 11px;
+    padding: 10px 10px;
+  }
+
+  .content {
+    padding: 16px 10px 64px;
+  }
+
+  .phase {
+    border-radius: 10px;
+    margin-bottom: 16px;
+  }
+
+  .phase-header {
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .phase-title {
+    font-size: 13px;
+  }
+
+  .action-body {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 9px 10px;
+  }
+
+  .action-value {
+    font-size: 10px;
+  }
+
+  .action-info-btn {
+    width: 28px;
+    height: 28px;
+    margin-right: 6px;
+    margin-top: 6px;
+  }
+
+  .modal-overlay {
+    padding: 12px;
+  }
+
+  .modal {
+    max-height: 92vh;
+    border-radius: 12px;
+  }
+
+  .modal-header,
+  .modal-body {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+}
+
+@media (max-width: 420px) {
+  .phase-header {
+    padding: 10px 12px;
+  }
+
+  .phase-intro,
+  .flow-col {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .col-header {
+    letter-spacing: 1px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="doc-header">
+  <div class="header-left">
+    <div class="header-badge">FCOM</div>
+    <div>
+      <h1>A319/A320/A321 — Normal Procedures Flows</h1>
+      <p>LATAM Airlines Group · FCOM Rev. 20 MAR 2025 · Study guide — tap any item to read the FCOM</p>
+    </div>
+  </div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-pill pf"></div>PF</div>
+    <div class="legend-item"><div class="legend-pill pm"></div>PM</div>
+    <div class="legend-item"><div class="legend-pill both"></div>BOTH</div>
+  </div>
+</div>
+
+<!-- SUBNAV -->
+<nav class="subnav">
+  <a href="#sop09">After Start</a>
+  <a href="#sop10">Taxi</a>
+  <a href="#sop11">Before Takeoff</a>
+  <a href="#sop12">Takeoff</a>
+  <a href="#sop13">After Takeoff</a>
+  <a href="#sop14">Climb</a>
+  <a href="#sop15">Cruise</a>
+  <a href="#sop16">Descent Prep</a>
+  <a href="#sop17">Descent</a>
+  <a href="#sop19">Landing</a>
+  <a href="#sop21">After Landing</a>
+  <a href="#sop22">Parking</a>
+</nav>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="modal-role-badge" id="modal-role-badge">PF</div>
+      <div class="modal-titles">
+        <div class="modal-item-name" id="modal-item-name">ENG MODE selector</div>
+        <div class="modal-phase-label" id="modal-phase-label">SOP-09 · After Start</div>
+      </div>
+      <div class="modal-value-chip" id="modal-value-chip">NORM</div>
+      <button class="modal-close" onclick="closeModalDirect()">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="#6b7280" stroke-width="2.5" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<div class="content" id="app"></div>
+
+<script>
+// ─── DATA ─────────────────────────────────────────────────────────────────────
+const PHASES = [
+{
+  id: 'sop09',
+  num: 'SOP-09',
+  title: 'After Start',
+  sub: 'Once engines are running → ENG MODE → NORM',
+  intro: 'The <strong>PF<\/strong> sets the ENG MODE selector to NORM to permit normal pack operation. At this point the After Start Flow Pattern begins. The PF scans the overhead (left/centre) and centre pedestal; the PM scans the overhead (right side) and concludes at the pedestal.',
+  trigger: '<strong>Flow trigger:<\/strong> After the last engine has been started, the PF sets the ENG MODE selector to NORM to permit normal pack operation. This action marks the beginning of the After Start Flow Pattern. &mdash; <em>Checklist trigger: On hand signal from the ground personnel (all engine taxi); or Second Engine Start flow pattern completed (one engine taxi).<\/em>',
+  triggerRef: 'FCTM PR-NP-CL · FCOM PRO-NOR-SOP-09',
+  pf: [
+    {
+      name: 'ENG MODE selector', value: 'NORM',
+      fcom: 'When the engines have started, the PF sets the ENG MODE selector to NORM to permit normal pack operation. At this time, the After Start Flow Pattern begins.',
+      note: '<em>[FCOM PRO-NOR-SOP-09]<\/em> After start, to avoid thermal shock, the pilot should operate the engine at idle or near idle for at least 2 min (5 min if previous shutdown was greater than 2 h) before advancing the thrust lever to high power. Taxi time at idle may be included in the warm-up period. The last engine started must run for at least 2 min before takeoff initiation, to ensure that takeoff is not initiated before the centre tank pumps test is finished, since takeoff on centre tank is prohibited.',
+      why: '<em>[Interpretation — not from FCOM]<\/em> With NORM selected the FADECs allow the air-conditioning packs to receive bleed air. During start, the selector was in IGN/START or CRANK, which suppresses pack operation to maximise starter-motor effectiveness and avoid reverse-flow through the packs.'
+    },
+    {
+      name: 'APU BLEED pb-sw', value: 'OFF',
+      fcom: '<em>[FCOM PRO-NOR-SOP-09]<\/em> APU BLEED pb-sw — OFF (PF). This action enables to avoid ingestion of engine exhaust gases.',
+      why: '<em>[Interpretation — not from FCOM]<\/em> With both engines running, engine bleed supplies the pneumatic manifold. Leaving the APU bleed open creates a second source feeding the same duct; engine exhaust can flow back through the APU inlet and into the cabin air supply.'
+    },
+    {
+      name: 'APU MASTER SW', value: 'OFF',
+      fcom: '<em>[FCOM PRO-NOR-SOP-09]<\/em> If the APU is not required: APU MASTER SW pb-sw — OFF (PF).',
+      note: '<em>[Interpretation — not from FCOM]<\/em> Only shut down the APU if it is no longer needed for electrical power. During single-engine taxi at departure, or if a system failure requires APU support, the APU must remain running.'
+    },
+    {
+      name: 'ENG 1+2 ANTI ICE', value: 'AS RQRD',
+      fcom: '<em>[FCOM PRO-NOR-SOP-09]<\/em> Turn on engine anti-ice during all ground operations when icing conditions exist or are anticipated. If ENG ANTI ICE pb-sw is set to ON and the valve(s) do not open (FAULT light remains on), increase the N2 of the associated engine by about 5%. When the valves are open, retard the thrust lever(s) to IDLE. If ENG ANTI ICE pb-sw is set to ON, the IGNITION memo appears on the ECAM because continuous ignition is automatically selected.',
+      caution: '<em>[FCOM PRO-NOR-SOP-09 — CAUTION]<\/em> In icing conditions, the flight crew must turn on the engine anti-ice and should NOT wait until seeing ice building up. During engine operations on ground in icing conditions with OAT at +3 °C (37 °F) or below, ice accretion may affect the engine fan blades, spinner, or stators of the low pressure compressor. Apply the engine ice shedding procedure (N1 accelerations at defined intervals) to prevent possible engine degradation or damage.',
+      why: '<em>[Interpretation — not from FCOM]<\/em> Engine anti-ice uses hot bleed air ducted to the engine inlet lip to prevent ice from forming on the nacelle leading edge. Ice shed into the compressor can cause blade damage and compressor stall. The icing condition threshold for engines (OAT ≤ +10 °C with visible moisture) is more conservative than the aircraft structural icing definition.'
+    },
+    {
+      name: 'WING ANTI ICE', value: 'AS RQRD',
+      fcom: '<em>[FCOM PRO-NOR-SOP-09]<\/em> WING ANTI ICE pb-sw — AS RQRD (PF). On ground, when wing anti-ice is switched on, the anti-ice valves open for about 30 s for self-test sequence, then close as long as the aircraft is on ground.',
+      note: '<em>[Interpretation — not from FCOM]<\/em> On the ground the wing anti-ice valves cycle only for the self-test — they do not provide continuous protection while on ground. The test confirms the valves and ducts are functional before flight. In flight, wing A/I is used in icing conditions when SAT is above −40 °C (below that, ice crystal icing risk is lower). Use of APU bleed is not authorised if wing anti-ice is to be used.'
+    },
+    {
+      name: 'ECAM STATUS', value: 'CHECK',
+      fcom: '<em>[FCOM PRO-NOR-SOP-09]<\/em> ECAM STATUS — CHECK (BOTH). The PM checks and the PF crosschecks that there is no status reminder (STS) on the E/WD. If STS appears on the E/WD, press the STATUS pb to display the STATUS page.',
+      why: '<em>[Interpretation — not from FCOM]<\/em> STATUS items represent system degradations that remain after ECAM actions are complete. Examples: AUTOLAND capability downgraded, anti-skid partially inhibited, flight envelope protection reduced. Each item must be evaluated for its operational impact before departure — some may require a MEL or crew procedure.'
+    },
+    {
+      name: 'NW STRG DISC memo', value: 'CHECK NOT DISPLAYED',
+      fcom: '<em>[FCOM PRO-NOR-SOP-09]<\/em> NW STRG DISC MEMO — CHECK NOT DISPLAYED (PF).',
+      caution: '<em>[Interpretation — not from FCOM]<\/em> The NW STRG DISC memo illuminates on the ECAM EWD when the nose wheel steering pin is inserted (nose wheel disconnected from the steering system, as required during towing). If the memo is displayed, the nose wheel steering is inoperative — do NOT release the parking brake or move the aircraft.'
+    },
+    {
+      name: 'FLAPS position', value: 'CHECK',
+      fcom: '<em>[FCOM PRO-NOR-SOP-09]<\/em> FLAPS — CHECK POSITION (PF). Check the FMS PERF T.O page flaps setting, verify and announce the position of the flaps on the ECAM upper display. Announce: "CONF 1+F", "CONF 2" or "CONF 3".',
+      why: '<em>[Interpretation — not from FCOM]<\/em> This is the PF\'s independent crosscheck of the flap configuration set by the PM. Discrepancies between ECAM EWD, FMS PERF T.O page, and EFB performance must be resolved before taxi. The verbal announcement is a mandatory CRM element to confirm shared awareness.'
+    },
+    {
+      name: 'CLEAR TO DISCONNECT', value: 'ANNOUNCE',
+      fcom: '<em>[FCOM PRO-NOR-SOP-09]<\/em> CLEAR TO DISCONNECT — ANNOUNCE (PF). The ground crew: removes the chocks, disconnects the interphone, and makes the hand signal on the left or right side.',
+      note: '<em>[Interpretation — not from FCOM]<\/em> Wait for the mechanic\'s "all clear" hand signal before releasing the parking brake. The announcement confirms to the ground crew that the aircraft is about to move.'
+    },
+    {
+      name: 'GND EQPT & MECHANIC', value: 'REMOVED (BOTH)',
+      fcom: '<em>[FCOM PRO-NOR-SOP-09]<\/em> GND EQPT & MECHANIC — REMOVED (BOTH). Both crewmembers must verify that all Ground Personnel and Equipment are clear of the aircraft taxi area.',
+    },
+    {
+      name: 'AFTER START C/L', value: 'COMPLETE',
+      fcom: '<em>[FCOM PRO-NOR-SOP-09]<\/em> AFTER START C/L — COMPLETE (BOTH).',
+      why: '<em>[Interpretation — not from FCOM]<\/em> The After Start Checklist is performed READ & DO: the PM reads each item, the PF or PM acts as required. This is the final gate before taxi commences.'
+    }
+  ],
+  pm: [
+    {
+      name: 'GND SPLRS', value: 'ARM',
+      fcom: '<em>[FCOM PRO-NOR-SOP-09]<\/em> GROUND SPOILERS — GND SPLRS — ARM (PM).',
+      caution: '<em>[Interpretation — not from FCOM]<\/em> Ground spoilers require both Weight-on-Wheels (WoW) sensing on the main gear AND thrust levers at IDLE to deploy automatically. If not armed, they will NOT deploy at touchdown — braking effectiveness is significantly reduced, landing distance increases. This is one of the most safety-critical items of the After Start flow.',
+      why: '<em>[Interpretation — not from FCOM]<\/em> The ground spoilers are armed here, well before the approach, to ensure the PM does not forget them under high workload on final. The "SPLRS ARMED" item in the T.O MEMO will confirm this is complete.'
+    },
+    {
+      name: 'RUD TRIM RESET pb', value: 'PRESS',
+      fcom: '<em>[FCOM PRO-NOR-SOP-09]<\/em> RUDDER TRIM — RUD TRIM RESET pb — PRESS (PM). Press the RESET pb on the RUDDER TRIM panel.',
+      note: '<em>[FCOM PRO-NOR-SOP-09]<\/em> After the reset, the flight crew may observe an indication of up to 0.3° (L or R) in the RUD TRIM position indication. This is normal.',
+      why: '<em>[Interpretation — not from FCOM]<\/em> Residual rudder trim from the previous flight (e.g., correcting for a shut-down engine) would generate an unexpected yaw moment at takeoff thrust application. Resetting to neutral eliminates this risk.'
+    },
+    {
+      name: 'RUD TRIM', value: 'CHECK NEUTRAL',
+      fcom: '<em>[FCOM PRO-NOR-SOP-09]<\/em> RUD TRIM — CHECK NEUTRAL (PM). After pressing RESET pb, verify the rudder trim position indicator shows neutral.',
+      note: '<em>[FCOM PRO-NOR-SOP-09]<\/em> After the reset, the flight crew may observe an indication of up to 0.3° (L or R) in the RUD TRIM position indication. This is normal.'
+    },
+    {
+      name: 'FLAPS lever', value: 'SET FOR TAKEOFF',
+      fcom: '<em>[FCOM PRO-NOR-SOP-09]<\/em> FLAPS lever — SET FOR TAKEOFF (PM). Set the flaps as shown on the EFB. Check and announce the position of the flaps on the ECAM upper display. Announce: "CONF 1+F", "CONF 2" or "CONF 3".',
+      note: '<em>[FCOM PRO-NOR-SOP-09]<\/em> If taxiing in icing conditions with rain, slush, or snow: maintain the flaps retracted until the aircraft reaches the holding point of the takeoff runway. This prevents contamination of the slats/flaps mechanism.'
+    },
+    {
+      name: 'FLAPS position', value: 'CHECK',
+      fcom: '<em>[FCOM PRO-NOR-SOP-09]<\/em> FLAPS — CHECK POSITION (PM). Check and announce the position of the flaps on the ECAM upper display. Announce: "CONF 1+F", "CONF 2" or "CONF 3".',
+      why: '<em>[Interpretation — not from FCOM]<\/em> The PM announces the flap configuration aloud, allowing the PF to crosscheck independently on the next step. This two-step cross-verification catches any discrepancy between lever position and actual surface position.'
+    },
+    {
+      name: 'PITCH TRIM handwheel', value: 'SET',
+      fcom: '<em>[FCOM PRO-NOR-SOP-09]<\/em> PITCH TRIM — PITCH TRIM handwheel — SET (PM). Set takeoff CG on pitch trim handwheel. The value is obtained from the EFB performance computation.',
+      why: '<em>[Interpretation — not from FCOM]<\/em> Pitch trim is set to match the aircraft\'s actual CG (from the load sheet). An incorrect trim setting increases the sidestick force required at rotation, and with aft CG can cause an over-rotation. The trim value is always verified against FMS PERF T.O page.'
+    },
+    {
+      name: 'ECAM STATUS', value: 'CHECK',
+      fcom: '<em>[FCOM PRO-NOR-SOP-09]<\/em> ECAM STATUS — CHECK (BOTH). The PM checks and the PF crosschecks that there is no status reminder (STS) on the E/WD. If STS appears on the E/WD, press the STATUS pb to display the STATUS page.',
+    }
+  ]
+},
+{
+  id: 'sop10',
+  num: 'SOP-10',
+  title: 'Taxi',
+  sub: 'Push-back → holding point of active runway',
+  intro: 'The <strong>PM<\/strong> obtains the taxi clearance and manages lights, brakes, radar, and AFS/flight instrument checks. The <strong>PF<\/strong> steers the aircraft and verifies brakes, lights, and flight controls. The FLIGHT CONTROLS check is done "at a convenient stage, before or during taxi."',
+  trigger: '<strong>Flow trigger:<\/strong> After the After Start Checklist is complete and the ground crew gives the hand signal (chocks removed, interphone disconnected). The PM obtains the taxi clearance from ATC. &mdash; <em>Checklist trigger: T.O CONFIG pb pressed and cabin report received.<\/em>',
+  triggerRef: 'FCTM PR-NP-CL · FCOM PRO-NOR-SOP-10',
+  pf: [
+    {
+      name: 'NOSE sw', value: 'TAXI',
+      fcom: '<em>[FCOM PRO-NOR-SOP-10]<\/em> NOSE sw — TAXI (PF). During taxi, the PF may request the PM to set the exterior lights. When crossing or taxiing along an active runway: NOSE sw — T.O., LAND sw — ON, STROBE sw — ON, WING sw — ON. When the aircraft is stopped on ground, these lights must be turned OFF.',
+      why: '<em>[Interpretation — not from FCOM]<\/em> The TAXI position illuminates the nose taxi light (a white forward-facing beam). The PF controls forward lighting because they are steering. When entering or crossing an active runway, all lights switch to the higher-intensity T.O./ON configuration to maximise conspicuity to approaching traffic.'
+    },
+    {
+      name: 'RWY TURN OFF sw', value: 'ON',
+      fcom: '<em>[FCOM PRO-NOR-SOP-10]<\/em> RWY TURN OFF sw — ON (PF). When the aircraft is stopped on ground, these lights must be turned OFF.',
+      why: '<em>[Interpretation — not from FCOM]<\/em> Runway turnoff lights illuminate the sides of the nose, improving visibility at intersections and during night taxi. They must be off when stationary to avoid dazzling ground crew.'
+    },
+    {
+      name: 'PARK BRK handle', value: 'OFF',
+      fcom: '<em>[FCOM PRO-NOR-SOP-10]<\/em> PARK BRK handle — OFF (PF). BRAKES PRESSURE — CHECK AT ZERO (PF). The flight crew may observe slight residual pressure on the triple indicator for a short period of time.',
+    },
+    {
+      name: 'BRAKES PRESSURE', value: 'CHECK ZERO',
+      fcom: '<em>[FCOM PRO-NOR-SOP-10]<\/em> BRAKES PRESSURE — CHECK AT ZERO (PF). The flight crew may observe slight residual pressure on the triple indicator for a short period of time.',
+      note: '<em>[Interpretation — not from FCOM]<\/em> A brief transient residual indication is normal as pressure decays. If the indication does not fall to zero, suspect a brake or hydraulic issue and contact maintenance before proceeding.'
+    },
+    {
+      name: 'BRAKE PEDALS / BRAKES', value: 'PRESS / CHECK',
+      fcom: '<em>[FCOM PRO-NOR-SOP-10]<\/em> BRAKE PEDALS — PRESS (PF). BRAKES — CHECK (PF).',
+      caution: '<em>[FCOM PRO-NOR-SOP-10 — CAUTION]<\/em> If the aircraft was parked in wet conditions for a long time, the first brake application at low speed is less effective.',
+      why: '<em>[Interpretation — not from FCOM]<\/em> The first brake application during taxi verifies brake effectiveness before reaching a speed where loss of braking would be dangerous. Apply progressively, not abruptly, especially after extended wet parking.'
+    },
+    {
+      name: 'FLIGHT CONTROLS', value: 'CHECK (BOTH)',
+      fcom: '<em>[FCOM PRO-NOR-SOP-10]<\/em> FLIGHT CONTROLS — CHECK (BOTH). Check the flight controls at a convenient stage, before or during taxi.',
+      why: '<em>[Interpretation — not from FCOM]<\/em> Full deflection of all surfaces (sidestick full aft/fwd/left/right and full rudder each side) is verified on the ECAM FCTL page. All surfaces must move correctly — ailerons, elevators, spoilers, and rudder. No FAULT lights should be present. This check should be done at low speed, in a clear area, to avoid disturbing directional control.'
+    },
+    {
+      name: 'PFD / ND', value: 'CHECK (PF-PM)',
+      fcom: '<em>[FCOM PRO-NOR-SOP-10]<\/em> PFD/ND — CHECK (PF-PM). Check that the PFD (e.g. airspeeds, initial target altitude, heading, FMA modes) and the ND indications (SID) are in accordance with the departure.',
+      why: '<em>[Interpretation — not from FCOM]<\/em> Verify: V1/VR/V2 speed bugs on the speed tape, cleared altitude on the FCU and PFD, active FMA mode, and the SID routing on the ND. This confirms the entire avionics suite is correctly programmed for the departure before entering the runway environment.'
+    }
+  ],
+  pm: [
+    {
+      name: 'TAXI clearance', value: 'OBTAIN',
+      fcom: '<em>[FCOM PRO-NOR-SOP-10]<\/em> TAXI clearance — OBTAIN (PM). When the ground crew makes the hand signal: obtain taxi clearance.',
+      why: '<em>[Interpretation — not from FCOM]<\/em> The PM is the primary communicator during taxi. The clearance readback must include: callsign, assigned runway, taxi routing, and holding point. At complex airports, cross-reference with the airport moving map if available.'
+    },
+    {
+      name: 'BRK FAN pb-sw', value: 'AS RQRD',
+      fcom: '<em>[FCOM PRO-NOR-SOP-10]<\/em> BRK FAN pb-sw — AS RQRD (PM). If an arc is displayed above the brake temperature on the WHEEL SD page, set to ON the BRK FAN pb-sw.',
+      note: '<em>[FCOM PRO-NOR-SOP-10]<\/em> If the temperature of one brake is at or above 150 °C: delay takeoff. This prevents the BRAKES HOT alert when the BRAKE FAN is set to OFF. If the temperature of all brakes is below 150 °C, the BRAKE FAN may be turned OFF.'
+    },
+    {
+      name: 'AUTO BRK MAX pb-sw', value: 'ON',
+      fcom: '<em>[FCOM PRO-NOR-SOP-10]<\/em> AUTO BRK MAX pb-sw — ON (PM).',
+      why: '<em>[Interpretation — not from FCOM]<\/em> AUTO BRK MAX presets the autobrake system for a Rejected Takeoff (RTO). If a stoppage is required below V1, releasing the thrust levers automatically commands maximum brake pressure without any pilot pedal input. This is critical at high speeds where even small reaction delays significantly increase stopping distance. AUTO BRK MAX is the required setting before every takeoff — it is never left at a landing setting.'
+    },
+    {
+      name: 'ATC clearance', value: 'CONFIRM',
+      fcom: '<em>[FCOM PRO-NOR-SOP-10]<\/em> ATC clearance — CONFIRM (PM).',
+    },
+    {
+      name: 'CLEARED ALTITUDE on FCU', value: 'CHECK',
+      fcom: '<em>[FCOM PRO-NOR-SOP-10]<\/em> CLEARED ALTITUDE ON FCU — CHECK (PM). On the PFD, crosscheck and confirm the cleared altitude.',
+      why: '<em>[Interpretation — not from FCOM]<\/em> An incorrect FCU altitude can lead to an altitude bust immediately after takeoff — a runway incursion-equivalent event in the vertical dimension. The PM crosschecks the FCU value against the ATC clearance readback.'
+    },
+    {
+      name: 'HDG on FCU', value: 'IF RQRD, PRESET',
+      fcom: '<em>[FCOM PRO-NOR-SOP-10]<\/em> HDG ON FCU — IF REQUIRED, PRESET (PM). If a heading is required by the ATC after takeoff, in the case of a radar vector departure, preset the heading on the FCU. NAV mode will be disarmed. RWY TRK mode will keep the aircraft on the runway track.',
+      note: '<em>[Interpretation — not from FCOM]<\/em> Presetting the heading allows an immediate response to ATC vectoring without programming under high post-takeoff workload. When a heading is selected on the FCU, NAV is disarmed — this must be coordinated with the PF, who must be aware the aircraft will not follow the SID.'
+    },
+    {
+      name: 'BOTH FD', value: 'CHECK ON',
+      fcom: '<em>[FCOM PRO-NOR-SOP-10]<\/em> BOTH FD — CHECK ON (PM).',
+      why: '<em>[Interpretation — not from FCOM]<\/em> Both Flight Directors must be ON to command SRS (pitch) and RWY TRK / NAV (lateral) guidance at liftoff. With an FD off on one side, that pilot lacks guidance bars, increasing the risk of an off-target departure attitude.'
+    },
+    {
+      name: 'ATC CODE / MODE', value: 'CONFIRM / SET FOR T/O',
+      fcom: '<em>[FCOM PRO-NOR-SOP-10]<\/em> ATC CODE/MODE — CONFIRM/SET FOR TAKEOFF (PM).',
+      why: '<em>[Interpretation — not from FCOM]<\/em> The transponder must have the correct squawk code and be set to transmit altitude (Mode C/S) when airborne. ATC radar identification depends on this. Verify code matches the clearance readback, and that the mode will change to ALT at liftoff.'
+    },
+    {
+      name: 'RADAR', value: 'ON',
+      fcom: '<em>[FCOM PRO-NOR-SOP-10]<\/em> RADAR — ON (PM). To check the departure path, set the MULTISCAN sw to MAN. The flight crew can then set the radar to the AUTO position. Gain must be manually set to +8 when MULTISCAN sw is set to AUTO and when flying below FL 150. The flight crew monitors the weather radar display in AUTO mode, and confirms any weather display that is ambiguous or unexpected using manual tilt according to standard techniques.',
+      note: '<em>[Interpretation — not from FCOM]<\/em> Consider radar display on the PF side and TERR ON ND on the PM side only — this maximises departure information. Radar is typically kept in STBY during taxi to avoid radiating personnel, but is switched ON before entering the runway environment.'
+    },
+    {
+      name: 'PRED W/S SYSTEM', value: 'AUTO',
+      fcom: '<em>[FCOM PRO-NOR-SOP-10]<\/em> PREDICTIVE WINDSHEAR SYSTEM — AUTO (PM).',
+      why: '<em>[Interpretation — not from FCOM]<\/em> In AUTO, the Predictive Windshear System uses the weather radar to scan up to 3 NM ahead for windshear. If detected during the takeoff roll or approach, it issues "WINDSHEAR AHEAD" and, on penetration, "WINDSHEAR WINDSHEAR WINDSHEAR." The required response is TOGA thrust application.'
+    },
+    {
+      name: 'T.O CONFIG pb', value: 'TEST',
+      fcom: '<em>[FCOM PRO-NOR-SOP-10]<\/em> T.O CONFIG pb — TEST (PM). Press the T.O CONFIG pb on the ECP, and check that the EWD displays the T.O CONFIG message.',
+      note: '<em>[Interpretation — not from FCOM]<\/em> If the T.O CONFIG warning does NOT appear when the pb is pressed, the system is failed — report to maintenance. The T.O CONFIG warning triggers automatically at TOGA if the aircraft is not configured for takeoff (e.g. flaps up, spoilers not armed, parking brake on).'
+    },
+    {
+      name: 'T.O MEMO', value: 'CHECK NO BLUE',
+      fcom: '<em>[FCOM PRO-NOR-SOP-10]<\/em> T.O MEMO — CHECK NO BLUE (PM). Check that the EWD does not display any blue line in the T.O memo section.',
+      why: '<em>[Interpretation — not from FCOM]<\/em> Items in the T.O MEMO appear blue when an action is outstanding and white when complete. A blue item is a direct action reminder. Common items: AUTOBRAKE MAX, SIGNS ON, CABIN READY, SPLRS ARMED, FLAPS SET, etc. All must be white before entering the runway.'
+    },
+    {
+      name: 'CABIN REPORT', value: 'RECEIVE (PF-PM)',
+      fcom: '<em>[FCOM PRO-NOR-SOP-10]<\/em> CABIN REPORT — RECEIVE (PF-PM). Check CABIN READY in the EWD, or obtain the cabin report from the purser via one interphone buzzer sound.',
+    },
+    {
+      name: 'TAXI C/L', value: 'COMPLETE (BOTH)',
+      fcom: '<em>[FCOM PRO-NOR-SOP-10]<\/em> TAXI C/L — COMPLETE (BOTH). Note: The FLAPS SETTING checklist item should be confirmed by both pilots according to the following check technique: the PF compares and announces the flaps setting on the EWD and FMS PERF page (e.g. "CONF 1+F, CONF 1+F"). The PM compares and announces the flaps setting on the EWD and EFB.',
+    }
+  ]
+},
+{
+  id: 'sop11',
+  num: 'SOP-11',
+  title: 'Before Takeoff — Line-Up',
+  sub: 'Entering the active runway',
+  intro: 'The <strong>PM<\/strong> manages the most complete flow of this phase: TCAS, lights, GPS, FMA, packs, and cabin crew. The <strong>PF<\/strong> confirms runway identity, approach path, exterior lights, and FMA modes. Both pilots perform the final runway verification.',
+  trigger: '<strong>Flow trigger:<\/strong> Line-up clearance received from ATC. The Line-Up Flow Pattern begins as the aircraft enters the active runway. &mdash; <em>Checklist trigger: Line-up clearance received AND Line-Up flow pattern completed.<\/em>',
+  triggerRef: 'FCTM PR-NP-CL · FCOM PRO-NOR-SOP-11',
+  pf: [
+    {
+      name: 'TAKEOFF RUNWAY', value: 'CONFIRM (BOTH)',
+      fcom: '<em>[FCOM PRO-NOR-SOP-11]<\/em> TAKEOFF RUNWAY — CONFIRM (BOTH). Confirm that the line-up is performed on the intended runway and from the intended intersection. Useful aids are: the runway markings, the runway lights (be careful that in low visibility, edge lights could be mixed up with centre line lights), the ILS signal (if ILS equipped, press the ILS/LS pb: the LOC deviation should be centred after line-up), the runway symbol on the ND, and the Runway Awareness and Advisory System.',
+      caution: '<em>[Interpretation — not from FCOM]<\/em> Wrong Runway Departures (WRD) are a critical safety risk. Always verify visually regardless of confidence in the ATC clearance — confirm runway designator markings, heading alignment, and ND runway symbol match the expected departure runway and intersection.'
+    },
+    {
+      name: 'APPROACH PATH', value: 'CLEAR OF TRAFFIC',
+      fcom: '<em>[FCOM PRO-NOR-SOP-11]<\/em> APPROACH PATH — CLEAR OF TRAFFIC (PF-PM). Check that the approach path is clear of traffic, visually and using TCAS display on the ND.',
+      note: '<em>[Interpretation — not from FCOM]<\/em> TCAS may not detect low-altitude or non-Mode-C traffic. Visual verification is mandatory. At night or in reduced visibility, extend the look-out time and use all available tools — TCAS, PAPI, approach lights — to scan the final.'
+    },
+    {
+      name: 'STROBE sw', value: 'ON',
+      fcom: '<em>[FCOM PRO-NOR-SOP-11]<\/em> STROBE sw — ON (PF). Set the STROBE sw to ON to cross or enter a runway. The PF can request the PM to set the exterior lights.',
+      note: '<em>[FCOM PRO-NOR-SOP-11]<\/em> The flight crew can switch off the strobe lights if the lights cause any visual trouble during the flight.'
+    },
+    {
+      name: 'WING sw', value: 'ON',
+      fcom: '<em>[FCOM PRO-NOR-SOP-11]<\/em> WING sw — ON (PF).',
+    },
+    {
+      name: 'FMA', value: 'CHECK (BOTH)',
+      fcom: '<em>[FCOM PRO-NOR-SOP-11]<\/em> FMA — CHECK (PF-PM). Verify NAV is armed.',
+      why: '<em>[Interpretation — not from FCOM]<\/em> The expected FMA configuration at line-up: thrust column shows MAN FLEX or MAN TOGA; pitch column shows SRS armed; lateral column shows RWY TRK or NAV (armed or active). Both pilots call out the FMA aloud to confirm shared awareness — e.g. "MAN FLEX, SRS, NAV." Unexpected modes must be resolved before commencing the roll.'
+    },
+    {
+      name: 'SLIDING TABLE / EFB', value: 'STOW (BOTH)',
+      fcom: '<em>[FCOM PRO-NOR-SOP-11]<\/em> SLIDING TABLE — STOW (PF-PM). ALL EFB (with no mounted equipment) — STOW (PF-PM). In flight, both flight crewmembers should not use EFB applications at the same time.',
+      why: '<em>[Interpretation — not from FCOM]<\/em> Loose objects in the cockpit can fall onto controls or sidestick during an emergency manoeuvre (GPWS escape, TCAS RA). All items must be stowed and secured before the takeoff roll begins.'
+    }
+  ],
+  pm: [
+    {
+      name: 'LINE-UP CLEARANCE', value: 'OBTAIN',
+      fcom: '<em>[FCOM PRO-NOR-SOP-11]<\/em> LINE-UP CLEARANCE — OBTAIN (PM).',
+      why: '<em>[Interpretation — not from FCOM]<\/em> Readback must include runway designator and any conditions (immediate takeoff, hold short, position and hold). Do not enter the runway without clearance regardless of traffic picture.'
+    },
+    {
+      name: 'TCAS MODE selector', value: 'TA / TA·RA',
+      fcom: '<em>[FCOM PRO-NOR-SOP-11]<\/em> TCAS MODE — TA or TA/RA (PM). The flight crew should use the TA/RA mode as the default mode of the TCAS. The flight crew may use the TA ONLY mode in specific airports, and for specific procedures identified by any Flight Operations Department document that may provide resolution advisories that are neither wanted nor appropriate (e.g. closely-spaced parallel or converging runways).',
+      note: '<em>[Interpretation — not from FCOM]<\/em> TA ONLY provides traffic advisories without resolution commands. TA/RA provides both. Use TA/RA as the standard for all flight phases. TA ONLY is only selected at specific airports listed in the Flight Operations documentation.'
+    },
+    {
+      name: 'PACK 1+2 pb-sw', value: 'AS RQRD',
+      fcom: '<em>[FCOM PRO-NOR-SOP-11]<\/em> PACK 1 pb-sw and PACK 2 pb-sw — AS RQRD (PM). Consider selecting packs OFF, or APU bleed ON. This will improve performance when using TOGA thrust. In the case of a FLEX takeoff, selecting packs OFF or APU bleed ON will reduce takeoff EGT, and thus reduce maintenance costs. The use of FLEX thrust may reduce maintenance costs. The effect is particularly significant with the first degrees of FLEX. Use of APU bleed is not authorised if wing anti-ice is to be used.',
+    },
+    {
+      name: 'GPS 1+2 CHECK', value: 'BOTH IN NAV',
+      fcom: '<em>[FCOM PRO-NOR-SOP-11]<\/em> GPS 1+2 on GPS MONITOR page — CHECK BOTH IN NAV (PM).',
+      note: '<em>[Interpretation — not from FCOM]<\/em> If GPS PRIMARY is not available on the PROG page, FMS accuracy may not meet the RNP requirement for the SID. Notify ATC and consider reverting to a conventional departure.'
+    },
+    {
+      name: 'GPS PRIMARY on PROG', value: 'CHECK AVAILABLE',
+      fcom: '<em>[FCOM PRO-NOR-SOP-11]<\/em> GPS PRIMARY on PROG page — CHECK AVAILABLE (PM).',
+    },
+    {
+      name: 'CABIN CREW', value: 'ADVISE',
+      fcom: '<em>[FCOM PRO-NOR-SOP-11]<\/em> CABIN CREW — ADVISE (PM). Advise the cabin crew that takeoff is imminent.',
+    },
+    {
+      name: 'LINE-UP C/L', value: 'COMPLETE (BOTH)',
+      fcom: '<em>[FCOM PRO-NOR-SOP-11]<\/em> LINE-UP C/L — COMPLETE (BOTH).',
+      why: '<em>[Interpretation — not from FCOM]<\/em> This is the final checklist before the takeoff roll. Its completion confirms the aircraft, crew, and cabin are fully configured for departure.'
+    }
+  ]
+},
+{
+  id: 'sop12',
+  num: 'SOP-12',
+  title: 'Takeoff',
+  sub: 'Start of roll → gear retraction',
+  intro: 'The <strong>PF<\/strong> controls the aircraft and thrust. The <strong>PM<\/strong> obtains the clearance, monitors parameters, and calls out critical speeds (80 kt, V1, VR, Positive Climb). The PF (Captain) keeps a hand on the thrust levers until V1.',
+  trigger: '<strong>Flow trigger:<\/strong> Takeoff clearance received from ATC. The PF sets initial reference thrust (~1.05 EPR / 50% N1) and the PM confirms "Thrust Set" by 80 kt. The Captain keeps a hand on the thrust levers from FLX/TOGA setting until V1. &mdash; <em>Once the thrust is set, the PF announces the indications on the FMA.<\/em>',
+  triggerRef: 'FCTM PR-NP-SOP-120 · FCOM PRO-NOR-SOP-12',
+  pf: [
+    {
+      name: 'TAKEOFF', value: 'ANNOUNCE',
+      fcom: '<em>[FCOM PRO-NOR-SOP-12]<\/em> TAKEOFF — ANNOUNCE (PF).',
+      why: '<em>[Interpretation — not from FCOM]<\/em> The verbal announcement establishes unambiguous CRM: who is flying and who is monitoring. It also alerts the PM to begin their monitoring duties and triggers the timing of speed callouts.'
+    },
+    {
+      name: 'THRUST — initial ref', value: '~1.05 EPR / 50% N1',
+      fcom: '<em>[FCOM PRO-NOR-SOP-12]<\/em> TAKEOFF THRUST SETTING: The below procedure is the standard takeoff procedure. However, rolling takeoff is permitted. TAKEOFF — ANNOUNCE (PF). THRUST — 1.05 EPR (PF). Then advance to FLX or TOGA detent.',
+      note: '<em>[Interpretation — not from FCOM]<\/em> Setting an intermediate reference thrust (~1.05 EPR / 50% N1) and waiting briefly for both engines to stabilise symmetrically before advancing to FLX/TOGA prevents N1 spikes and thrust asymmetry at the start of the roll. A rolling takeoff (no intermediate step) is permitted if ATC authorises and runway length allows.'
+    },
+    {
+      name: 'SIDESTICK (no tailwind)', value: 'HALF FORWARD',
+      fcom: '<em>[FCOM PRO-NOR-SOP-12]<\/em> If the crosswind is at or below 20 kt and there is no tailwind: SIDESTICK — HALF FORWARD (PF). To counter the nose-up effect of setting engine takeoff thrust, apply half forward sidestick until the airspeed reaches 80 kt. Release the sidestick gradually to reach neutral at 100 kt.',
+    },
+    {
+      name: 'SIDESTICK (tailwind / XWIND >20kt)', value: 'FULL FORWARD',
+      fcom: '<em>[FCOM PRO-NOR-SOP-12]<\/em> In the case of tailwind, or if crosswind is above 20 kt: SIDESTICK — FULL FORWARD (PF). To counter the nose-up effect, apply full forward sidestick until the airspeed reaches 80 kt. Release gradually to reach neutral at 100 kt.',
+    },
+    {
+      name: 'THRUST LEVERS', value: 'FLX or TOGA',
+      fcom: '<em>[FCOM PRO-NOR-SOP-12]<\/em> THRUST LEVERS — FLX or TOGA (PF). Once the thrust levers are set to FLX or TOGA detent, the Captain maintains the hand on the thrust levers until the aircraft reaches V1.',
+      note: '<em>[Interpretation — not from FCOM]<\/em> FLX (flexible temperature) is the standard takeoff mode when runway length and obstacle clearance permit — it reduces EGT and engine wear significantly. TOGA (maximum thrust) is used when maximum performance is required: short runway, obstacles, high density altitude, or degraded conditions.'
+    },
+    {
+      name: 'At VR — ROTATE', value: '~12–15° pitch',
+      fcom: '<em>[FCOM PRO-NOR-SOP-12]<\/em> At VR: rotate the aircraft to achieve the Flight Director guidance (SRS). Apply a smooth, progressive aft sidestick input.',
+      note: '<em>[Interpretation — not from FCOM]<\/em> Target pitch rate is approximately 3°/sec. The SRS mode commands the target pitch to maintain V2 + 10 kt (or higher if the aircraft accelerates). Over-rotating risks tail strike; under-rotating delays liftoff and consumes runway. At airports with close-in obstacles, the SRS climb gradient is essential — follow it precisely.'
+    },
+    {
+      name: 'After liftoff: GEAR UP', value: 'ORDER',
+      fcom: '<em>[FCOM PRO-NOR-SOP-12]<\/em> After liftoff, when positive rate of climb is confirmed: order GEAR UP (PF). The PM confirms "Gear Up" and executes.',
+      note: '<em>[Interpretation — not from FCOM]<\/em> Gear retraction is only ordered with positive altitude indication (altimeter and VSI both showing climb). At airports with terrain or obstacles on the initial climbout, the EOSID may specify holding gear down to a certain altitude — always check the specific departure procedure.'
+    }
+  ],
+  pm: [
+    {
+      name: 'TAKEOFF CLEARANCE', value: 'OBTAIN',
+      fcom: '<em>[FCOM PRO-NOR-SOP-12]<\/em> TAKEOFF CLEARANCE — OBTAIN (PM).',
+    },
+    {
+      name: 'ENG params', value: 'MONITOR',
+      fcom: '<em>[FCOM PRO-NOR-SOP-12]<\/em> Engine parameters are monitored by PM during the takeoff roll.',
+      why: '<em>[Interpretation — not from FCOM]<\/em> The PM cross-monitors N1, EGT, and symmetry as the PF advances thrust. Any significant anomaly before V1 (abnormal EGT rise, failure indication, significant asymmetry) must be called out immediately so the PF can decide on a Rejected Takeoff.'
+    },
+    {
+      name: 'At 80 kt', value: '"EIGHTY KNOTS"',
+      fcom: '<em>[FCOM PRO-NOR-SOP-12]<\/em> At 80 kt: PM calls out "EIGHTY KNOTS" — PF responds "CHECKED".',
+      note: '<em>[Interpretation — not from FCOM]<\/em> 80 kt is widely considered the last point for a non-critical RTO (handling difficulties, non-secured cabin, etc.). Above this speed, stopping distances increase dramatically. Above V1, the takeoff is always continued except for catastrophic events.'
+    },
+    {
+      name: 'At V1', value: '"V ONE"',
+      fcom: '<em>[FCOM PRO-NOR-SOP-12]<\/em> At V1: PM calls out "V ONE". The Captain removes the hand from the thrust levers at V1.',
+      caution: '<em>[Interpretation — not from FCOM]<\/em> V1 is the decision speed — the latest point at which the pilot may initiate a stop and still remain within the Accelerate-Stop Distance Available (ASDA). Above V1, the takeoff is ALWAYS continued. A rejected takeoff above V1 will, in almost all cases, result in a runway excursion.'
+    },
+    {
+      name: 'At VR', value: '"ROTATE"',
+      fcom: '<em>[FCOM PRO-NOR-SOP-12]<\/em> At VR: PM calls out "ROTATE". PF initiates the rotation at the appropriate rate to achieve the SRS guidance.',
+    },
+    {
+      name: 'Positive climb', value: '"POSITIVE CLIMB"',
+      fcom: '<em>[FCOM PRO-NOR-SOP-12]<\/em> PM announces "POSITIVE CLIMB" when both the altimeter and VSI indicate a positive rate of climb. PF then orders "GEAR UP".',
+      note: '<em>[Interpretation — not from FCOM]<\/em> At sea-level airports, the first positive VSI indication can occur while still on the runway. Wait for the altimeter to confirm positive altitude gain before calling POSITIVE CLIMB.'
+    },
+    {
+      name: 'GEAR UP (execution)', value: 'UP — VERIFY',
+      fcom: '<em>[FCOM PRO-NOR-SOP-12]<\/em> Upon PF order "GEAR UP": PM announces "GEAR UP", selects gear lever UP, and confirms the gear indication transitions from DOWN to IN TRANSIT to UP.',
+    }
+  ]
+},
+{
+  id: 'sop13',
+  num: 'SOP-13',
+  title: 'After Takeoff',
+  sub: 'Gear up · Flap retraction · Climb established',
+  intro: 'After liftoff the <strong>PM<\/strong> manages aircraft configuration: APU, anti-ice, TCAS, MCDU. The <strong>PF<\/strong> flies the aircraft and monitors the climb profile on the MCDU PERF CLB page.',
+  trigger: '<strong>Flow trigger:<\/strong> Gear Up ordered by PF and confirmed UP on ECAM. The After Takeoff Flow begins and the PM manages aircraft configuration while the PF flies the departure profile. This phase ends when the aircraft is established in climb with all departure actions complete.',
+  triggerRef: 'FCOM PRO-NOR-SOP-13',
+  pf: [
+    {
+      name: 'PF MCDU', value: 'PERF CLB',
+      fcom: '<em>[FCOM PRO-NOR-SOP-14]<\/em> PF MCDU — PERF CLB (PF). PF MCDU should be showing the PERF CLB page (allowing PF to monitor when the aircraft will reach the FCU selected altitude) but the flight crew may select other pages such as F-PLN page as may be tactically necessary. The PROG page displays OPT FL and REC MAX FL. It is worth noting that this OPT FL is a function of the CI. The displayed REC MAX FL gives the aircraft at least a 0.3 g buffet margin. The flight crew may enter a cruise flight level above this level into the MCDU and the FMGS will accept it, provided that it does not exceed the level at which the margin is reduced to 0.2 g.',
+    }
+  ],
+  pm: [
+    {
+      name: 'APU BLEED pb-sw', value: 'OFF',
+      fcom: '<em>[FCOM PRO-NOR-SOP-13]<\/em> APU BLEED pb-sw — OFF (PM). If the APU was used to supply the air conditioning during takeoff, turn off the APU bleed after takeoff.',
+    },
+    {
+      name: 'APU MASTER SW', value: 'OFF',
+      fcom: '<em>[FCOM PRO-NOR-SOP-13]<\/em> APU MASTER SW pb-sw — OFF (PM). If the APU was used during takeoff, turn it off after takeoff unless it is required for other reasons.',
+    },
+    {
+      name: 'ENG MODE selector', value: 'AS RQRD',
+      fcom: '<em>[FCOM PRO-NOR-SOP-13]<\/em> ENG MODE selector — AS RQRD (PM). Select IGN/START if severe turbulence or heavy rain is encountered.',
+      note: '<em>[FCOM PRO-NOR-SOP-13]<\/em> Engine anti-ice must be set to ON when icing conditions exist or are anticipated, except during climb and cruise when the SAT is below -40 °C (-40 °F). With ENG ANTI ICE ON, the FADEC automatically selects continuous ignition. The IGNITION memo appears on ECAM. Therefore if both ENG ANTI ICE pbs are ON, the ENG MODE selector may remain in NORM.'
+    },
+    {
+      name: 'TCAS MODE', value: 'TA/RA',
+      fcom: '<em>[FCOM PRO-NOR-SOP-13]<\/em> TCAS MODE — TA/RA (PM). If the takeoff was performed with TA only, change to TA/RA after takeoff.',
+    },
+    {
+      name: 'ENG ANTI ICE pb-sw', value: 'AS RQRD',
+      fcom: '<em>[FCOM PRO-NOR-SOP-13]<\/em> Engine anti-ice must be set to ON when icing conditions exist or are anticipated, except during climb and cruise when the SAT is below -40 °C (-40 °F). When icing conditions are encountered, the flight crew may turn on the wing anti-ice to prevent ice accretion on the wing leading edge. The flight crew must turn on the wing anti-ice if there is evidence of ice accretion, such as ice on the visual indicator, or on the wipers, or with the SEVERE ICE DETECTED alert.',
+    },
+    {
+      name: 'WING ANTI ICE pb-sw', value: 'AS RQRD',
+      fcom: '<em>[FCOM PRO-NOR-SOP-13]<\/em> WING ANTI-ICE pb-sw — AS RQRD (PM). When icing conditions are encountered: the flight crew may turn on the wing anti-ice to prevent ice accretion on the wing leading edge. The flight crew must turn on the wing anti-ice if there is evidence of ice accretion, such as ice on the visual indicator, or on the wipers, or with the SEVERE ICE DETECTED alert. This is to remove any ice accumulation from the wing leading edge.',
+    },
+    {
+      name: 'PM MCDU', value: 'F-PLN',
+      fcom: '<em>[FCOM PRO-NOR-SOP-14]<\/em> PM MCDU — F-PLN (PM). PM MCDU should be showing the F-PLN page (allowing the flight crew to enter any ATC long-term revisions to the lateral or vertical flight plan).',
+    }
+  ]
+},
+{
+  id: 'sop14',
+  num: 'SOP-14',
+  title: 'Climb',
+  sub: 'From acceleration altitude to cruise level',
+  intro: 'Relatively low procedural workload phase. The <strong>PF<\/strong> flies and monitors the climb profile; the <strong>PM<\/strong> manages systems, communications, and FMS updates.',
+  trigger: '<strong>Flow trigger:<\/strong> Acceleration altitude reached, flaps retracted, normal climb speed active (CLB or OP CLB with managed speed). The climb phase continues until the cruise level is reached and level-off is confirmed on the FMA.',
+  triggerRef: 'FCOM PRO-NOR-SOP-14',
+  pf: [
+    {
+      name: 'PF MCDU', value: 'PERF CLB',
+      fcom: '<em>[FCOM PRO-NOR-SOP-14]<\/em> PF MCDU — PERF CLB (PF). Normal vertical mode is CLB or OP CLB with managed speed active. PF MCDU should be showing the PERF CLB page allowing the PF to monitor when the aircraft will reach the FCU selected altitude. The PROG page displays OPT FL and REC MAX FL.',
+    },
+    {
+      name: 'RADAR TILT', value: 'ADJUST AS RQRD',
+      fcom: '<em>[FCOM PRO-NOR-SOP-14]<\/em> RADAR — ADJUST AS APPROPRIATE (PF).',
+      why: '<em>[Interpretation — not from FCOM]<\/em> As altitude increases, the radar beam must be tilted increasingly downward (negative tilt) to scan at and below the aircraft\'s altitude. Failure to adjust tilt means the beam overshoots weather cells below the flight level. A common technique: tilt down until ground clutter appears at the screen edge, then tilt back up 1–2 degrees.'
+    },
+    {
+      name: 'NAVIGATION ACCURACY', value: 'MONITOR (PF-PM)',
+      fcom: '<em>[FCOM PRO-NOR-SOP-14]<\/em> NAVIGATION ACCURACY — MONITOR (PF-PM).',
+      why: '<em>[Interpretation — not from FCOM]<\/em> Monitor the PROG page for HIGH/LOW accuracy. If accuracy degrades to LOW on a RNP route, the FMS cannot guarantee the required track-keeping. This may require notifying ATC and reverting to conventional navigation. Common causes: GPS PRIMARY loss, IRS drift, DME outage.'
+    }
+  ],
+  pm: [
+    {
+      name: 'PM MCDU', value: 'F-PLN',
+      fcom: '<em>[FCOM PRO-NOR-SOP-14]<\/em> PM MCDU — F-PLN (PM). PM MCDU should be showing the F-PLN page allowing the flight crew to enter any ATC long-term revisions to the lateral or vertical flight plan.',
+    },
+    {
+      name: 'EXPEDITE CLIMB', value: 'IF RQRD',
+      fcom: '<em>[FCOM PRO-NOR-SOP-14]<\/em> EXPEDITE CLIMB: If ATC requires a rapid climb through a particular level, push the EXPED pb on the FCU. The target speed is now Green Dot speed. Check FMA: THR CLB/EXP CLB/NAV.',
+      note: '<em>[FCOM PRO-NOR-SOP-14]<\/em> The best speed (and rate of climb) for long-term situations lies between Green Dot speed and ECON speed. At high altitude, acceleration from Green Dot to ECON speed can take a long time.'
+    }
+  ]
+},
+{
+  id: 'sop15',
+  num: 'SOP-15',
+  title: 'Cruise',
+  sub: 'At cruise level',
+  intro: 'A management and monitoring phase. Both pilots perform periodic system, fuel, and position checks. The <strong>PM<\/strong> obtains destination weather and prepares arrival charts. The cruise briefing is completed well before TOD.',
+  trigger: '<strong>Flow trigger:<\/strong> Aircraft established at cruise flight level with CLB phase complete. Periodic tasks include: fuel checks at every waypoint overflight or at least every 30 min (compare FOB vs. FMGC prediction and check for fuel leak). The cruise briefing should be completed well before TOD.',
+  triggerRef: 'FCTM PR-NP-SOP-150 · FCOM PRO-NOR-SOP-15',
+  pf: [
+    {
+      name: 'RADAR TILT', value: 'ADJUST AS RQRD',
+      fcom: '<em>[FCOM PRO-NOR-SOP-15]<\/em> RADAR — ADJUST AS APPROPRIATE (PF).',
+      why: '<em>[Interpretation — not from FCOM]<\/em> In cruise, negative tilt is used to scan for weather at and below the flight level. Route deviations around CBs must be planned with sufficient lead time — the radar typically needs 5–10 min to confirm a cell\'s full extent at cruise speeds.'
+    },
+    {
+      name: 'OXYGEN MASK', value: 'CHECK (BOTH)',
+      fcom: '<em>[FCOM PRO-NOR-SOP-15]<\/em> OXYGEN MASK — CHECK (PF-PM). Regular check of oxygen mask pressure, harness security, and microphone function.',
+      why: '<em>[Interpretation — not from FCOM]<\/em> In a rapid decompression at FL350+, useful consciousness is 15–30 seconds. The mask must be accessible and functional at all times. The periodic check ensures hose connections are secure, pressure is within limits, and the quick-donning mechanism works.'
+    }
+  ],
+  pm: [
+    {
+      name: 'WEATHER & LDG INFO', value: 'OBTAIN',
+      fcom: '<em>[FCOM PRO-NOR-SOP-15]<\/em> WEATHER AND LANDING INFORMATION — OBTAIN (PM).',
+      why: '<em>[Interpretation — not from FCOM]<\/em> Obtain ATIS/METAR/TAF for destination and alternates. Confirm conditions are compatible with the planned approach type, minima, and landing performance. Significant changes (below minima, runway change, contamination) must be actioned immediately — including landing performance recomputation.'
+    },
+    {
+      name: 'NAVIGATION CHARTS', value: 'PREPARE (BOTH)',
+      fcom: '<em>[FCOM PRO-NOR-SOP-15]<\/em> NAVIGATION CHARTS — PREPARE (BOTH).',
+    },
+    {
+      name: 'CRUISE BRIEFING', value: 'PERFORM (BOTH)',
+      fcom: '<em>[FCOM FCTM AOP-20]<\/em> ARRIVAL BRIEFING structure: (1) Set environment with no distraction. (2a) PM briefs: STAR/Transition designator, MORA/MOCA/MSA for planned trajectory, runway and type of approach, approach minimum, go-around trajectory, extra fuel and time. (2b) PF briefs: guidance for approach, landing flaps setting, stop margin, use of reverse thrust, use of autobrake, planned runway exit, hotspots for taxi-in, special/non-standard operation. (3a) Identified THREATS by PM. (3b) Identified THREATS by PF. (4) MITIGATIONS. (5) MISCELLANEOUS (special operations, supplementary procedures, etc.).',
+      note: '<em>[FCOM FCTM AOP-20]<\/em> Allocating the right time before top of descent mitigates potential disturbances. If interrupted, the briefing should resume at the beginning of the step where the interruption occurred.'
+    }
+  ]
+},
+{
+  id: 'sop16',
+  num: 'SOP-16',
+  title: 'Descent Preparation',
+  sub: 'Before TOD — FMS programming and performance',
+  intro: 'The <strong>PF<\/strong> programs the FMS for the arrival. The <strong>PM<\/strong> crosschecks all programming. Preparation must be complete before TOD. The arrival briefing is done here if not already conducted in cruise.',
+  trigger: '<strong>Flow trigger:<\/strong> Descent Preparation must be completed before the Top of Descent (TOD). The PM checks ECAM STATUS first, then landing conditions are confirmed. If conditions changed vs dispatch, a new landing distance computation is required. FMS preparation (STAR, approach, Vapp, fuel prediction) must be crosschecked by both pilots before TOD.',
+  triggerRef: 'FCTM PR-NP-SOP-160 · FCOM PRO-NOR-SOP-16',
+  pf: [
+    {
+      name: 'ARRIVAL page', value: 'COMPLETE / CHECK',
+      fcom: '<em>[FCOM PRO-NOR-SOP-16]<\/em> ARRIVAL page — COMPLETE/CHECK (PF). Select and confirm the STAR, transition, and approach. Verify route continuity in the F-PLN.',
+      why: '<em>[Interpretation — not from FCOM]<\/em> The PF is responsible for the primary FMS programming. Discontinuities in the F-PLN must be resolved — an unclosed F-PLN will cause the FMS to sequence in PPOS (present position) and the aircraft will not follow the programmed track.'
+    },
+    {
+      name: 'PERF APPR page', value: 'COMPLETE / CHECK',
+      fcom: '<em>[FCOM PRO-NOR-SOP-16]<\/em> PERF APPR page — COMPLETE/CHECK (PF).',
+      note: '<em>[Interpretation — not from FCOM]<\/em> Enter destination QNH, temperature, Vapp, Vls, and landing flap configuration. The FMGC computes: Vapp = Vls + 5 kt + 1/3 of headwind component (maximum addend +15 kt). For gusty winds, the headwind-based addend protects against speed excursions on final. Always cross-reference with the EFB performance.'
+    },
+    {
+      name: 'PERF GO AROUND page', value: 'CHECK / MODIFY',
+      fcom: '<em>[FCOM PRO-NOR-SOP-16]<\/em> PERF GO AROUND page — CHECK/MODIFY (PF). Verify the go-around trajectory and altitude. Modify if an engine-out SID (EOSID) applies.',
+    },
+    {
+      name: 'FUEL PRED page', value: 'CHECK',
+      fcom: '<em>[FCOM PRO-NOR-SOP-16]<\/em> FUEL PRED page — CHECK (PF).',
+      caution: '<em>[Interpretation — not from FCOM]<\/em> Compare FUEL AT DEST with the minimum required fuel (alternate fuel + final reserve). If the predicted fuel at destination is below this minimum, declare MINIMUM FUEL to ATC. If total fuel remaining falls below the final reserve (~30 min at holding speed), it becomes a MAYDAY FUEL emergency.'
+    },
+    {
+      name: 'GPWS LDG FLAP 3 pb-sw', value: 'AS RQRD',
+      fcom: '<em>[FCOM PRO-NOR-SOP-16]<\/em> GPWS LDG FLAP 3 pb-sw — AS RQRD (PF). Activate if landing with CONF 3 instead of CONF FULL is planned. This suppresses the "TOO LOW FLAPS" GPWS warning for a CONF 3 landing.',
+    }
+  ],
+  pm: [
+    {
+      name: 'ECAM STATUS', value: 'CHECK',
+      fcom: '<em>[FCOM PRO-NOR-SOP-16]<\/em> ECAM STATUS — CHECK (PM). Check that there is no status reminder on the upper ECAM display. If there is a status reminder, check the aircraft STATUS. Check the STATUS page before completing the landing distance and the arrival briefing. Take particular note of any degradation in landing capability, or any other aspect affecting the approach and landing.',
+    },
+    {
+      name: 'LANDING CONDITIONS', value: 'CONFIRM (PF-PM)',
+      fcom: '<em>[FCOM PRO-NOR-SOP-16]<\/em> LANDING CONDITIONS — CONFIRM (PF-PM). Check if the landing conditions changed compared with the landing distance computation at dispatch, or with a previous computation (e.g. runway, weather conditions, in-flight failure affecting performance, diversion). Check that the EFB takes into account the MEL and CDL items.',
+    },
+    {
+      name: 'LANDING PERF DATA', value: 'COMPUTE / CROSSCHECK',
+      fcom: '<em>[FCOM PRO-NOR-SOP-16]<\/em> LANDING PERF DATA — COMPUTE (PF-PM). LANDING PERF DATA — CROSSCHECK (BOTH). The PF and the PM independently compute the landing distance performance data, based on the preferential setting for landing. Both flight crewmembers compare their EFB to ensure that the computations are the same.',
+      note: '<em>[FCOM PRO-NOR-SOP-16 — Preferential Setting for Landing]<\/em> Landing configuration must be selected from setting A down toward E until a 15% margin is reached. Setting A: RWYCC 6/5, REV IDLE, CONF 3, Autobrake LO. Setting B: RWYCC 6/5, REV IDLE, CONF FULL, Autobrake LO. Setting C: RWYCC 6/5, REV IDLE, CONF FULL, Autobrake MED. Setting D: RWYCC 6/5/4/3, REV MAX, CONF FULL, Autobrake MED. Setting E: RWYCC 6/5, REV MAX, CONF FULL, Manual braking.'
+    },
+    {
+      name: 'FMS PREPARATION', value: 'CROSSCHECK',
+      fcom: '<em>[FCOM PRO-NOR-SOP-16]<\/em> FMS PREPARATION — CROSSCHECK (PM).',
+      why: '<em>[Interpretation — not from FCOM]<\/em> The PM crosschecks all PF MCDU programming: STAR, approach type, ILS frequency and course, minima, go-around procedure, and Vapp. FMS programming errors are a significant contributor to approach incidents — independent crosschecking by the PM is the primary defence.'
+    }
+  ]
+},
+{
+  id: 'sop17',
+  num: 'SOP-17',
+  title: 'Descent',
+  sub: 'From TOD to approach intercept',
+  intro: 'The <strong>PF<\/strong> manages the descent profile and display configuration. The <strong>PM<\/strong> handles barometric reference, lighting, anti-ice, communications, and cabin crew. The Approach Checklist is completed during or at the end of descent.',
+  trigger: '<strong>Flow trigger:<\/strong> Top of Descent reached &mdash; the white TOD symbol on the ND track. At TOD, select DES mode (or OP DES if required) and begin the descent. The Approach Checklist trigger is: below 10,000 ft AAL AND barometric reference (QNH) set.',
+  triggerRef: 'FCTM PR-NP-CL · FCTM PR-NP-SOP-170 · FCOM PRO-NOR-SOP-17',
+  pf: [
+    {
+      name: 'RATE of DESCENT', value: 'ADJUST AS RQRD',
+      fcom: '<em>[FCOM PRO-NOR-SOP-17]<\/em> RATE OF DESCENT — ADJUST AS RQRD (PF).',
+      why: '<em>[Interpretation — not from FCOM]<\/em> Monitor the "banana" (DES profile deviation indicator) on the ND. If above the profile, consider OP DES to increase descent rate — never use "dive and drive" below the idle descent path as it sacrifices fuel efficiency and creates a potentially unstable profile. Speed brakes may be used within limitations if required.'
+    },
+    {
+      name: 'TERR ON ND', value: 'AS RQRD (PF-PM)',
+      fcom: '<em>[FCOM PRO-NOR-SOP-17]<\/em> TERR ON ND — AS RQRD (PF-PM).',
+      why: '<em>[Interpretation — not from FCOM]<\/em> Activate TERR ON ND in mountainous terrain or areas with high MORA. CFIT (Controlled Flight Into Terrain) is one of the leading causes of fatal accidents. Both pilots should have terrain situational awareness during descent and approach.'
+    },
+    {
+      name: 'BAROMETRIC REFERENCE', value: 'SET / CROSSCHECK (BOTH)',
+      fcom: '<em>[FCOM PRO-NOR-SOP-17]<\/em> BAROMETRIC REFERENCE — SET/CROSSCHECK (BOTH).',
+      caution: '<em>[Interpretation — not from FCOM]<\/em> The QNH setting transition (QNE → QNH at the transition altitude/level) is one of the highest-risk moments in the descent. Both pilots set simultaneously and cross-check verbally: "QNH [value], set and crosschecked." An incorrect QNH can cause vertical separation violations. Always readback QNH from the ATIS and verify against the FMS.'
+    },
+    {
+      name: 'EFIS CSTR', value: 'ON (PF-PM)',
+      fcom: '<em>[FCOM PRO-NOR-SOP-17]<\/em> EFIS option pb — CSTR (PF-PM).',
+      why: '<em>[Interpretation — not from FCOM]<\/em> CSTR displays altitude constraints from the STAR/approach on the ND. If a constraint symbol is missing, it may indicate an unprogrammed waypoint restriction. Monitoring CSTR adherence is a key technique to detect FMS compliance failures (e.g., constraint missed due to discontinuity or speed reduction delay).'
+    },
+    {
+      name: 'LS pb', value: 'AS RQRD',
+      fcom: '<em>[FCOM PRO-NOR-SOP-17]<\/em> LS pb — AS RQRD (PF-PM). Select LS to display ILS/LOC deviation on the PFD.',
+      why: '<em>[Interpretation — not from FCOM]<\/em> The LS pb enables the LOC and GS deviation scales on the PFD. It should be selected before the ILS intercept point so the crew can detect localiser capture and monitor glideslope approach from the top. Verify the ILS identifier on the PFD matches the approach chart.'
+    },
+    {
+      name: 'APPROACH C/L', value: 'COMPLETE (BOTH)',
+      fcom: '<em>[FCOM PRO-NOR-SOP-17]<\/em> APPROACH C/L — COMPLETE (BOTH).',
+    }
+  ],
+  pm: [
+    {
+      name: 'ENG MODE selector', value: 'AS RQRD',
+      fcom: '<em>[FCOM PRO-NOR-SOP-17]<\/em> ENG MODE selector — AS RQRD (PM).',
+      why: '<em>[Interpretation — not from FCOM]<\/em> IGN/START is selected for approaches in severe turbulence, heavy rain, or when close to compressor stall limits. Continuous ignition prevents a flameout from propagating into an in-flight relight attempt at low altitude during a critical flight phase.'
+    },
+    {
+      name: 'WING sw / LAND sw', value: 'ON',
+      fcom: '<em>[FCOM PRO-NOR-SOP-17]<\/em> WING sw — ON (PM). LAND sw — AS RQRD (PM).',
+    },
+    {
+      name: 'SEAT BELTS sw', value: 'ON',
+      fcom: '<em>[FCOM PRO-NOR-SOP-17]<\/em> SEAT BELTS sw — ON (PM).',
+    },
+    {
+      name: 'CABIN CREW', value: 'ADVISE',
+      fcom: '<em>[FCOM PRO-NOR-SOP-17]<\/em> CABIN CREW — ADVISE (PM).',
+    },
+    {
+      name: 'NAVIGATION ACCURACY', value: 'MONITOR',
+      fcom: '<em>[FCOM PRO-NOR-SOP-17]<\/em> NAVIGATION ACCURACY — MONITOR (PM).',
+      why: '<em>[Interpretation — not from FCOM]<\/em> Verify navigation accuracy meets the requirement for the planned approach (HIGH for RNP). If accuracy degrades to LOW, notify ATC. For an RNP approach, LOW accuracy mandates going around and reverting to a conventional approach or diverting.'
+    }
+  ]
+},
+{
+  id: 'sop19',
+  num: 'SOP-19',
+  title: 'Landing',
+  sub: 'Manual landing · Flare → runway vacated',
+  intro: 'The <strong>PF<\/strong> performs the flare and manages the rollout and deceleration. The <strong>PM<\/strong> monitors attitude, speed, radio altimeter callouts, ground spoiler deployment, and reverser symmetry.',
+  trigger: '<strong>Flow trigger:<\/strong> For manual landing: AP is disconnected, aircraft is on final at Vapp stabilised. Flare is initiated at approximately 30 ft RA. &mdash; <em>Prior to flare, avoid destabilisation of the approach. If a normal touchdown point cannot be achieved, or if destabilisation occurs just prior to flare, perform a go-around.<\/em> The PM monitors rate of descent and calls "SINK RATE" if vertical speed is excessive prior to flare.',
+  triggerRef: 'FCTM PR-NP-SOP-250 · FCOM PRO-NOR-SOP-19',
+  pf: [
+    {
+      name: 'AP (manual ldg)', value: 'OFF',
+      fcom: '<em>[FCOM PRO-NOR-SOP-19]<\/em> AP — OFF (PF). For manual landing, disconnect the autopilot.',
+      why: '<em>[Interpretation — not from FCOM]<\/em> Manual landings require the AP to be disconnected below the applicable height. The FD may remain ON to provide pitch/roll guidance through the flare. Some operators disconnect both AP and FD at 100 ft for a fully manual flare.'
+    },
+    {
+      name: 'At ~30 ft RA: FLARE', value: 'PERFORM',
+      fcom: '<em>[FCOM PRO-NOR-SOP-19]<\/em> AROUND 30 ft RA: In stabilised approach, the flare height is approximately 30 ft. Move both thrust levers to the IDLE detent, and begin a gentle progressive flare to enable the aircraft to touch down without a prolonged float. If the autothrust is engaged, it automatically disconnects when both thrust levers are set to the IDLE detent. At 20 ft, an automatic "RETARD" callout will trigger, as a reminder.',
+      note: '<em>[FCOM PRO-NOR-SOP-19]<\/em> Ground spoilers extension is inhibited if one or more thrust levers remain above the IDLE detent.'
+    },
+    {
+      name: 'THRUST LEVERS (at 30 ft)', value: 'IDLE',
+      fcom: '<em>[FCOM PRO-NOR-SOP-19]<\/em> BOTH THRUST LEVERS — IDLE (PF). Move both thrust levers to the IDLE detent. At 20 ft RA, an automatic "RETARD" callout triggers as a reminder. If the autothrust is engaged, it automatically disconnects when both thrust levers are set to the IDLE detent.',
+      caution: '<em>[FCOM PRO-NOR-SOP-19]<\/em> Ground spoilers extension is inhibited if one or more thrust levers remain above the IDLE detent. If thrust levers are NOT at IDLE at touchdown, ground spoilers will NOT deploy — landing distance increases significantly.'
+    },
+    {
+      name: 'At touchdown: DEROTATION', value: 'INITIATE',
+      fcom: '<em>[FCOM PRO-NOR-SOP-19]<\/em> As soon as the main landing gear touches down: DEROTATION — INITIATE (PF). A small pitch-up may occur during thrust reverser deployment before nose landing gear touchdown. However, the flight crew can easily control this pitch-up.',
+      why: '<em>[Interpretation — not from FCOM]<\/em> Progressive forward sidestick input after MLG touchdown lowers the nose wheel gently. Rapid nose-drop sacrifices NWS (nose wheel steering) effectiveness and can bounce the nose gear. The FCOM notes that sidestick inputs (lateral or longitudinal) should be avoided during rollout.'
+    },
+    {
+      name: 'THRUST LEVERS (at T/D)', value: 'REV MAX or REV IDLE',
+      fcom: '<em>[FCOM PRO-NOR-SOP-19]<\/em> BOTH THRUST LEVERS — REV MAX or REV IDLE (PF). The flight crew must select reverse thrust immediately after main landing gear touchdown. As soon as the flight crew selects reverse thrust, they must perform a full-stop landing. The flight crew must immediately select REV MAX if any of the following occurs at any time during the landing: an emergency, the deceleration is not as expected, a failure affects the landing performance, a long flare or a long touchdown, an unexpected tailwind.',
+    },
+    {
+      name: 'DIRECTIONAL CONTROL', value: 'ENSURE',
+      fcom: '<em>[FCOM PRO-NOR-SOP-19]<\/em> DIRECTIONAL CONTROL — ENSURE (PF). Ensure directional control. Use the rudder pedals for directional control. During rollout, avoid sidestick inputs (either lateral or longitudinal). If the flight crew encounters directional control problems, they should reduce the thrust to REV IDLE until directional control is acceptable.',
+      note: '<em>[FCOM PRO-NOR-SOP-19]<\/em> Do not use the nosewheel steering control handle before reaching taxi speed.'
+    },
+    {
+      name: 'At 70 kt: REVERSE IDLE', value: 'RETARD REV',
+      fcom: '<em>[FCOM PRO-NOR-SOP-19]<\/em> At 70 kt: SEVENTY KNOTS — ANNOUNCE (PM). BOTH THRUST LEVERS — REV IDLE (PF). It is recommended to reduce thrust when passing 70 kt. However, high levels of reverse thrust may be used in order to control aircraft speed in the case of an emergency.',
+      caution: '<em>[FCOM PRO-NOR-SOP-19 — CAUTION]<\/em> Avoid the use of high levels of reverse thrust at low airspeed, unless required due to an emergency. The distortion of the airflow, caused by gases re-entering the compressor, can cause engine stalls that may result in excessive EGT.'
+    },
+    {
+      name: 'At taxi speed: REV STOW', value: 'STOW',
+      fcom: '<em>[FCOM PRO-NOR-SOP-19]<\/em> When the aircraft reaches taxi speed, and before it leaves the runway, stow the reversers. On snow-covered grounds, the reversers should be stowed when the aircraft speed reaches 25 kt. When deselecting the reversers, be careful not to apply forward thrust by moving the thrust levers beyond the FWD IDLE position.',
+      caution: '<em>[FCOM PRO-NOR-SOP-19 — CAUTION]<\/em> Except in an emergency, do not use the reverse thrust to control the aircraft speed while on taxiways. On taxiways, the use of reversers, even restricted to idle thrust, would cause engines to ingest fine sand and debris that may be detrimental to engines and airframe systems.'
+    }
+  ],
+  pm: [
+    {
+      name: 'ATTITUDE', value: 'MONITOR',
+      fcom: '<em>[FCOM PRO-NOR-SOP-19]<\/em> ATTITUDE — MONITOR (PM).',
+      caution: '<em>[Interpretation — not from FCOM]<\/em> Tail strike pitch limits on the A320: approximately 11.1° with full aft sidestick deflection. Monitor pitch attitude on the PFD during flare. If pitch approaches limits, call out "PITCH — PITCH." Risk is higher with aft CG, heavy weight, or over-rotation.'
+    },
+    {
+      name: 'GND SPLRS', value: 'CHECK/ANNOUNCE',
+      fcom: '<em>[FCOM PRO-NOR-SOP-19]<\/em> GND SPLRS — CHECK/ANNOUNCE (PM). Check that the WHEEL SD page displays the ground spoilers extended after touchdown. If no ground spoilers are extended: check that both thrust levers are set to IDLE detent, set both thrust reverser levers to MAX REV, and fully press the brake pedals.',
+      note: '<em>[FCOM PRO-NOR-SOP-19]<\/em> If ground spoilers are not armed, ground spoilers extend at reverse thrust selection.'
+    },
+    {
+      name: 'REVERSERS', value: 'CHECK/ANNOUNCE',
+      fcom: '<em>[FCOM PRO-NOR-SOP-19]<\/em> REVERSERS — CHECK/ANNOUNCE (PM). Check that the E/WD displays the expected reverser deployment (i.e. REV). If reverser(s) do not deploy as expected, one of the main deceleration means is lost. The flight crew should consider adapting the available deceleration means to stop the aircraft.',
+    },
+    {
+      name: 'AUTO BRK', value: 'CHECK/ANNOUNCE',
+      fcom: '<em>[FCOM PRO-NOR-SOP-19]<\/em> AUTO BRK — CHECK/ANNOUNCE (PM). Check and announce BRK LO or BRK MED on the FMA. If no ground spoilers are extended, the autobrake will not activate. During all the rollout, the PM monitors that the FMA displays BRK LO or BRK MED, and calls out if the autobrake mode disengages.',
+      warning: '<em>[FCOM PRO-NOR-SOP-19 — WARNING]<\/em> Never change the A/BRK selection during rollout.'
+    },
+    {
+      name: 'DECELERATION', value: 'CHECK/ANNOUNCE',
+      fcom: '<em>[FCOM PRO-NOR-SOP-19]<\/em> DECELERATION — CHECK/ANNOUNCE (PM). The flight crew feels the deceleration and checks the speed trend on the PFD to confirm the deceleration.',
+    },
+    {
+      name: 'At 70 kt', value: '"SEVENTY KNOTS"',
+      fcom: '<em>[FCOM PRO-NOR-SOP-19]<\/em> SEVENTY KNOTS — ANNOUNCE (PM). At 70 kt, the PM calls out "Seventy knots." The PF reduces reverse thrust to IDLE.',
+    }
+  ]
+},
+{
+  id: 'sop21',
+  num: 'SOP-21',
+  title: 'After Landing',
+  sub: 'Runway vacated',
+  intro: 'When vacating the runway, the <strong>PF<\/strong> disarms ground spoilers and adjusts lights. The <strong>PM<\/strong> executes the full after landing flow: radar, ENG MODE, flaps, TCAS, and APU start.',
+  trigger: '<strong>Flow trigger:<\/strong> Runway vacated &mdash; aircraft has cleared the runway and is on the taxiway. The After Landing Flow begins immediately. &mdash; <em>Checklist trigger: After Landing Flow pattern completed.<\/em> Note: ground spoilers may be disarmed before vacating the runway in low workload scenarios with aircraft at taxi speed.',
+  triggerRef: 'FCTM PR-NP-CL · FCOM PRO-NOR-SOP-21',
+  pf: [
+    {
+      name: 'GND SPLRS', value: 'DISARM',
+      fcom: '<em>[FCOM PRO-NOR-SOP-21]<\/em> GRND SPLRS — DISARM (PF). When the runway is vacated.',
+      note: '<em>[FCOM PRO-NOR-SOP-21]<\/em> In case of low workload scenarios, and with the aircraft at taxi speed, the ground spoilers may be disarmed before vacating the runway.'
+    },
+    {
+      name: 'LAND sw', value: 'RETRACT',
+      fcom: '<em>[FCOM PRO-NOR-SOP-21]<\/em> LAND sw — RETRACT (PF). When leaving the runway.',
+    },
+    {
+      name: 'STROBE sw', value: 'AUTO',
+      fcom: '<em>[FCOM PRO-NOR-SOP-21]<\/em> STROBE sw — AUTO (PF). When leaving the runway.',
+      why: '<em>[Interpretation — not from FCOM]<\/em> In AUTO, strobes extinguish automatically when weight-on-wheels is sensed on the ground — they will not dazzle gate crew or aircraft on adjacent taxiways.'
+    },
+    {
+      name: 'NOSE sw', value: 'TAXI',
+      fcom: '<em>[FCOM PRO-NOR-SOP-21]<\/em> NOSE sw — TAXI (PF). When leaving the runway.',
+    },
+    {
+      name: 'WING sw', value: 'OFF',
+      fcom: '<em>[FCOM PRO-NOR-SOP-21]<\/em> WING sw — OFF (PF). When leaving the runway.',
+    }
+  ],
+  pm: [
+    {
+      name: 'RADAR / PWS', value: 'OFF',
+      fcom: '<em>[FCOM PRO-NOR-SOP-21]<\/em> RADAR — OFF (PM). PREDICTIVE WINDSHEAR SYSTEM — OFF (PM). Switching the radar and predictive windshear system to OFF after landing avoids risk of radiating persons at the gate area.',
+    },
+    {
+      name: 'ENG MODE selector', value: 'NORM',
+      fcom: '<em>[FCOM PRO-NOR-SOP-21]<\/em> ENG MODE selector — NORM (PM).',
+    },
+    {
+      name: 'FLAPS', value: 'RETRACT',
+      fcom: '<em>[FCOM PRO-NOR-SOP-21]<\/em> FLAPS — RETRACT (PM). Set the FLAPS lever to 0. If the approach was performed in icing conditions, or if the runway was contaminated with slush or snow, do not retract the flaps until after engine shutdown, and after the ground crew confirmed that flaps and slats are clear of obstruction due to ice. On ground, hot weather conditions may cause overheating to be detected around the bleed ducts in the wings, resulting in AIR L(R) WING LEAK alert. Such warnings may be avoided during transit by keeping the slats in CONF 1 when the OAT is above 30 °C.',
+    },
+    {
+      name: 'TCAS / ATC', value: 'STBY / AS RQRD',
+      fcom: '<em>[FCOM PRO-NOR-SOP-21]<\/em> TCAS — STBY (PM). ATC — AS RQRD (PM). ATC is set in accordance with airport requirements.',
+    },
+    {
+      name: 'TERR ON ND', value: 'OFF (PF-PM)',
+      fcom: '<em>[FCOM PRO-NOR-SOP-21]<\/em> TERR ON ND — OFF (PF-PM).',
+    },
+    {
+      name: 'APU MASTER SW', value: 'ON',
+      fcom: '<em>[FCOM PRO-NOR-SOP-21]<\/em> APU MASTER SW pb-sw — ON (PM). APU START pb-sw — ON (PM). If SETWA is not installed, start the APU before performing one-engine taxi in order to power both ENG 1 fire extinguishing bottles. In any other case, delay the APU start so that the APU is available just before engine shutdown at parking.',
+    },
+    {
+      name: 'APU START pb-sw', value: 'ON',
+      fcom: '<em>[FCOM PRO-NOR-SOP-21]<\/em> APU START pb-sw — ON (PM). Confirm APU start. ECAM will show APU AVAIL when the APU is ready to supply power.',
+    },
+    {
+      name: 'ENG ANTI ICE', value: 'AS RQRD',
+      fcom: '<em>[FCOM PRO-NOR-SOP-21]<\/em> ENG ANTI ICE — AS RQRD (PM).',
+      why: '<em>[Interpretation — not from FCOM]<\/em> If icing conditions exist during the taxi-in, maintain engine anti-ice ON. Deactivate at parking before engine shutdown.'
+    }
+  ]
+},
+{
+  id: 'sop22',
+  num: 'SOP-22',
+  title: 'Parking',
+  sub: 'At the gate · Engine shutdown',
+  intro: 'At the parking position, the <strong>PF<\/strong> applies the parking brake, connects external power, and shuts down the engines. The <strong>PM<\/strong> manages anti-ice, APU bleed, fuel pumps, transponder, and performs the final fuel quantity check.',
+  trigger: '<strong>Flow trigger:<\/strong> Aircraft stopped at the parking position. The PF applies the parking brake and verifies accumulator pressure before engine shutdown. &mdash; <em>Checklist trigger: After Parking Flow pattern completed.<\/em> Note: no less than 3 min after high thrust operations before engine shutdown (cooling period). Idle reverse thrust and normal taxi thrust do NOT count as high thrust operations.',
+  triggerRef: 'FCTM PR-NP-CL · FCOM PRO-NOR-SOP-22',
+  pf: [
+    {
+      name: 'ACCU PRESS indicator', value: 'CHECK',
+      fcom: '<em>[FCOM PRO-NOR-SOP-22]<\/em> ACCU PRESS indicator — CHECK (PF). The ACCU PRESS indication must be in the green band. In case of low accumulator pressure, chocks are required before engine 1 shutdown.',
+    },
+    {
+      name: 'PARK BRK handle', value: 'ON',
+      fcom: '<em>[FCOM PRO-NOR-SOP-22]<\/em> PARK BRK handle — ON (PF). If the temperature of one brake is above 500 °C (or above 350 °C with the brake fans ON), avoid applying the parking brake, unless operationally necessary.',
+      caution: '<em>[FCOM PRO-NOR-SOP-22 — CAUTION]<\/em> Keep the brake pedals pressed, until both needles of the brakes pressure indicator are above the green area, to avoid inadvertent movement of the aircraft. If the aircraft starts to move with the parking brake ON, immediately restore braking with pedals.'
+    },
+    {
+      name: 'BRAKES PRESS indicator', value: 'CHECK',
+      fcom: '<em>[FCOM PRO-NOR-SOP-22]<\/em> BRAKES PRESS indicator — CHECK (PF).',
+    },
+    {
+      name: 'EXT PWR pb', value: 'ON (if available)',
+      fcom: '<em>[FCOM PRO-NOR-SOP-22]<\/em> EXT PWR pb — CHECK AVAIL, then ON (PF). If the APU is not used: EXT PWR pb — CHECK AVAIL, EXT PWR pb — ON.',
+    },
+    {
+      name: 'All ENG MASTER levers', value: 'OFF',
+      fcom: '<em>[FCOM PRO-NOR-SOP-22]<\/em> All ENG MASTER levers — OFF (PF). The DOOR/OXY SD page is displayed on the lower ECAM display. No less than 3 min after high thrust operations: shut down engines. After high thrust operations, the flight crew must operate the engines at or near idle thrust for a cooling period of 3 min before engine shutdown, in order to thermally stabilise the engines. Approach thrust, idle reverse thrust and normal thrust to manoeuvre during taxi (i.e. at or near idle) are not considered high thrust operations. Therefore: if the flight crew used idle reverse thrust for landing and normal thrust during taxi after landing, the cooling period is not necessary and the engine may be shut down right away. If the flight crew used maximum reverse thrust for landing, the cooling period starts when the flight crew sets the thrust lever to idle reverse during the landing rollout.',
+    },
+    {
+      name: 'ENGINE PARAMETERS', value: 'CHECK',
+      fcom: '<em>[FCOM PRO-NOR-SOP-22]<\/em> ENGINE PARAMETERS — CHECK (PF). Check that engine parameters decrease.',
+    },
+    {
+      name: 'WING sw / BEACON sw', value: 'OFF',
+      fcom: '<em>[FCOM PRO-NOR-SOP-22]<\/em> WING sw — OFF (PF). BEACON sw — OFF (PF).',
+      caution: '<em>[Interpretation — not from FCOM]<\/em> The BEACON is the universal signal to ground crew that engines are running. NEVER turn the beacon OFF while engines are still turning. Switching BEACON OFF indicates to all personnel that engines are fully shut down and the aircraft is safe to approach.'
+    },
+    {
+      name: 'SLIDES', value: 'CHECK DISARMED',
+      fcom: '<em>[FCOM PRO-NOR-SOP-22]<\/em> SLIDES — CHECK DISARMED (PF).',
+      caution: '<em>[Interpretation — not from FCOM]<\/em> An armed slide deployed accidentally can cause serious injury to cabin crew and results in significant operational disruption and cost. Verify ALL doors are in manual (disarmed) mode before any door is opened. The ECAM DOOR page shows arming status for all doors.'
+    },
+    {
+      name: 'SEAT BELTS sw', value: 'OFF',
+      fcom: '<em>[FCOM PRO-NOR-SOP-22]<\/em> SEAT BELTS sw — OFF (PF). Turn off when stopped at the gate with parking brake applied.',
+    }
+  ],
+  pm: [
+    {
+      name: 'ANTI ICE', value: 'OFF',
+      fcom: '<em>[FCOM PRO-NOR-SOP-22]<\/em> ANTI-ICE — OFF (PM).',
+    },
+    {
+      name: 'APU BLEED pb-sw', value: 'AS RQRD',
+      fcom: '<em>[FCOM PRO-NOR-SOP-22]<\/em> APU BLEED pb-sw — AS RQRD (PM). If the APU is used, set the APU BLEED pb-sw to ON immediately before engine shutdown to prevent engine exhaust fumes from entering the air conditioning.',
+    },
+    {
+      name: 'YELLOW ELEC PUMP', value: 'OFF',
+      fcom: '<em>[FCOM PRO-NOR-SOP-22]<\/em> YELLOW ELEC PUMP pb-sw — OFF (PF). In the case of one engine taxi, set the YELLOW ELEC PUMP pb-sw to OFF before engine 1 shutdown.',
+    },
+    {
+      name: 'FUEL PUMPS', value: 'OFF',
+      fcom: '<em>[FCOM PRO-NOR-SOP-22]<\/em> FUEL PUMPS — OFF (PM). Turn off all fuel pumps after engine shutdown.',
+    },
+    {
+      name: 'ATC MODE', value: 'STBY',
+      fcom: '<em>[FCOM PRO-NOR-SOP-22]<\/em> ATC MODE — STBY (PM).',
+    },
+    {
+      name: 'IRS PERFORMANCE', value: 'CHECK',
+      fcom: '<em>[FCOM PRO-NOR-SOP-22]<\/em> IRS PERFORMANCE — CHECK (PM).',
+      why: '<em>[Interpretation — not from FCOM]<\/em> End-of-flight IRS position error is compared against the expected drift for the flight duration. Excessive drift (typically >10 NM/hr threshold) indicates an IRS alignment or performance issue that must be reported in the technical log for maintenance evaluation.'
+    },
+    {
+      name: 'FUEL QUANTITY', value: 'CHECK',
+      fcom: '<em>[FCOM PRO-NOR-SOP-22]<\/em> FUEL QUANTITY — CHECK (PM).',
+      why: '<em>[Interpretation — not from FCOM]<\/em> Compare final FOB against the OFP predicted fuel at destination. A significant discrepancy (e.g. >200 kg unexplained) must be investigated — potential causes include a fuel leak, FQI sensor fault, or a fuel transfer that was not accounted for. Report in the tech log.'
+    },
+    {
+      name: 'PARKING C/L', value: 'COMPLETE (BOTH)',
+      fcom: '<em>[FCOM PRO-NOR-SOP-22]<\/em> PARKING C/L — COMPLETE (BOTH). This is the final checklist of the flight.',
+    }
+  ]
+}
+];
+// ─── RENDER ───────────────────────────────────────────────────────────────────
+function infoIcon() {
+  return `<div class="action-info-btn">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="9" stroke="#9ca3af" stroke-width="1.8"/>
+      <path d="M12 11v5M12 8.5v.5" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  </div>`;
+}
+
+function renderItem(item, role) {
+  const cls = role === 'pf' ? 'pf-item' : role === 'pm' ? 'pm-item' : 'both-item';
+  return `<div class="action-item ${cls}" onclick="openModal(${JSON.stringify(item).replace(/"/g, '&quot;')}, '${role}')">
+    <div class="action-stripe"></div>
+    <div class="action-body">
+      <span class="action-name">${item.name}</span>
+      <span class="action-value">${item.value}</span>
+    </div>
+    ${infoIcon()}
+  </div>`;
+}
+
+const app = document.getElementById('app');
+app.innerHTML = PHASES.map(phase => `
+<div class="phase" id="${phase.id}">
+  <div class="phase-header">
+    <span class="phase-num">${phase.num}</span>
+    <span class="phase-title">${phase.title}</span>
+    <span class="phase-sub">${phase.sub}</span>
+  </div>
+  ${phase.trigger ? `<div class="phase-trigger"><span class="phase-trigger-icon">▶</span><span class="phase-trigger-text">${phase.trigger}</span><span class="phase-trigger-ref">${phase.triggerRef || ''}</span></div>` : ''}
+  <div class="phase-intro">${phase.intro}</div>
+  <div class="flow-grid">
+    <div class="flow-col pf-col">
+      <div class="col-header pf"><div class="col-header-icon">P</div>PF — Pilot Flying</div>
+      ${phase.pf.map(i => renderItem(i, 'pf')).join('')}
+    </div>
+    <div class="flow-col">
+      <div class="col-header pm"><div class="col-header-icon">M</div>PM — Pilot Monitoring</div>
+      ${phase.pm.map(i => renderItem(i, 'pm')).join('')}
+    </div>
+  </div>
+</div>
+`).join('');
+
+// ─── MODAL ────────────────────────────────────────────────────────────────────
+function openModal(item, role) {
+  const overlay = document.getElementById('modal-overlay');
+  const badge = document.getElementById('modal-role-badge');
+  const nameEl = document.getElementById('modal-item-name');
+  const phaseEl = document.getElementById('modal-phase-label');
+  const valEl = document.getElementById('modal-value-chip');
+  const body = document.getElementById('modal-body');
+
+  // Find phase name
+  const phaseData = PHASES.find(p =>
+    p.pf.some(i => i.name === item.name && i.value === item.value) ||
+    p.pm.some(i => i.name === item.name && i.value === item.value)
+  );
+  const phaseName = phaseData ? `${phaseData.num} · ${phaseData.title}` : '';
+
+  badge.textContent = role === 'pf' ? 'PF' : role === 'pm' ? 'PM' : 'BOTH';
+  badge.className = `modal-role-badge ${role}`;
+  nameEl.textContent = item.name;
+  phaseEl.textContent = phaseName;
+  valEl.textContent = item.value;
+  valEl.className = `modal-value-chip ${role}`;
+
+  let html = '';
+
+  // Why
+  if (item.why) {
+    html += `<div class="modal-section">
+      <div class="modal-section-title">Why it is done</div>
+      <div class="modal-desc">${item.why}</div>
+    </div>`;
+  }
+
+  // FCOM text
+  if (item.fcom) {
+    html += `<div class="modal-section">
+      <div class="modal-fcom-box ${role}-box">
+        <div class="modal-fcom-label">FCOM — Source text</div>
+        ${item.fcom}
+      </div>
+    </div>`;
+  }
+
+  // Caution
+  if (item.caution) {
+    html += `<div class="modal-section">
+      <div class="modal-caution">
+        <div class="modal-caution-title">⚠ Caution</div>
+        ${item.caution}
+      </div>
+    </div>`;
+  }
+
+  // Warning
+  if (item.warning) {
+    html += `<div class="modal-section">
+      <div class="modal-warning">
+        <div class="modal-warning-title">⛔ Warning</div>
+        ${item.warning}
+      </div>
+    </div>`;
+  }
+
+  // Note
+  if (item.note) {
+    html += `<div class="modal-section">
+      <div class="modal-note">
+        <div class="modal-note-title">📝 Note</div>
+        ${item.note}
+      </div>
+    </div>`;
+  }
+
+  body.innerHTML = html;
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(event) {
+  if (event.target === document.getElementById('modal-overlay')) {
+    closeModalDirect();
+  }
+}
+
+function closeModalDirect() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModalDirect();
+});
+
+function updateStickyOffsets() {
+  const header = document.querySelector('.doc-header');
+  const subnav = document.querySelector('.subnav');
+  if (!header || !subnav) return;
+
+  const headerHeight = Math.ceil(header.getBoundingClientRect().height);
+  const subnavHeight = Math.ceil(subnav.getBoundingClientRect().height);
+
+  document.documentElement.style.setProperty('--sticky-subnav-top', `${headerHeight}px`);
+  document.documentElement.style.setProperty('--subnav-height', `${subnavHeight}px`);
+}
+
+window.addEventListener('load', updateStickyOffsets);
+window.addEventListener('resize', updateStickyOffsets);
+</script>
+</body>
+</html>

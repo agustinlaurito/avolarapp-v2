@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A320 Flight Techniques | FCTM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f7f6f3;
+  --surface: #ffffff;
+  --surface2: #f2f0ec;
+  --border: #e2ddd6;
+  --border-strong: #c9c3b8;
+  --text: #1c1916;
+  --text-2: #4a4540;
+  --text-3: #9a9188;
+  --accent: #c0392b;
+  --accent-light: #fdf0ef;
+  --accent-mid: #f5c0bb;
+  --gold: #b07d2a;
+  --gold-light: #fdf7ec;
+  --gold-mid: #e8d09a;
+  --green: #2d6a4f;
+  --green-light: #edf4f0;
+  --mono: 'IBM Plex Mono', monospace;
+  --sans: 'IBM Plex Sans', sans-serif;
+  --caution-bg: #fffbeb;
+  --caution-border: #fcd34d;
+  --caution-text: #78350f;
+  --note-bg: #f0f4ff;
+  --note-border: #bfcfff;
+  --note-text: #1e3a8a;
+  --msn-bg: #faf0ff;
+  --msn-border: #d8b4fe;
+  --msn-text: #4c1d95;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.10);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ── HEADER ── */
+.header {
+  background: var(--text);
+  color: #fff;
+  padding: 0 40px;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  height: 52px;
+  gap: 20px;
+  border-bottom: 2px solid var(--accent);
+}
+.header-logo {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #fff;
+  opacity: 0.9;
+  white-space: nowrap;
+}
+.header-divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(255,255,255,0.2);
+  flex-shrink: 0;
+}
+.header-title {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.75);
+  letter-spacing: 0.2px;
+}
+.header-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.header-badge {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 3px;
+  background: var(--accent);
+  color: #fff;
+}
+.header-rev {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.5px;
+}
+
+/* ── PHASE NAV ── */
+.phase-nav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 40px;
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  position: sticky;
+  top: 52px;
+  z-index: 190;
+}
+.phase-nav::-webkit-scrollbar { display: none; }
+.phase-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 12px 16px;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-3);
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+  cursor: pointer;
+  border: none;
+  background: none;
+  letter-spacing: 0.2px;
+}
+.phase-nav-item:hover { color: var(--text); }
+.phase-nav-item.active { color: var(--accent); border-bottom-color: var(--accent); }
+.phase-nav-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+/* ── LAYOUT ── */
+.layout {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 40px 80px;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  position: sticky;
+  top: calc(52px + 44px + 12px);
+}
+.sidebar-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  margin-bottom: 12px;
+}
+.sidebar-title {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-3);
+  padding: 10px 14px 8px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface2);
+}
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  font-size: 12px;
+  color: var(--text-2);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.12s, color 0.12s;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+}
+.sidebar-link:last-child { border-bottom: none; }
+.sidebar-link:hover { background: var(--surface2); color: var(--text); }
+.sidebar-link.active { color: var(--accent); border-left-color: var(--accent); background: var(--accent-light); font-weight: 500; }
+.sidebar-link-num {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--text-3);
+  min-width: 16px;
+  flex-shrink: 0;
+}
+
+/* ── MAIN CONTENT ── */
+.main { min-width: 0; }
+
+/* ── PHASE SECTION ── */
+.phase-section {
+  margin-bottom: 40px;
+  scroll-margin-top: calc(52px + 44px + 20px);
+}
+.phase-section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--text);
+}
+.phase-section-num {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: var(--text-3);
+  text-transform: uppercase;
+}
+.phase-section-title {
+  font-family: var(--sans);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.4px;
+}
+.phase-section-ref {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  color: var(--accent);
+  background: var(--accent-light);
+  border: 1px solid var(--accent-mid);
+  border-radius: 3px;
+  padding: 2px 7px;
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+/* ── TOPIC CARD ── */
+.topic-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.topic-header {
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  background: var(--surface);
+  transition: background 0.12s;
+  user-select: none;
+}
+.topic-header:hover { background: var(--surface2); }
+.topic-header.open { background: var(--surface2); border-bottom: 1px solid var(--border); }
+.topic-title {
+  font-family: var(--sans);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.2px;
+  flex: 1;
+}
+.topic-ref {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--text-3);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 2px 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.topic-chevron {
+  color: var(--text-3);
+  transition: transform 0.2s;
+  flex-shrink: 0;
+  font-size: 11px;
+}
+.topic-header.open .topic-chevron { transform: rotate(180deg); }
+
+.topic-body {
+  display: none;
+  padding: 16px;
+}
+.topic-body.open { display: block; }
+
+/* ── CONTENT BLOCKS ── */
+.fctm-quote {
+  background: var(--surface2);
+  border-left: 3px solid var(--border-strong);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.7;
+}
+.fctm-quote-label {
+  font-family: var(--mono);
+  font-size: 8.5px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.fctm-quote-label::before {
+  content: '';
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 2px;
+  background: var(--border-strong);
+}
+.fctm-quote cite {
+  display: block;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  color: var(--text-3);
+  margin-top: 8px;
+  font-style: normal;
+}
+
+.interp-block {
+  background: var(--note-bg);
+  border: 1px solid var(--note-border);
+  border-radius: 6px;
+  padding: 10px 13px;
+  margin-bottom: 12px;
+  font-size: 12.5px;
+  color: var(--note-text);
+  line-height: 1.65;
+}
+.interp-label {
+  font-family: var(--mono);
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #6080c8;
+  margin-bottom: 5px;
+}
+
+.caution-block {
+  background: var(--caution-bg);
+  border: 1px solid var(--caution-border);
+  border-left: 3px solid #f59e0b;
+  border-radius: 0 6px 6px 0;
+  padding: 10px 13px;
+  margin-bottom: 12px;
+  font-size: 12.5px;
+  color: var(--caution-text);
+  line-height: 1.65;
+}
+.caution-label {
+  font-family: var(--mono);
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #d97706;
+  margin-bottom: 5px;
+}
+
+.msn-block {
+  background: var(--msn-bg);
+  border: 1px solid var(--msn-border);
+  border-radius: 6px;
+  padding: 9px 13px;
+  margin-bottom: 12px;
+  font-size: 12px;
+  color: var(--msn-text);
+  line-height: 1.6;
+}
+.msn-label {
+  font-family: var(--mono);
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #7c3aed;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.bullet-list {
+  margin: 6px 0 12px 4px;
+  padding: 0;
+  list-style: none;
+}
+.bullet-list li {
+  padding: 3px 0 3px 16px;
+  position: relative;
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.6;
+}
+.bullet-list li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--text-3);
+  font-size: 11px;
+}
+
+.sub-title {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin: 14px 0 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+    padding: 20px 20px 60px;
+    gap: 0;
+  }
+  .sidebar { display: none; }
+  .header { padding: 0 20px; }
+  .phase-nav { padding: 0 20px; }
+}
+@media (max-width: 600px) {
+  .header { padding: 0 14px; height: 48px; }
+  .header-title { display: none; }
+  .phase-nav { padding: 0 14px; top: 48px; }
+  .layout { padding: 16px 14px 60px; }
+  .phase-section-title { font-size: 17px; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <span class="header-logo">FCTM</span>
+  <div class="header-divider"></div>
+  <span class="header-title">A318/A319/A320/A321 — Flight Techniques by Phase</span>
+  <div class="header-right">
+    <span class="header-badge">LTM</span>
+    <span class="header-rev">25 NOV 2024</span>
+  </div>
+</header>
+
+<nav class="phase-nav" id="phase-nav">
+  <button class="phase-nav-item active" onclick="scrollToPhase('taxi')"><span class="phase-nav-dot"></span>Taxi</button>
+  <button class="phase-nav-item" onclick="scrollToPhase('takeoff')"><span class="phase-nav-dot"></span>Takeoff</button>
+  <button class="phase-nav-item" onclick="scrollToPhase('climb')"><span class="phase-nav-dot"></span>Climb</button>
+  <button class="phase-nav-item" onclick="scrollToPhase('cruise')"><span class="phase-nav-dot"></span>Cruise</button>
+  <button class="phase-nav-item" onclick="scrollToPhase('descent')"><span class="phase-nav-dot"></span>Descent</button>
+  <button class="phase-nav-item" onclick="scrollToPhase('approach')"><span class="phase-nav-dot"></span>Approach</button>
+  <button class="phase-nav-item" onclick="scrollToPhase('landing')"><span class="phase-nav-dot"></span>Landing</button>
+  <button class="phase-nav-item" onclick="scrollToPhase('goaround')"><span class="phase-nav-dot"></span>Go-Around</button>
+</nav>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-section">
+    <div class="sidebar-title">Phases</div>
+    <a class="sidebar-link active" onclick="scrollToPhase('taxi')"><span class="sidebar-link-num">01</span>Taxi</a>
+    <a class="sidebar-link" onclick="scrollToPhase('takeoff')"><span class="sidebar-link-num">02</span>Takeoff</a>
+    <a class="sidebar-link" onclick="scrollToPhase('climb')"><span class="sidebar-link-num">03</span>Climb</a>
+    <a class="sidebar-link" onclick="scrollToPhase('cruise')"><span class="sidebar-link-num">04</span>Cruise</a>
+    <a class="sidebar-link" onclick="scrollToPhase('descent')"><span class="sidebar-link-num">05</span>Descent</a>
+    <a class="sidebar-link" onclick="scrollToPhase('approach')"><span class="sidebar-link-num">06</span>Approach</a>
+    <a class="sidebar-link" onclick="scrollToPhase('landing')"><span class="sidebar-link-num">07</span>Landing</a>
+    <a class="sidebar-link" onclick="scrollToPhase('goaround')"><span class="sidebar-link-num">08</span>Go-Around</a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-title">Legend</div>
+    <div style="padding:10px 14px;display:flex;flex-direction:column;gap:7px;font-size:11px;color:var(--text-2)">
+      <div style="display:flex;align-items:center;gap:7px"><div style="width:10px;height:10px;border-radius:2px;background:var(--border-strong);flex-shrink:0"></div>FCTM verbatim quote</div>
+      <div style="display:flex;align-items:center;gap:7px"><div style="width:10px;height:10px;border-radius:2px;background:var(--note-border);flex-shrink:0"></div>Interpretation / context</div>
+      <div style="display:flex;align-items:center;gap:7px"><div style="width:10px;height:10px;border-radius:2px;background:var(--caution-border);flex-shrink:0"></div>Caution / Warning</div>
+      <div style="display:flex;align-items:center;gap:7px"><div style="width:10px;height:10px;border-radius:2px;background:var(--msn-border);flex-shrink:0"></div>MSN-specific applicability</div>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+<!-- ═══════════════════════════════════ TAXI ═══════════════════════════════════ -->
+<section class="phase-section" id="taxi">
+  <div class="phase-section-header">
+    <span class="phase-section-num">Phase 01</span>
+    <h2 class="phase-section-title">Taxi</h2>
+    <span class="phase-section-ref">PR-NP-SOP-100</span>
+  </div>
+
+  <!-- Brake Temperature -->
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Brake Temperature &amp; Fans</span>
+      <span class="topic-ref">PR-NP-SOP-100-A</span>
+      <span class="topic-chevron">▼</span>
+    </div>
+    <div class="topic-body">
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim</div>
+        The maximum brake temperature limitation for takeoff ensures that, in the case of a hydraulic leak, any hydraulic fluid that touches the brake units does not ignite in the wheel well after the landing gear retraction.
+        <cite>FCTM PR-NP-SOP-100-A-00018731 · Applicable to: ALL</cite>
+      </div>
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim — Brake Fans</div>
+        Brake fans cool the brakes, and the brake temperature sensor. Therefore, when the brake fans are running, the indicated brake temperature will be significantly lower than the indicated brake temperature when the brake fans are off. As soon as the brake fans are switched on, the indicated brake temperature decreases almost instantaneously. On the other hand, when the brake fans are switched off, it will take several minutes for the indicated brake temperature to increase and match the real brake temperature. When the fans are running, the difference between the indicated and the actual brake temperature can range from 50 °C (when the actual brake temperature is 100 °C) to 150 °C (when the actual brake temperature is 300 °C). Therefore, before takeoff, if the fans are running, the flight crew should refer to the indicated brake temperature. When the indicated brake temperature is above 150 °C, takeoff must be delayed. Brake fans should not be used during takeoff, in order to avoid Foreign Object Damage to fans and brakes.
+        <cite>FCTM PR-NP-SOP-100-A-00018733 · Applicable to: ALL</cite>
+      </div>
+      <div class="interp-block">
+        <div class="interp-label">Interpretation</div>
+        The 150 °C threshold with fans running is the go/no-go limit before lining up. Because the fans artificially lower the displayed temperature by up to 150 °C, you cannot rely on the raw indication — you must factor in the correction. If the fans are ON and the indicator shows 120 °C, the real temperature could be up to 270 °C.
+      </div>
+    </div>
+  </div>
+
+  <!-- Braking Anomalies -->
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Braking Anomalies During Taxi</span>
+      <span class="topic-ref">PR-NP-SOP-100-A</span>
+      <span class="topic-chevron">▼</span>
+    </div>
+    <div class="topic-body">
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim</div>
+        If the ACCU PRESS drops below 1 500 PSI, the flight crew should be aware that the Parking Brake can, quite suddenly, become less efficient. If the flight crew encounters any braking problems during taxi, they should set the A/SKID &amp; N/W STRG sw to OFF. They should not apply pressure to the pedals while setting the A/SKID &amp; N/W STRG sw to OFF. Then, the PF should refer to the triple brake indicator and modulate the pressure as necessary.
+        <cite>FCTM PR-NP-SOP-100-A-00018732 · Applicable to: ALL</cite>
+      </div>
+    </div>
+  </div>
+
+  <!-- Flight Controls Check -->
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Flight Controls Check Technique</span>
+      <span class="topic-ref">PR-NP-SOP-100</span>
+      <span class="topic-chevron">▼</span>
+    </div>
+    <div class="topic-body">
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim</div>
+        At a convenient stage, before or during taxi, and before arming the autobrake, the PF silently applies full longitudinal and lateral sidestick deflection. On the F/CTL page, the PM checks and calls out full travel of elevators and ailerons, and correct deflection and retraction of spoilers. As each full travel/neutral position is reached, the PM calls out:
+        <cite>FCTM PR-NP-SOP-100-00018788 · Applicable to: ALL</cite>
+      </div>
+      <ul class="bullet-list">
+        <li><strong>PM calls out:</strong> "Full up, full down, neutral" — for longitudinal</li>
+        <li><strong>PM calls out:</strong> "Full left, full right, neutral" — for lateral</li>
+        <li>The PF silently checks that the PM calls are in accordance with the sidestick order.</li>
+        <li>The PF then presses the PEDAL DISC pb on the nose wheel tiller and silently applies full left and full right rudder and then returns the rudder to neutral. The PM follows on the rudder pedals and calls out "Full left, full right, neutral".</li>
+        <li>Full control input must be held for sufficient time for full travel to be reached and indicated on F/CTL page.</li>
+        <li>The PM then applies full longitudinal and lateral sidestick deflection, and silently checks full travel and correct sense of all elevators, ailerons, and spoilers.</li>
+      </ul>
+      <div class="caution-block">
+        <div class="caution-label">FCTM Note</div>
+        If this check is carried out during taxiing, it is essential that the PF remains head-up throughout the procedure.
+      </div>
+    </div>
+  </div>
+
+  <!-- Taxi Roll and Steering -->
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Taxi Roll, Thrust &amp; Steering</span>
+      <span class="topic-ref">PR-NP-SOP-100</span>
+      <span class="topic-chevron">▼</span>
+    </div>
+    <div class="topic-body">
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim — Thrust Use</div>
+        The flight crew will need a little power above idle thrust to move the aircraft. Excessive thrust application can result in exhaust-blast damage or Foreign Object Damage (FOD). Thrust should normally be used symmetrically.
+        <cite>FCTM PR-NP-SOP-100-00016302 · Applicable to: ALL</cite>
+      </div>
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim — Tiller &amp; Pedals</div>
+        Pedals control nosewheel steering at low speed (± 6° with full pedal deflection). Therefore, on straight taxiways and on shallow turns, the pilot can use the pedals to steer the aircraft, keeping a hand on the tiller. In sharper turns, the pilot must use the tiller. The Nosewheel steering is "by-wire" with no mechanical connection between the tiller and the nosewheel. The relationship between tiller deflection and nosewheel angle is not linear and the tiller forces are light. Therefore, the PF should move the tiller smoothly and maintain the tiller's position. Any correction should be small and smooth, and maintained for enough time to enable the pilot to assess the outcome. Being over-active on the tiller will cause uncomfortable oscillations.
+        <cite>FCTM PR-NP-SOP-100-00016302 · Applicable to: ALL</cite>
+      </div>
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim — Asymmetric Thrust in Turns</div>
+        Asymmetric thrust can be used to initiate a tight turn and to keep the aircraft moving during the turn. If nosewheel lateral skidding occurs while turning, reduce taxi speed or increase turn radius. Avoid stopping the aircraft in a turn, because excessive thrust will be required to start the aircraft moving again.
+        <cite>FCTM PR-NP-SOP-100-00016302 · Applicable to: ALL</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ TAKEOFF ═══════════════════════════════════ -->
+<section class="phase-section" id="takeoff">
+  <div class="phase-section-header">
+    <span class="phase-section-num">Phase 02</span>
+    <h2 class="phase-section-title">Takeoff</h2>
+    <span class="phase-section-ref">PR-NP-SOP-120</span>
+  </div>
+
+  <!-- Thrust Setting -->
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Thrust Setting &amp; Keep-Out Zone</span>
+      <span class="topic-ref">PR-NP-SOP-120</span>
+      <span class="topic-chevron">▼</span>
+    </div>
+    <div class="topic-body">
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim</div>
+        The Thrust Setting procedure ensures that all engines will accelerate similarly. If not properly applied, this may lead to asymmetrical thrust increase, and, consequently, to severe directional control problem. The Electronic Engine Control (EEC) computer prevents the engine stabilizing between an approximate range of 60 to 74 % N1, in order to protect against fan flutter. This range is called the Keep-Out-Zone, and the flight crew may notice a non-linear thrust response to thrust lever movement. If one lever is moved out of the Keep-Out-Zone before the other, a very slow movement of the levers may lead to asymmetric engine acceleration. If the thrust levers are not set to the proper take-off detent, e.g. FLX instead of TOGA, an alert triggers on the ECAM. At any time during FLEX takeoff, the flight crew may set the thrust levers to TOGA.
+        <cite>FCTM PR-NP-SOP-120-00018791 · Applicable to: ALL</cite>
+      </div>
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim — Takeoff Roll</div>
+        Once the thrust is set, the PF announces the indications on the FMA. The PM must check that the thrust is set by 80 kt and must announce "Thrust Set". The Captain must keep their hand on the thrust levers when the thrust levers are set to TOGA/FLX notch and until V1. During the take-off roll, the PM monitors the PFD and ENG indications to ensure early detection and appropriate decision making in the case of malfunction.
+        <cite>FCTM PR-NP-SOP-120-00018792 · Applicable to: ALL</cite>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sidestick / Directional Control -->
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Sidestick Technique &amp; Directional Control</span>
+      <span class="topic-ref">PR-NP-SOP-120</span>
+      <span class="topic-chevron">▼</span>
+    </div>
+    <div class="topic-body">
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim</div>
+        On a normal takeoff, to counteract the pitch up moment during thrust application, the PF should apply half forward or full forward sidestick (depending on wind conditions) at the start of the takeoff roll until reaching 80 kt. At this point, the input should be gradually reduced to be zero by 100 kt. The PF should use pedals to keep the aircraft straight. The nosewheel steering authority decreases at a pre-determined rate as the groundspeed increases (no more efficiency at 130 kt) and the rudder becomes more effective. The use of the tiller is not recommended during takeoff roll, because of its high efficiency, which might lead to aircraft overreaction.
+        <cite>FCTM PR-NP-SOP-120 · Applicable to: ALL</cite>
+      </div>
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim — Crosswind</div>
+        For crosswind takeoffs, routine use of into wind aileron is not necessary. In strong crosswind conditions, small lateral stick input may be used to maintain wings level, if deemed necessary due to into wind wing reaction, but avoid using large deflections, resulting in excessive spoiler deployment which increase the aircraft tendency to turn into the wind (due to high weight on wheels on the spoiler extended side), reduces lift and increases drag. Spoiler deflection becomes significant with more than a third sidestick deflection.
+        <cite>FCTM PR-NP-SOP-120 · Applicable to: ALL</cite>
+      </div>
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim — Lateral Disturbance</div>
+        In the event of unexpected lateral disturbance during takeoff roll, the flight crew should use the rudder as for counteracting any lateral disturbance. Indeed, excessive rudder input may increase the magnitude of the lateral disturbance. The flight crew may be surprised during takeoff roll by unexpected lateral disturbance in conditions such as: the presence of thermals or thermal vortices ("dust devils"), the jet blast of another aircraft close to the active runway, or the wind that accelerates between two buildings by "venturi" effect. As the aircraft lifts off, any lateral stick input applied will result in a roll rate demand, making aircraft lateral control more difficult. Wings must be level.
+        <cite>FCTM PR-NP-SOP-120 · Applicable to: ALL</cite>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rotation -->
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Rotation Technique</span>
+      <span class="topic-ref">PR-NP-SOP-120</span>
+      <span class="topic-chevron">▼</span>
+    </div>
+    <div class="topic-body">
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim</div>
+        The rotation technique is similar on all fly-by-wire aircraft. To initiate the rotation, the flight crew performs a positive backward stick input. When the rotation is initiated, the flight crew achieves a rotation rate of approximately 3 °/s resulting in a continuous pitch increase. During the rotation, the aircraft liftoff occurs at approximately 10 ° of pitch, typically around 4 to 5 s after the initiation of the rotation. After the liftoff, the PF targets the required pitch attitude. To monitor the rotation, the PF uses the outside visual references. Once airborne, the PF controls the pitch attitude target on the PFD. A slow rotation rate or an under rotation (below takeoff pitch target) has an impact on takeoff performance: the takeoff run and the takeoff distance increase, and the obstacle clearance after takeoff decreases.
+        <cite>FCTM PR-NP-SOP-120-00018793 · Applicable to: ALL</cite>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tail Strike -->
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Tail Strike Avoidance</span>
+      <span class="topic-ref">PR-NP-SOP-120</span>
+      <span class="topic-chevron">▼</span>
+    </div>
+    <div class="topic-body">
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim — Introduction</div>
+        If tailstrike is not a concern for the A318, the importance of this subject increases as fuselage length increases. Therefore, it is particularly important for A321 operators. Tail strikes can cause extensive structural damage, which can jeopardize the flight and lead to heavy maintenance action. They most often occur in such adverse conditions as crosswind, turbulence, windshear, etc.
+        <cite>FCTM PR-NP-SOP-120-00018798 · Applicable to: ALL</cite>
+      </div>
+      <div class="sub-title">Main Factors</div>
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim — Early Rotation</div>
+        Early rotation occurs when the flight crew initiates the rotation below the appropriate VR. The possible reasons for this are: the computed VR is incorrect for the aircraft weight or flap configuration; the PF commands the rotation below VR because of gusts, windshear or an obstacle on the runway. The following factors or a combination of these factors may also lead to an aircraft auto rotation before VR: a bumpy runway, a sudden release of forward sidestick input, the use of TOGA thrust, an aircraft not correctly trimmed. In this case the pilot will have to counteract this auto rotation until VR is reached and should be cautious not to overreact. Whatever the cause of the early rotation, the result is an increased pitch attitude at liftoff, and therefore, a reduced tail clearance.
+        <cite>FCTM PR-NP-SOP-120-00018798 · Applicable to: ALL</cite>
+      </div>
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim — Pitch Trim Effect</div>
+        The main purpose of the pitch trim setting for takeoff is to provide consistent rotation characteristics. The aircraft performs a safe takeoff, provided that the pitch trim setting is within the green band on the pitch trim wheel. However, the pitch trim setting significantly affects the aircraft behaviour during rotation: with a forward CG and the pitch trim set to the nose-down limit, the PF will feel an aircraft "heavy to rotate" and aircraft rotation will be very slow in response to the normal takeoff stick input. With an aft CG and the pitch trim set to the nose-up limit, the pilots will most probably have to counteract an early autorotation until VR is reached. In either case the pilot may have to modify their normal control input in order to achieve the desired rotation rate, but should be cautious not to overreact.
+        <cite>FCTM PR-NP-SOP-120-00018798 · Applicable to: ALL</cite>
+      </div>
+      <div class="msn-block">
+        <div class="msn-label">MSN Note — A321 Configuration</div>
+        When performance is limiting the takeoff weight, the flight crew uses TOGA thrust and selects the configuration that provides the highest takeoff weight. When the actual takeoff weight is lower than the permissible one, the flight crew uses FLEX TO thrust. On short runways, CONF 3 usually provides the highest FLEX temperature, and the tail clearance at liftoff does not depend on the configuration. On medium or long runways, the second segment limitation becomes the limiting factor, and CONF 2 or CONF 1+F becomes the optimum configuration. In these cases, the highest flap configuration provides the highest tail strike margin.
+        <cite style="font-family:var(--mono);font-size:9.5px;color:var(--msn-text);display:block;margin-top:8px">FCTM PR-NP-SOP-120-00018798 · NOT APPLICABLE TO A318</cite>
+      </div>
+    </div>
+  </div>
+
+  <!-- Acceleration Altitude & Flap Retraction -->
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Acceleration Altitude &amp; Flap/Slat Retraction</span>
+      <span class="topic-ref">PR-NP-SOP-120</span>
+      <span class="topic-chevron">▼</span>
+    </div>
+    <div class="topic-body">
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim</div>
+        At the acceleration altitude, the FD pitch mode changes from SRS to CLB or OP CLB mode. The speed target jumps either to the managed target speed (e.g. speed constraint, speed limit or ECON climb speed) or to the preselected climb speed. During takeoff phase, F and S speeds are the minimum speeds for retracting the surfaces: at F speed (aircraft accelerating, positive speed trend), retract to 1. At S speed (aircraft accelerating, positive speed trend), retract to 0.
+        <cite>FCTM PR-NP-SOP-120-00019320 · Applicable to: ALL</cite>
+      </div>
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim — Alpha Lock</div>
+        The slats alpha/speed lock function will prevent slat retraction at high AOA or low speed at the moment the flap lever is moved from Flaps 1 to Flaps 0. "A. LOCK" pulses above the E/WD Slat indication. The inhibition is removed and the slats retract when both alpha and speed fall within normal values. This is a normal situation for take-off at heavy weight. If Alpha lock function is triggered, the crew will continue the scheduled acceleration, allowing further slats retraction.
+        <cite>FCTM PR-NP-SOP-120-00018799 · Applicable to: ALL</cite>
+      </div>
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim — Low Altitude Level Off</div>
+        If the aircraft is required to level off below the acceleration altitude, ALT* engages and target speed goes to initial climb speed. The "LVR CLB" message flashes on the FMA. In this case, the crew should expect a faster than normal acceleration, and be prepared to retract the flaps and slats promptly.
+        <cite>FCTM PR-NP-SOP-120-00018803 · Applicable to: ALL</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ CLIMB ═══════════════════════════════════ -->
+<section class="phase-section" id="climb">
+  <div class="phase-section-header">
+    <span class="phase-section-num">Phase 03</span>
+    <h2 class="phase-section-title">Climb</h2>
+    <span class="phase-section-ref">PR-NP-SOP-140</span>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Speed Considerations — Managed vs Selected</span>
+      <span class="topic-ref">PR-NP-SOP-140</span>
+      <span class="topic-chevron">▼</span>
+    </div>
+    <div class="topic-body">
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim — Managed</div>
+        The managed climb speed, computed by the FMGS, provides the most economical climb profile as it takes into account weight, actual and predicted winds, ISA deviation and Cost Index (CI). The managed climb speed also takes into account any speed constraints, e.g. the default speed limit which is 250 kt up to 10 000 ft.
+        <cite>FCTM PR-NP-SOP-140-00018857 · Applicable to: ALL</cite>
+      </div>
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim — Selected</div>
+        The speed to achieve the maximum rate of climb, i.e. to reach a given altitude in the shortest time, lies between ECON climb speed and green dot. As there is no indication of this speed on the PFD, a good rule of thumb is to use turbulence speed to achieve maximum rate. The speed to achieve the maximum gradient of climb, i.e. to reach a given altitude in a shortest distance, is green dot. The MCDU PERF CLB page displays the time and distance required to achieve the selected altitude by climbing at green dot speed. Avoid reducing to green dot at high altitude, particularly at heavy weight, as it can take a long time to accelerate to ECON mach.
+        <cite>FCTM PR-NP-SOP-140-00018857 · Applicable to: ALL</cite>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Vertical Performance Predictions — ATC Answers</span>
+      <span class="topic-ref">PR-NP-SOP-140</span>
+      <span class="topic-chevron">▼</span>
+    </div>
+    <div class="topic-body">
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim</div>
+        The MCDU PROG page provides the crew with the MAX REC ALT and with the OPT ALT information. This information is to be used to rapidly answer to ATC: "CAN YOU CLIMB TO FL XXX?" The MCDU PERF CLB page provides predictions to a given FL in terms of time and distance assuming CLB mode. The level arrow on the ND assumes the current AP engaged mode. This information is to be used to rapidly answer to ATC: "CAN YOU MAKE FL XXX by ZZZ waypoint?" The crew will use a PD (Place/Distance), i.e. ZZZ,−10 waypoint if the question is "CAN YOU MAKE FL XXX, 10 NM before ZZZ point?"
+        <cite>FCTM PR-NP-SOP-140-00018858 · Applicable to: ALL</cite>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Lateral Navigation — HDG Vectors &amp; ATC Compliance</span>
+      <span class="topic-ref">PR-NP-SOP-140</span>
+      <span class="topic-chevron">▼</span>
+    </div>
+    <div class="topic-body">
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim</div>
+        If the aircraft is following the programmed SID, the AP/FD should be in NAV. If ATC vectors the aircraft, HDG will be used until a time when clearance is given to either resume the SID or track direct to a specific waypoint. In either case, the crew must ensure that the waypoints are properly sequenced. The crew should keep in mind that the use of HDG mode e.g. following ATC radar vectors, will revert CLB to OP CLB and any altitude constraints in the MCDU F-PLN page will not be observed unless they are selected on the FCU.
+        <cite>FCTM PR-NP-SOP-140-00018859 · Applicable to: ALL</cite>
+      </div>
+      <div class="caution-block">
+        <div class="caution-label">FCTM Note</div>
+        When HDG mode is selected during climb, CLB reverts to OP CLB. Altitude constraints in the F-PLN are ignored unless manually selected on the FCU.
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Undue Activation of Go-Around Phase After Takeoff</span>
+      <span class="topic-ref">PR-NP-SOP-140</span>
+      <span class="topic-chevron">▼</span>
+    </div>
+    <div class="topic-body">
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim</div>
+        In some specific cases, the FMS Go-Around phase may be unduly activated. This situation may be encountered after takeoff if the aircraft is above the ACC ALT and the flight crew sets the thrust levers to TOGA detent with at least CONF 1. In such situation, the flight crew should do either of the following in order to activate the CLIMB phase: insert a NEW DEST (different from the current DEST), or select the ALTN destination. Once the FMS CLIMB phase is activated again, the flight crew should modify the DEST in order to insert the DEST of the intended flight.
+        <cite>FCTM PR-NP-SOP-140-00023997 · Applicable to: ALL</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ CRUISE ═══════════════════════════════════ -->
+<section class="phase-section" id="cruise">
+  <div class="phase-section-header">
+    <span class="phase-section-num">Phase 04</span>
+    <h2 class="phase-section-title">Cruise</h2>
+    <span class="phase-section-ref">PR-NP-SOP-150</span>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Fuel Checks — Periodic Monitoring</span>
+      <span class="topic-ref">PR-NP-SOP-150</span>
+      <span class="topic-chevron">▼</span>
+    </div>
+    <div class="topic-body">
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim</div>
+        Fuel checks should be performed when overflying a waypoint or at least every 30 min. Check FOB (ECAM) and fuel prediction (FMGC), and compare with the computerized flight plan or use the performance application of the EFB. Check that there is no fuel leak. Check that the sum of the fuel on board and the fuel used is consistent with the fuel on board at departure: if the value is abnormally negative, suspect a fuel leak.
+        <cite>FCTM PR-NP-SOP-150 · Applicable to: ALL</cite>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Cost Index — Strategic Use</span>
+      <span class="topic-ref">PR-NP-SOP-150</span>
+      <span class="topic-chevron">▼</span>
+    </div>
+    <div class="topic-body">
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim</div>
+        The Cost Index (CI) is used to take into account the relationship between fuel and time related costs in order to minimize the trip cost. The CI is calculated by the airline for each sector. From an operational point of view, the CI affects the speeds (ECON SPEED/MACH) and cruise altitude (OPT ALT). CI=0 corresponds to maximum range whereas the CI=999 corresponds to minimum time. The CI is a strategic parameter which applies to the whole flight. However, the CI can be modified by the crew in flight for valid strategic operational reasons. For example, if the crew needs to reduce the speed for the entire flight to comply with curfew requirements or fuel management requirements (XTRA gets close to 0), then it is appropriate to reduce the CI.
+        <cite>FCTM PR-NP-SOP-150-00018861 · Applicable to: ALL</cite>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">FMS Use — Wind, Step Climb, ETP, Closest Airport</span>
+      <span class="topic-ref">PR-NP-SOP-150</span>
+      <span class="topic-chevron">▼</span>
+    </div>
+    <div class="topic-body">
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim — Wind &amp; Temperature</div>
+        When reaching cruise FL, the crew will ensure that the wind and temperatures are correctly entered and the lateral and vertical F-PLN reflect the CFP. Wind entries should be made at waypoints when there is a difference of either 30 ° or 30 kt for the wind data and 5 °C for temperature deviation. This will ensure that the FMS fuel and time predictions are as accurate as possible.
+        <cite>FCTM PR-NP-SOP-150-10-00020457 · Applicable to: ALL</cite>
+      </div>
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim — ETP</div>
+        ETP function should be used to assist the crew in making a decision should an en-route diversion be required. Suitable airport pairs should be entered on the ETP page and the FMS will then calculate the ETP. Each time an ETP is sequenced, the crew should insert the next suitable diversion airfield. The SEC F-PLN is a useful tool and should be used practically. The ETP should be inserted in the SEC F-PLN as a PD (Place/Distance) and the route to diversion airfield should be finalized.
+        <cite>FCTM PR-NP-SOP-150-10-00020455 · Applicable to: ALL</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ DESCENT ═══════════════════════════════════ -->
+<section class="phase-section" id="descent">
+  <div class="phase-section-header">
+    <span class="phase-section-num">Phase 05</span>
+    <h2 class="phase-section-title">Descent</h2>
+    <span class="phase-section-ref">PR-NP-SOP-170</span>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">TOD Computation Principles</span>
+      <span class="topic-ref">PR-NP-SOP-170</span>
+      <span class="topic-chevron">▼</span>
+    </div>
+    <div class="topic-body">
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim</div>
+        The FMGS calculates the Top Of Descent point (TOD) backwards from a position 1 000 ft on the final approach with speed at VAPP. It takes into account any descent speed and altitude constraints and assumes managed speed is used. The first segment of the descent will always be idle segment until the first altitude constraint is reached. Subsequent segments will be "geometric", i.e. the descent will be flown at a specific angle, taking into account any subsequent constraints. If the STAR includes a holding pattern, it is not considered for TOD or fuel computation. The managed descent profile from high altitude is approximately 2.5 °. Any gross errors noted in the descent profile are usually a result of incorrect routing entered in the MCDU or non-sequencing of F-PLN waypoints, giving a false distance to touchdown.
+        <cite>FCTM PR-NP-SOP-170-00018923 · MSN-specific — see below</cite>
+      </div>
+      <div class="msn-block">
+        <div class="msn-label">MSN Applicability — Two Variants</div>
+        Two versions of this DU exist with identical content but different MSN applicability:
+        <ul style="margin-top:6px;padding-left:16px;font-size:12px;line-height:1.7">
+          <li><strong>00018923.0002001:</strong> MSN 05845, 05883–06173, 06286, 06409–06414, 06528–06634, 06685–06689, 06712, 06729, 06800–06876, 07005, 07081–07098, 07126, 07844, 08140–08481, 08529, 08635, 09104, 09324–12576</li>
+          <li><strong>00018923.0001001:</strong> MSN 01143–05818, 05859, 06183, 06364–06406, 06484, 06658–06670, 06698, 06718, 06780–06798, 06894–06949, 07036, 07119, 07128–07379, 07864, 08485–08495, 08561–08596, 08657–08891, 09190, 12226–12237, 12377–12398</li>
+        </ul>
+        Content is essentially identical; difference relates to FMGS standard (DPO option).
+      </div>
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim — DPO Option</div>
+        With Descent Profile Optimization option (DPO), the idle segment assumes a given managed speed flown at idle thrust. This gives less flexibility to keep the aircraft on the descent path if engine anti-ice is used or if winds vary. In case of use of engine anti-ice or increased tailwind, the use of speed brakes may be required to go back on the descent path.
+        <cite>FCTM PR-NP-SOP-170-00018923 · MSN-specific (see above)</cite>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Managed DES — Profile Monitoring &amp; Speed Range</span>
+      <span class="topic-ref">PR-NP-SOP-170</span>
+      <span class="topic-chevron">▼</span>
+    </div>
+    <div class="topic-body">
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim — Monitoring Tools</div>
+        The managed DES mode guides the aircraft along the FMS pre-computed descent profile, as long as it flies along the lateral F-PLN: i.e. DES mode is available if NAV is engaged. As a general rule when DES mode is used, the descent is monitored using: the VDEV called "yoyo" on the PFD and the associated Latch symbol; the VDEV digital value on the FMS PROG page; and the level arrow on the ND. The selected OP DES or V/S modes are used when HDG is selected or when ALT CSTR may be disregarded. As a general rule when OP DES or V/S modes are used, the descent is monitored using the Energy Circle (indicating the required distance to descend, decelerate and land from present position) and the level arrow on the ND.
+        <cite>FCTM PR-NP-SOP-170-00018924 · MSN-specific</cite>
+      </div>
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim — Aircraft on Profile</div>
+        If the aircraft is on the computed descent path: the aircraft is latched on the vertical profile (Latch symbol on the altitude scale of the PFD); the speed margins are not displayed; the FMGS commands a nominal IDLE thrust; the elevators adjust the pitch to maintain the vertical profile; the message MORE DRAG will not be displayed unless a constraint is predicted as missed. The flight crew should use the speedbrakes as necessary in order to manage the aircraft speed.
+        <cite>FCTM PR-NP-SOP-170-00018924 · MSN-specific</cite>
+      </div>
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim — Aircraft Above Profile</div>
+        If the aircraft is above the computed descent path: the descent rate will increase in order to reach the vertical profile; the speed will increase up to the upper limit of the speed range; A/THR will command IDLE thrust and elevators adjust the pitch to accelerate to the upper limit of the speed range; the message MORE DRAG will not be displayed unless a constraint is predicted as missed. When regaining the descent profile, the speedbrakes should be retracted to prevent the A/THR applying thrust against speedbrakes. If the speedbrakes are not retracted, the SPEED BRK on the ECAM memo becomes amber.
+        <cite>FCTM PR-NP-SOP-170-00018924 · MSN-specific</cite>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Descent Initiation — Timing &amp; Early Descent</span>
+      <span class="topic-ref">PR-NP-SOP-170</span>
+      <span class="topic-chevron">▼</span>
+    </div>
+    <div class="topic-body">
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim</div>
+        To initiate a managed descent, the flight crew will set the ATC cleared altitude on the FCU and push the ALT selector. DES mode engages and is annunciated on the FMA. If an early descent were required by ATC, DES mode would give 1 000 ft/min rate of descent, until regaining the computed profile. To avoid overshooting the computed descent path, it is preferable to push the FCU ALT selector a few miles prior to the calculated T/D. This method will ensure a controlled entry into the descent and is particularly useful in situations of high cruise Mach number or strong upper winds. If the descent is delayed, DECELERATE or T/D REACHED appears on the PFD and MCDU. Speed should be reduced towards green dot, and when cleared for descent, the flight crew will push for DES and push for managed speed. The speed reduction prior to descent will enable the aircraft to recover the computed profile more quickly as it accelerates to the managed descent speed.
+        <cite>FCTM PR-NP-SOP-170-00018924 · MSN-specific</cite>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Selected Descent — OP DES, V/S, Speedbrakes</span>
+      <span class="topic-ref">PR-NP-SOP-170</span>
+      <span class="topic-chevron">▼</span>
+    </div>
+    <div class="topic-body">
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim</div>
+        There are 3 modes for flying a selected descent, namely OP DES, V/S / FPA and EXP DES. These modes will be used for pilot tactical interventions. V/S / FPA mode is automatically selected when HDG or TRK mode is selected by the flight crew, while in DES mode. To initiate a selected descent, the flight crew should set the ATC cleared altitude on the FCU and pull the ALT selector. OP DES mode engages and is annunciated on the FMA. In OP DES mode, the A/THR commands THR IDLE and the speed is controlled by the THS. If the flight crew wishes to shallow the descent path, V/S can be used. A/THR reverts to SPEED mode. In this configuration, the use of speedbrakes is not recommended to reduce speed, since this would lead to thrust increase and the speed would be maintained.
+        <cite>FCTM PR-NP-SOP-170-00018924 · MSN-specific</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ APPROACH ═══════════════════════════════════ -->
+<section class="phase-section" id="approach">
+  <div class="phase-section-header">
+    <span class="phase-section-num">Phase 06</span>
+    <h2 class="phase-section-title">Approach</h2>
+    <span class="phase-section-ref">PR-NP-SOP-190</span>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Decelerated vs. Early Stabilized Approach</span>
+      <span class="topic-ref">PR-NP-SOP-190-CONF</span>
+      <span class="topic-chevron">▼</span>
+    </div>
+    <div class="topic-body">
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim — Approach Phase Activation</div>
+        Activation of the approach phase will initiate a deceleration towards VAPP or the speed constraint inserted at the Final Descent Point (FDP). When in NAV mode with managed speed, the approach phase activates automatically when sequencing the deceleration pseudo-waypoint. If an early deceleration is required, the approach phase can be activated on the MCDU PERF APPR page. When the approach phase is activated, the magenta target speed becomes VAPP. When in HDG mode, e.g. for radar vectoring, the crew will activate the approach phase manually.
+        <cite>FCTM PR-NP-SOP-190-CONF-A-00018951 · Applicable to: ALL</cite>
+      </div>
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim — Decelerated Approach</div>
+        This technique refers to an approach where the aircraft reaches 1 000 ft in the landing configuration at VAPP. In most cases, this equates to the aircraft being in CONF 1 and at S speed at the FDP. This is the preferred technique for an approach using vertical managed guidance. The deceleration pseudo waypoint assumes a decelerated approach technique.
+        <cite>FCTM PR-NP-SOP-190-CONF-A-00018951 · Applicable to: ALL</cite>
+      </div>
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim — Early Stabilized Approach</div>
+        This technique refers to an approach where the aircraft reaches the FDP in the landing configuration at VAPP. This technique is recommended for non-precision approaches (LOC FPA, NAV FPA and TRK FPA). To get a valuable deceleration pseudo waypoint and to ensure a timely deceleration, the pilot should enter VAPP as a speed constraint at the FDP.
+        <cite>FCTM PR-NP-SOP-190-CONF-A-00018951 · Applicable to: ALL</cite>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Deceleration &amp; Configuration Change Technique</span>
+      <span class="topic-ref">PR-NP-SOP-190-CONF-B</span>
+      <span class="topic-chevron">▼</span>
+    </div>
+    <div class="topic-body">
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim</div>
+        Managed speed is recommended for the approach. Once the approach phase has been activated, the A/THR will guide aircraft speed towards the maneuvering speed of the current configuration, whenever higher than VAPP, e.g. green dot for CONF 0, S speed for CONF 1 etc. To achieve a constant deceleration and to minimize thrust variation, the crew should extend the next configuration when reaching the current configuration maneuvering speed +10 kt (IAS must be lower than VFE next), e.g. when the speed reaches green dot +10 kt, the crew should select CONF 1. Using this technique, the mean deceleration rate will be approximately 10 kt/NM in level flight. This deceleration rate will be twice i.e. 20 kt/NM, with the use of the speedbrakes.
+        <cite>FCTM PR-NP-SOP-190-CONF-B-00018953 · MSN-specific — two variants</cite>
+      </div>
+      <div class="msn-block">
+        <div class="msn-label">MSN Variant Note — Speedbrake Auto-Retraction</div>
+        <strong>MSN 06286, 07126, 07844–12576 (00018953.0005001):</strong> Speed brake auto-retraction when selecting CONF FULL.<br><br>
+        <strong>MSN 01143–06183, 06364–07119, 07128–07379, 08479–09104, 11524–11949 (00018953.0001001):</strong> Speed brake auto-retraction when selecting CONF FULL (A319, A320) or CONF 3 (A321 only). There is no speed brake auto-retraction on A318.
+      </div>
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim — High Drag for Deceleration</div>
+        In certain circumstances, e.g. tail wind or high weight, the deceleration rate may be insufficient. In this case, the landing gear may be lowered, preferably below 220 kt (to avoid gear doors overstress), and before selection of Flap 2. Speedbrakes can also be used to increase the deceleration rate but the crew should be aware of: the increase in VLS with the use of speedbrakes; the limited effect at low speeds; the speed brake auto-retraction when selecting CONF FULL.
+        <cite>FCTM PR-NP-SOP-190-CONF-B-00018953 · MSN-specific</cite>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">F-PLN Sequencing on Radar Vectors</span>
+      <span class="topic-ref">PR-NP-SOP-190-CONF-A</span>
+      <span class="topic-chevron">▼</span>
+    </div>
+    <div class="topic-body">
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim</div>
+        When in NAV mode, the F-PLN will sequence automatically. In HDG/TRK mode, the F-PLN waypoints will sequence automatically only if the aircraft flies close to the planned route. If ATC provides radar vectors and automatic waypoint sequencing does not occur, the flight crew should use the DIR TO RADIAL IN function, or delete the FROM waypoint on the F-PLN page until the next likely waypoint to be overflown is displayed as the TO waypoint on the ND. DIR TO RADIAL IN must not be used beyond the Final Descent Point, in order to ensure that the vertical profile in final is unchanged. Using DIR TO or DIR TO RADIAL IN function arms the NAV mode. If NAV mode is not appropriate, the flight crew will pull the HDG knob to disarm it.
+        <cite>FCTM PR-NP-SOP-190-CONF-A-00018950 · Applicable to: ALL</cite>
+      </div>
+      <div class="caution-block">
+        <div class="caution-label">FCTM Note</div>
+        When the LOC mode (or F-LOC mode) is armed or engaged, the flight crew should not perform a DIR TO, as this will result in the FMGS reverting to NAV mode, and the LOC mode will have to be re-armed and re-engaged, increasing workload unduly.
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Barometric Reference — Approach Precision</span>
+      <span class="topic-ref">PR-NP-SOP-190-GEN</span>
+      <span class="topic-chevron">▼</span>
+    </div>
+    <div class="topic-body">
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim</div>
+        Approach flown in FINAL APP or FLS requires a precise barometric setting. Wrong barometric setting leads to an incorrect vertical profile and potential obstacle clearance reduction. When changing from STD to QNH/QFE, the flight crew should pay attention to a barometric setting that significantly differs from the one used for approach preparation. That could be the symptom of a barometric setting error. In this case the flight crew should consider the confirmation of the barometric setting from all available sources. During final approach, if the radio altimeter value unexpectedly decreases to a very low value, this could be the sign of a wrong barometric setting.
+        <cite>FCTM PR-NP-SOP-190-GEN · Applicable to: ALL</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ LANDING ═══════════════════════════════════ -->
+<section class="phase-section" id="landing">
+  <div class="phase-section-header">
+    <span class="phase-section-num">Phase 07</span>
+    <h2 class="phase-section-title">Landing</h2>
+    <span class="phase-section-ref">PR-NP-SOP-250</span>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Flare — Pitch Control &amp; Technique</span>
+      <span class="topic-ref">PR-NP-SOP-250</span>
+      <span class="topic-chevron">▼</span>
+    </div>
+    <div class="topic-body">
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim</div>
+        When approaching the ground, auto-trim ceases and the flare law activates. During flare, PF will have to apply a progressive and gentle back stick order until touchdown. The flare law technique is thus very conventional. Prior to flare, avoid destabilization of the approach and steepening the slope at low heights in attempts to target a shorter touchdown. If a normal touchdown point cannot be achieved or if destabilization occurs just prior to flare, a go-around (or rejected landing) should be performed. The PM monitors the rate of descent and should call "SINK RATE" if the vertical speed is excessive prior to the flare. From stabilized conditions, the flare height is about 30 ft.
+        <cite>FCTM PR-NP-SOP-250-00020012 · MSN 01143–11522, 11572, 11597, 11629, 11725, 11803–11817, 12205–12576</cite>
+      </div>
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim — Factors Requiring Earlier Flare</div>
+        Compared to typical sea level flare heights for flat and adequate runway lengths, pilot need to be aware of factors that will require an earlier flare, in particular: high airport elevation (increased altitude results in higher ground speeds during approach with associated increase in descent rates to maintain the approach slope); steeper approach slope (compared to nominal 3 °); tailwind (increased tailwind results in higher ground speed during approach with associated increase in descent rates); increasing runway slope (rising terrain in front of the runway will affect the radio height callouts and cause flare inputs to be late). Note that the cumulative effect of any of the above factors combined for one approach will require even more anticipation to perform an earlier flare.
+        <cite>FCTM PR-NP-SOP-250-00020012 · MSN-specific (see above)</cite>
+      </div>
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim — Flare Execution</div>
+        Avoid under flaring. The rate of descent must be controlled prior to the initiation of the flare (rate not increasing). Start the flare with positive (or "prompt") backpressure on the sidestick and holding as necessary. Avoid forward stick movement once flare is initiated (releasing back-pressure is acceptable). At 20 ft, the "RETARD" auto call-out reminds the pilot to retard thrust levers. It is a reminder rather than an order. When best adapted, the pilot will rapidly retard all thrust levers: depending on the conditions, the pilot will retard earlier or later. However, the pilot must ensure that all thrust levers are at IDLE detent at the latest at touchdown, to ensure ground spoilers extension at touchdown.
+        <cite>FCTM PR-NP-SOP-250-00020012 · MSN-specific</cite>
+      </div>
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim — Typical Flare Parameters</div>
+        In order to assess the rate of descent in the flare, and the aircraft position relative to the ground, look well ahead of the aircraft. The typical pitch increment in the flare is approximately 4 °, which leads to −1 ° flight path angle associated with a 10 kt speed decay in the manoeuvre. Do not allow the aircraft to float or do not attempt to extend the flare by increasing pitch attitude in an attempt to achieve a perfectly smooth touchdown. A prolonged float will increase both the landing distance and the risk of tail strike.
+        <cite>FCTM PR-NP-SOP-250-00020012 · MSN-specific</cite>
+      </div>
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim — After Touchdown</div>
+        After touch down, the pilot must "fly" the nosewheel smoothly, but without delay, on to the runway, and must be ready to counteract any residual pitch up effect of the ground spoilers. However, the main part of the spoiler pitch up effect is compensated by the flight control law itself. It is not recommended to keep the nose high in order to increase aircraft drag during the initial part of the roll-out, as this technique is inefficient and increases the risk of tail strike. Furthermore, if auto brake MED is used, it may lead to a hard nose gear touch down.
+        <cite>FCTM PR-NP-SOP-250-00020012 · MSN-specific</cite>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Lateral &amp; Directional Control — Crosswind Landing</span>
+      <span class="topic-ref">PR-NP-SOP-250</span>
+      <span class="topic-chevron">▼</span>
+    </div>
+    <div class="topic-body">
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim — Final Approach</div>
+        In crosswind conditions, a crabbed-approach wings-level should be flown with the aircraft (cockpit) positioned on the extended runway centerline until the flare.
+        <cite>FCTM PR-NP-SOP-250 · Applicable to: ALL</cite>
+      </div>
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim — De-Crab Technique</div>
+        The recommended de-crab technique is to use all of the following: the rudder to align the aircraft with the runway heading during the flare; the roll control, if needed, to maintain the aircraft on the runway centerline. Any tendency to drift downwind should be counteracted by an appropriate lateral (roll) input on the sidestick. In the case of strong crosswind, in the de-crab phase, the PF should be prepared to add small bank angle into the wind in order to maintain the aircraft on the runway centerline. The aircraft may be landed with a partial de-crab (residual crab angle up to about 5 °) to prevent an excessive bank. This technique prevents wingtip/sharklet (or engine nacelle) strike caused by an excessive bank angle. As a consequence, this may result in touching down with some bank angle into the wind (hence with the upwind landing gear first).
+        <cite>FCTM PR-NP-SOP-250 · Applicable to: ALL</cite>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Rollout — Deceleration Systems</span>
+      <span class="topic-ref">PR-NP-SOP-250</span>
+      <span class="topic-chevron">▼</span>
+    </div>
+    <div class="topic-body">
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim</div>
+        During the roll out, the rudder pedals will be used to steer the aircraft on the runway centreline. At high speed, directional control is achieved with rudder. As the speed reduces, the Nose Wheel Steering becomes active. However, the NWS tiller will not be used until taxi speed is reached. In crosswind conditions: the flight crew will avoid setting side stick into the wind as it increases the weathercock effect. Indeed, it creates a differential down force on the wheels into the wind side. The reversers have a destabilizing effect on the airflow around the rudder and thus decrease the efficiency of the rudder. Furthermore they create a side force, in case of a remaining crab angle, which increases the lateral skidding tendency of the aircraft. This adverse effect is quite noticeable on contaminated runways with crosswind. In case a lateral control problem occurs in high crosswind landing, the pilot will consider to set reversers back to REV IDLE.
+        <cite>FCTM PR-NP-SOP-250-00020015 · Applicable to: ALL</cite>
+      </div>
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim — Three Deceleration Systems</div>
+        Once on the ground, the importance of the timely use of all means of stopping the aircraft cannot be overemphasised. Three systems are involved in braking once the aircraft is on the ground: the ground spoilers; the thrust reversers; the wheel brakes.
+        <cite>FCTM PR-NP-SOP-250-00020013 · MSN 06286, 07126, 07239, 07287–12576</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ GO-AROUND ═══════════════════════════════════ -->
+<section class="phase-section" id="goaround">
+  <div class="phase-section-header">
+    <span class="phase-section-num">Phase 08</span>
+    <h2 class="phase-section-title">Go-Around</h2>
+    <span class="phase-section-ref">PR-NP-SOP-260</span>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">AP/FD Go-Around Phase Activation</span>
+      <span class="topic-ref">PR-NP-SOP-260</span>
+      <span class="topic-chevron">▼</span>
+    </div>
+    <div class="topic-body">
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim</div>
+        When the thrust levers are set to the TOGA detent, with the FLAPS lever not in 0, the following will occur: if the autopilot or the flight director is in use, SRS and GA TRK (NAV) modes engage; if the autopilot and both flight directors are off, the PF will maintain 15 ° of pitch; the GA phase activates on the FMS: the missed approach becomes the active F-PLN; at the end of the missed approach procedure, the FMS strings the previous flown approach in the active F-PLN; if not previously engaged, the FD automatically engages with the HDG/VS reference on the FCU. For the go-around, the appropriate flight reference is the attitude, because go-around is a dynamic maneuver; if extended, the speed brakes automatically retract.
+        <cite>FCTM PR-NP-SOP-260-00019216 · MSN-specific — see below</cite>
+      </div>
+      <div class="msn-block">
+        <div class="msn-label">MSN Applicability — Three Variants</div>
+        <strong>00019216.0004001:</strong> MSN 06286, 07126, 07844–08172, 08495–08529, 08596–08635, 09190–12576 — includes GA SOFT mode<br><br>
+        <strong>00019216.0003001:</strong> MSN 01143–01355, 01459–06183, 06364–07119, 07128–07379, 08479–08485, 08561–08595, 08657–09104<br><br>
+        <strong>00019216.0002001:</strong> MSN 01376 — GA TRK (not GA TRK NAV)
+      </div>
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim — GA SOFT Mode (MSN 06286+)</div>
+        To perform a soft go-around, the PF must set thrust levers to the TOGA detent to ensure engagement of SRS GA mode. Then, the PF must set the thrust levers to the FLX/MCT detent to engage the GA SOFT mode. In this case, the FMA displays MAN GA SOFT, and the AP/FD vertical and lateral modes remain engaged. In GA SOFT mode, the SRS GA mode remains engaged with a vertical target speed of approximately 2 300 ft/min.
+        <cite>FCTM PR-NP-SOP-260-00019216.0004001 · MSN 06286, 07126, 07844–12576</cite>
+      </div>
+      <div class="caution-block">
+        <div class="caution-label">FCTM — Critical: TOGA Detent is Mandatory</div>
+        If TOGA thrust is not desired during go-around for any reason (e.g. an early go-around ordered by ATC), it is essential that the thrust levers are set momentarily but without delay, to the TOGA detent (i.e. the full forward thrust levers position), in order to ensure proper activation of the SRS GA and the go-around phase. If the thrust levers are not correctly set to the TOGA detent: the AP/FD remain engaged in approach or landing mode (e.g. G/S, LOC, LAND, FLARE on FMA); the FMS does not engage the GA phase, and remains in APPR phase; LVR CLB flashes on FMA. If the thrust levers are set to the TOGA detent with the FLAPS lever at 0: same consequences as above. Consequently, as the thrust levers are set to the TOGA detent, the aircraft energy will rapidly increase but the aircraft will remain on its approach path. In this case, the flight crew must take appropriate actions without delay.
+        <cite>FCTM PR-NP-SOP-260-00019216 · Applicable to: ALL (MSN-specific variants)</cite>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Go-Around Near the Ground</span>
+      <span class="topic-ref">PR-NP-SOP-260</span>
+      <span class="topic-chevron">▼</span>
+    </div>
+    <div class="topic-body">
+      <div class="fctm-quote">
+        <div class="fctm-quote-label">FCTM Verbatim</div>
+        The PF must not initiate a go-around after the selection of the thrust reversers. If the PF initiates a go-around, the flight crew must complete the go-around maneuver. If the flight crew performs a go-around near the ground, they should take into account the following: the PF should avoid excessive rotation rate, in order to prevent a tailstrike; if the engines are at idle when the go-around is initiated, the engines can take a few seconds to spool up and the flight crew may need to maintain the pitch until the aircraft speed increases up to VAPP; a temporary landing gear contact with the runway is acceptable; only when the aircraft is safely established in the go-around, the flight crew retracts flaps one step and the landing gear.
+        <cite>FCTM PR-NP-SOP-260-A-00019215 · MSN-specific — multiple variants</cite>
+      </div>
+      <div class="caution-block">
+        <div class="caution-label">FCTM Note</div>
+        If the aircraft is on the runway when the PF applies TOGA thrust, CONFIG warnings may transiently trigger. The flight crew should disregard these alerts.
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+</div>
+
+<script>
+function toggle(header) {
+  header.classList.toggle('open');
+  const body = header.nextElementSibling;
+  body.classList.toggle('open');
+}
+
+function scrollToPhase(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  updateNav(id);
+}
+
+function updateNav(activeId) {
+  document.querySelectorAll('.phase-nav-item').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('.sidebar-link').forEach(link => link.classList.remove('active'));
+  const phases = ['taxi','takeoff','climb','cruise','descent','approach','landing','goaround'];
+  const idx = phases.indexOf(activeId);
+  if (idx >= 0) {
+    document.querySelectorAll('.phase-nav-item')[idx]?.classList.add('active');
+    document.querySelectorAll('.sidebar-link')[idx]?.classList.add('active');
+  }
+}
+
+// Scroll spy
+const sections = ['taxi','takeoff','climb','cruise','descent','approach','landing','goaround'];
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) updateNav(entry.target.id);
+  });
+}, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+sections.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) observer.observe(el);
+});
+
+// Open all cards on load for first phase
+document.querySelectorAll('#taxi .topic-header').forEach(h => {
+  h.classList.add('open');
+  h.nextElementSibling.classList.add('open');
+});
+</script>
+</body>
+</html>
