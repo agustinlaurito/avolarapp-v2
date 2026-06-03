@@ -726,6 +726,22 @@ const PHASES = [
       fcom: '[PRO-NOR-SOP-04] ENG MODE selector...NORM. (CM2)',
     },
     {
+      name: '* RADAR sw', value: 'OFF',
+      fcom: '[PRO-NOR-SOP-04-A-00011188] * RADAR sw...OFF. (CM2) — Items marked * are the only steps completed after a transit stop without flight crew change.',
+    },
+    {
+      name: '* WINDSHEAR / PWS sw', value: 'OFF',
+      fcom: '[PRO-NOR-SOP-04-A-00011188] * WINDSHEAR / PWS sw...OFF. (CM2)',
+    },
+    {
+      name: '* GAIN knob', value: 'AUTO/CAL',
+      fcom: '[PRO-NOR-SOP-04-A-00011188] * GAIN knob...AUTO/CAL. (CM2)',
+    },
+    {
+      name: '* MODE selector', value: 'AS RQRD',
+      fcom: '[PRO-NOR-SOP-04-A-00011188] * MODE selector...AS RQRD. (CM2)',
+    },
+    {
       name: 'L/G lever', value: 'DOWN',
       fcom: '[PRO-NOR-SOP-04] L/G lever...DOWN. (CM2)',
     },
@@ -805,6 +821,10 @@ const PHASES = [
       fcom: '[PRO-NOR-SOP-06] LDG ELEV knob...AUTO. (PF)',
     },
     {
+      name: 'ENG 2 BLEED', value: 'AS RQRD',
+      fcom: '[PRO-NOR-SOP-06] * ENG 2 BLEED...AS RQRD. (PF) — If SETWA is installed and the procedure is to be performed, set the ENG 2 BLEED to OFF to configure the pneumatic system for a CROSSBLEED ENG START during SETWA operations.',
+    },
+    {
       name: 'PACK FLOW selector', value: 'AS RQRD',
       fcom: '[PRO-NOR-SOP-06] * PACK FLOW selector...AS RQRD. (PF)',
     },
@@ -827,11 +847,22 @@ const PHASES = [
     },
     {
       name: 'AUDIO SWITCHING selector', value: 'NORM',
-      fcom: '[PRO-NOR-SOP-06] AUDIO SWITCHING selector...NORM. (PF)',
+      fcom: '[PRO-NOR-SOP-06-A-00011169] AUDIO SWITCHING selector...NORM. (PF)',
+      note: 'Applicable to MSN 01143-11293',
     },
     {
       name: 'CARGO HEAT TEMPERATURE selector', value: 'AS RQRD',
       fcom: '[PRO-NOR-SOP-06] TEMPERATURE selector...AS RQRD. (PF)',
+    },
+    {
+      name: 'ACT XFR rotary selector', value: 'OFF',
+      fcom: '[PRO-NOR-SOP-06-A-00022544] * ACT XFR rotary selector...OFF. (PF)',
+      note: 'Applicable to MSN 11524-11531, 11575, 11618, 11678, 11723, 11751, 11824',
+    },
+    {
+      name: 'PA (3rd occupant)', value: 'RECEPT',
+      fcom: '[PRO-NOR-SOP-06-A-00011174] PA (3rd occupant)...RECEPT. (PF) — Enables recording of cabin attendant announcements on the CVR. Set volume at or above medium range.',
+      note: 'Applicable to MSN 01143-11293',
     },
     {
       name: 'MAINTENANCE PANEL', value: 'CHECK',
@@ -874,9 +905,18 @@ const PHASES = [
       fcom: '[PRO-NOR-SOP-06] * ENG MODE selector...NORM. (PF)',
     },
     {
+      name: 'ACCU PRESS indicator', value: 'CHECK',
+      fcom: '[PRO-NOR-SOP-06-C-00011195] * ACCU PRESS indicator...CHECK. (PF) — The ACCU PRESS indication must be in the green band. If required, use the electric pump on yellow hydraulic system to recharge the brake accumulator.',
+      warning: '[PRO-NOR-SOP-06 — WARNING] Yellow and green hydraulic systems are pressurized from yellow electric pump. Get ground crew clearance before using the electric pump.',
+    },
+    {
       name: 'PARK BRK handle', value: 'CHECK ON',
       fcom: '[PRO-NOR-SOP-06] * PARK BRK handle...CHECK ON. (PF)',
       warning: '[PRO-NOR-SOP-06 — WARNING] Do not pressurize the hydraulic systems until clearance is obtained from ground personnel.',
+    },
+    {
+      name: 'BRAKES PRESS indicator', value: 'CHECK',
+      fcom: '[PRO-NOR-SOP-06] * BRAKES PRESS indicator...CHECK. (PF) — Check for normal indications.',
     },
     {
       name: 'GRAVITY GEAR EXTN', value: 'CHECK STOWED',
@@ -885,16 +925,172 @@ const PHASES = [
     {
       name: 'ATC / TCAS', value: 'STBY',
       fcom: '[PRO-NOR-SOP-06] * ATC...STBY / * TCAS...STBY. (PF)',
-    }
+    },
+    {
+      name: 'ALT RPTG', value: 'ON',
+      fcom: '[PRO-NOR-SOP-06] * ALT RPTG...ON. (PF)',
+    },
+    {
+      name: 'ATC SYS 1/2 / XPDR 1/2', value: 'SELECT',
+      fcom: '[PRO-NOR-SOP-06] * ATC SYS 1/2...SELECT. (PF) — For RVSM, select SYS 1 if AP 1 is used, SYS 2 if AP 2 is used.',
+    },
+    {
+      name: 'TRAFFIC selector / TCAS DISPLAY MODE', value: 'ABV',
+      fcom: '[PRO-NOR-SOP-06] * TRAFFIC selector...ABV. (PF)',
+    },
+    {
+      name: 'ENGINE & AIRCRAFT TYPE', value: 'CHECK',
+      fcom: '[PRO-NOR-SOP-06-D-00011227] * ENGINE & AIRCRAFT TYPE...CHECK. (PF) — Press the DATA key and display the STATUS page.',
+    },
+    {
+      name: 'FM database validity', value: 'CHECK',
+      fcom: '[PRO-NOR-SOP-06-D-00011228] * FM database validity...CHECK. (PF) — Check database validity and stored WPT/NAVAIDS/RWY/ROUTES.',
+    },
+    {
+      name: 'IDLE / PERF FACTOR', value: 'CHECK',
+      fcom: '[PRO-NOR-SOP-06-D-00026846] * IDLE / PERF FACTOR...CHECK. (PF)',
+    },
+    {
+      name: 'NAVAID DESELECTION', value: 'AS RQRD',
+      fcom: '[PRO-NOR-SOP-06-D-00011229] * NAVAID DESELECTION...AS RQRD. (PF) — If NOTAMs warn of any unreliable or unserviceable DME or VOR/DME, deselect the related NAVAID. For RNP AR departure: RADIONAV...DESELECT.',
+    },
+    {
+      name: 'FLIGHT PLAN INITIALIZATION', value: 'COMPLETE',
+      fcom: '[PRO-NOR-SOP-06-D-00011231] * FLIGHT PLAN INITIALIZATION...COMPLETE. (PF) — Insert CO RTE or city pair, check FROM/TO, ALTN, enter FLT NBR, CI, initial CRZ FL, CRZ FL TEMP, GND TEMP, press IRS INIT, check alignment.',
+    },
+    {
+      name: 'ADIRS POSITION INITIALIZATION', value: 'AS APPROPRIATE',
+      fcom: '[PRO-NOR-SOP-06-D-00011232] * ADIRS POSITION INITIALIZATION...AS APPROPRIATE. (PF) — Confirm or insert position coordinates for IRS alignment. Between lat 73° and 82°, IRS alignment must last at least 15 min.',
+    },
+    {
+      name: 'F-PLN A page', value: 'COMPLETE AND CHECK',
+      fcom: '[PRO-NOR-SOP-06-D-00011233] * F-PLN A page...COMPLETE AND CHECK. (PF) — Check lateral and vertical F-PLN including SID, STAR, speed/altitude constraints. Enter winds (CLB, CRZ, DES). Check DIST TO DEST.',
+    },
+    {
+      name: 'SECONDARY FLIGHT PLAN', value: 'AS APPROPRIATE',
+      fcom: '[PRO-NOR-SOP-06-D-00011234] * SECONDARY FLIGHT PLAN...AS APPROPRIATE. (PF) — Routinely a copy of the active F-PLN modified for immediate return, diversion, or alternate runway.',
+    },
+    {
+      name: 'RADIO NAV', value: 'CHECK',
+      fcom: '[PRO-NOR-SOP-06-D-00011235] * RADIO NAV...CHECK. (PF) — Check VOR, ILS/GLS/MLS, and ADF tuned by the FMGC. Modify if required, check identifier on ND and PFD.',
+      caution: '[PRO-NOR-SOP-06 — CAUTION] Do not enter an IDENT or channel associated with a MLS.',
+    },
+    {
+      name: 'ZFW/ZFWCG', value: 'INSERT',
+      fcom: '[PRO-NOR-SOP-06-D-00011238] * ZFW/ZFWCG...INSERT. (PF) — Insert in INIT B page.',
+      caution: '[PRO-NOR-SOP-06 — CAUTION] The characteristic speeds (green dot, F, S, VLS) are computed from ZFW and ZFWCG. This data must be carefully checked (Captain\'s responsibility).',
+    },
+    {
+      name: 'BLOCK FUEL', value: 'INSERT',
+      fcom: '[PRO-NOR-SOP-06-D-00011238] * BLOCK FUEL...INSERT. (PF) — Insert in INIT B page.',
+    },
+    {
+      name: 'T.O SHIFT', value: 'INSERT AS RQRD',
+      fcom: '[PRO-NOR-SOP-06-D-00011240] * T.O SHIFT...INSERT AS RQRD. (PF) — If taking off from an intersection, insert a T.O shift value to increase awareness of runway length reduction.',
+    },
+    {
+      name: 'V1, VR, V2', value: 'INSERT',
+      fcom: '[PRO-NOR-SOP-06-D-00011240] * V1, VR, V2...INSERT. (PF)',
+    },
+    {
+      name: 'FLX TO TEMP', value: 'INSERT',
+      fcom: '[PRO-NOR-SOP-06-D-00011240] * FLX TO TEMP...INSERT. (PF)',
+    },
+    {
+      name: 'THR RED/ACC altitude', value: 'SET or CHECK',
+      fcom: '[PRO-NOR-SOP-06-D-00011240] * THR RED/ACC altitude...SET or CHECK. (PF) — Check on EFB or airport operations manual. Minimum THR RED 800 ft AFE, ACC 3,000 ft AFE if not specified (NADP 1).',
+    },
+    {
+      name: 'ENG OUT ACC altitude', value: 'SET or CHECK',
+      fcom: '[PRO-NOR-SOP-06-D-00011240] * ENG OUT ACC altitude...SET or CHECK. (PF) — Check on EFB or EOSID navigation chart. Minimum 1,500 ft AFE.',
+    },
+    {
+      name: 'FLAPS/THS reminder', value: 'INSERT',
+      fcom: '[PRO-NOR-SOP-06-D-00011240] * FLAPS/THS reminder...INSERT. (PF) — FLAPS position must be checked against TO CONF setting on EFB. THS value triggers F/CTL PITCH TRIM/MCDU/CG DISAGREE alert when entered.',
+    },
+    {
+      name: 'FUEL PRED page', value: 'CHECK',
+      fcom: '[PRO-NOR-SOP-06-D-00028300] FUEL PRED page...CHECK. (PF) — Check EFOB for destination and alternate.',
+    },
+    {
+      name: 'SEC F-PLN page', value: 'AS RQRD',
+      fcom: '[PRO-NOR-SOP-06] SEC F-PLN page...AS RQRD. (PF) — Secondary F-PLN should be set to alternate runway or landing runway in case of circling.',
+    },
+    {
+      name: 'PRESET SPEEDS', value: 'AS RQRD',
+      fcom: '[PRO-NOR-SOP-06-D] * PRESET SPEEDS...AS RQRD. (PF) — If cleared for close-in turn or altitude constraint, may preselect green dot speed on PERF CLB page.',
+    },
+    {
+      name: 'SPD/MACH window', value: 'DASHED',
+      fcom: '[PRO-NOR-SOP-06-E-00011248] * SPD/MACH window...DASHED. (PF)',
+    },
+    {
+      name: 'HDG-V/S / TRK-FPA pb', value: 'HDG-V/S',
+      fcom: '[PRO-NOR-SOP-06-E-00011248] * HDG-V/S / TRK-FPA pb...HDG-V/S. (PF)',
+      note: 'During takeoff, HDG-V/S is recommended as flying reference. If TRK-FPA is selected, the FD orders are not appropriate for takeoff roll and rotation.',
+    },
+    {
+      name: 'ALT window', value: 'INITIAL EXPECTED CLEARANCE ALTITUDE',
+      fcom: '[PRO-NOR-SOP-06-E-00011248] * ALT window...INITIAL EXPECTED CLEARANCE ALTITUDE. (PF)',
+    },
+    {
+      name: 'OXYGEN MASK TEST', value: 'PERFORM',
+      fcom: '[PRO-NOR-SOP-06-00011249] OXYGEN MASK TEST...PERFORM. (PF-PM) — Press RESET/TEST button: check blinker turns yellow then black. With RESET/TEST held, press Emergency Pressure selector: check blinker yellow and remains yellow, listen for O2 flow. Check REGUL LO PR not displayed on ECAM DOOR/OXY SD page after all masks checked.',
+      warning: '[PRO-NOR-SOP-06 — WARNING] To prevent hearing damage to the ground crew connected to the intercom system, inform them that a loud noise may be heard in the headset when performing the oxygen mask test.',
+    },
+    {
+      name: 'PFD', value: 'CHECK',
+      fcom: '[PRO-NOR-SOP-06-00011252] * PFD...CHECK. (PF-PM) — Check PFD/ND not transferred. Check correct display (ATT, HDG available). Check IAS, FMA, initial target ALT, altimeter readings, VSI, altimeter settings, heading and attitude display.',
+    },
+    {
+      name: 'ND', value: 'CHECK',
+      fcom: '[PRO-NOR-SOP-06-00011252] * ND...CHECK. (PF-PM) — Check correct display. Check heading, initial waypoint, VOR/ADF indications.',
+    },
+    {
+      name: 'PRESS pb', value: 'PRESS',
+      fcom: '[PRO-NOR-SOP-06-00011190] * PRESS pb...PRESS. (PF) — Check CAB PRESS SD page displays LDG ELEV AUTO.',
+    },
+    {
+      name: 'STS pb', value: 'PRESS',
+      fcom: '[PRO-NOR-SOP-06-00011190] * STS pb...PRESS. (PF) — Check INOP SYS display is compatible with MEL.',
+    },
   ],
   pm: [
     {
-      name: 'FMS PREPARATION', value: 'CROSSCHECK',
-      fcom: '[PRO-NOR-SOP-06] * FMS PREPARATION...CROSSCHECK. (PM) — The PM performs the external walkaround (SOP-05) and then crosschecks the FMGS preparation.',
+      name: 'FD', value: 'CHECK ON',
+      fcom: '[PRO-NOR-SOP-06-E-00020832] * FD...CHECK ON. (PF-PM)',
+    },
+    {
+      name: 'LS pb', value: 'AS RQRD',
+      fcom: '[PRO-NOR-SOP-06-E-00020832] * LS pb...AS RQRD. (PF-PM)',
+    },
+    {
+      name: 'ND MODE and RANGE', value: 'AS RQRD',
+      fcom: '[PRO-NOR-SOP-06-E-00020832] * ND MODE and RANGE...AS RQRD. (PF-PM)',
     },
     {
       name: 'BAROMETRIC REFERENCE', value: 'SET/CROSSCHECK',
-      fcom: '[PRO-NOR-SOP-06] * BAROMETRIC REFERENCE...SET/CROSSCHECK. (BOTH)',
+      fcom: '[PRO-NOR-SOP-06-E-00020832] * BAROMETRIC REFERENCE...SET/CROSSCHECK. (BOTH) — Set QNH (or QFE) on EFIS CP and standby altimeter. Max difference: ±20 ft between both PFDs. Check altitude indications.',
+    },
+    {
+      name: 'IRS ALIGN', value: 'CHECK',
+      fcom: '[PRO-NOR-SOP-06-00011253] * IRS ALIGN...CHECK. (PM) — On POSITION MONITOR page, check IRS are in NAV mode and distance between each IRS and FMS position is less than 5 NM. Confirm aircraft position consistent with airport, SID and surrounding NAVAIDs.',
+    },
+    {
+      name: 'FUEL ON BOARD', value: 'CHECK',
+      fcom: '[PRO-NOR-SOP-06-00024944] * FUEL ON BOARD...CHECK. (PF-PM) — Check ECAM FOB matches block fuel of computerized flight plan. Check fuel balance on FUEL SD page. Crosscheck sum of FOB after last flight plus uplift.',
+    },
+    {
+      name: 'FMS PREPARATION', value: 'CROSSCHECK',
+      fcom: '[PRO-NOR-SOP-06-D-00015496] * FMS PREPARATION...CROSSCHECK. (PM) — Check all data entered in FMS vs. computerized flight plan: waypoints, constraints, initial CRZ FL, track miles, fuel at destination, perf data vs. EFB.',
+    },
+    {
+      name: 'EFB/MCDU GREEN DOT', value: 'COMPARE',
+      fcom: '[PRO-NOR-SOP-06-D-00015496] * EFB/MCDU GREEN DOT...COMPARE. (PM) — Compare Green Dot speed computed by FMGS and by EFB takeoff performance application. Discrepancy indicates difference in TOW.',
+    },
+    {
+      name: 'DEPARTURE BRIEFING', value: 'PERFORM',
+      fcom: '[PRO-NOR-SOP-06-00011256] * DEPARTURE BRIEFING...PERFORM. (BOTH)',
     }
   ]
 },
@@ -1087,7 +1283,8 @@ const PHASES = [
     },
     {
       name: 'DUAL COOLING pb-sw', value: 'OFF',
-      fcom: '[PRO-NOR-SOP-09] DUAL COOLING pb-sw...OFF. PF (MSN 06286, 07126, 07844-08172, 08495-08529, 08596-08635, 09190-12576)',
+      fcom: '[PRO-NOR-SOP-09-A-00020192] DUAL COOLING pb-sw...OFF. PF',
+      note: 'Applicable to MSN 07844-08172, 08495-08529, 08596-08635, 09190-12576',
     },
     {
       name: 'APU BLEED pb-sw', value: 'OFF',
@@ -1537,35 +1734,66 @@ const PHASES = [
   pf: [
     {
       name: 'PF MCDU', value: 'PERF CLB',
-      fcom: '[PRO-NOR-SOP-14] PF MCDU...PERF CLB PF.',
+      fcom: '[PRO-NOR-SOP-14] PF MCDU...PERF CLB. PF — PF MCDU should show the PERF CLB page, allowing the PF to monitor when the aircraft will reach the FCU selected altitude.',
     },
     {
       name: 'CRZ FL', value: 'SET AS RQRD',
-      fcom: '[PRO-NOR-SOP-14] CRZ FL... SET AS RQRD PF.',
-    },
-    {
-      name: 'EFIS OPTIONS', value: 'AS RQRD',
-      fcom: '[PRO-NOR-SOP-14] EFIS OPTIONS... AS RQRD PF-PM.',
+      fcom: '[PRO-NOR-SOP-14] CRZ FL...SET AS RQRD. PF — If ATC limits CRZ FL to a lower level than the one entered in the INIT A page, insert this lower CRZ FL in the PROG page.',
     },
     {
       name: 'BAROMETRIC REFERENCE', value: 'SET STD / CROSSCHECK',
-      fcom: '[PRO-NOR-SOP-14] BAROMETRIC REFERENCE... SET STD/CROSSCHECK BOTH.',
-      note: '[PRO-NOR-SOP-14] At the transition altitude.',
+      fcom: '[PRO-NOR-SOP-14] BAROMETRIC REFERENCE...SET STD/CROSSCHECK. BOTH — At the transition altitude, the barometric setting flashes on the PFD. Set STD on the EFIS CP and on the standby altimeter. Crosscheck the barometric settings and altitude indications.',
+      note: 'At the transition altitude.',
+    },
+    {
+      name: 'EFIS OPTIONS', value: 'AS RQRD',
+      fcom: '[PRO-NOR-SOP-14] EFIS OPTIONS...AS RQRD. PF-PM — At FL 100 / 10,000 ft: PF selects CSTR for grid MORA; PM selects ARPT.',
+      note: 'At FL 100 / 10,000 ft (10,000 ft AFE for airports with elevation at 4,000 ft or above).',
+    },
+    {
+      name: 'RADAR', value: 'ADJUST AS APPROPRIATE',
+      fcom: '[PRO-NOR-SOP-14] RADAR...ADJUST AS APPROPRIATE. PF',
     }
   ],
   pm: [
     {
+      name: 'PM MCDU', value: 'F-PLN',
+      fcom: '[PRO-NOR-SOP-14] PM MCDU...F-PLN. PM — PM MCDU should show the F-PLN page, allowing the flight crew to enter any ATC long-term revisions to the lateral or vertical flight plan.',
+    },
+    {
+      name: 'ENG ANTI-ICE pb-sw', value: 'AS RQRD',
+      fcom: '[PRO-NOR-SOP-14] ENG ANTI-ICE pb-sw...AS RQRD. PM — Engine anti-ice must be set to ON when icing conditions exist or are anticipated, except during climb and cruise when the SAT is below -40°C.',
+    },
+    {
+      name: 'LAND sw', value: 'RETRACT',
+      fcom: '[PRO-NOR-SOP-14] LAND sw...RETRACT. PM — At FL 100 / 10,000 ft. Retract the LAND lights in case the flight crew decided to leave them ON during the acceleration flow.',
+      note: 'At FL 100 / 10,000 ft (10,000 ft AFE for airports with elevation at 4,000 ft or above).',
+    },
+    {
+      name: 'WING LIGHTS sw', value: 'OFF',
+      fcom: '[PRO-NOR-SOP-14] WING LIGHTS sw...OFF. PM — At FL 100 / 10,000 ft.',
+      note: 'At FL 100 / 10,000 ft.',
+    },
+    {
       name: 'CABIN CREW', value: 'ADVISE',
-      fcom: '[PRO-NOR-SOP-14] CABIN CREW...ADVISE PM.',
-      note: '[PRO-NOR-SOP-14] Passing 10,000 ft. Inform the cabin crew of the ending of the sterile cockpit.',
+      fcom: '[PRO-NOR-SOP-14] CABIN CREW...ADVISE. PM — At FL 100 / 10,000 ft. Inform the cabin crew of the ending of the sterile cockpit.',
+      note: 'At FL 100 / 10,000 ft. Inform cabin crew of ending of sterile cockpit.',
     },
     {
       name: 'SEAT BELTS sw', value: 'AS RQRD',
-      fcom: '[PRO-NOR-SOP-14] SEAT BELTS sw... AS RQRD PM.',
+      fcom: '[PRO-NOR-SOP-14] SEAT BELTS sw...AS RQRD. PM — The SEAT BELTS sign is a Captain responsibility. The PM must switch to OFF only after Captain confirmation.',
     },
     {
       name: 'ECAM MEMO', value: 'REVIEW',
-      fcom: '[PRO-NOR-SOP-14] ECAM MEMO... REVIEW PM.',
+      fcom: '[PRO-NOR-SOP-14] ECAM MEMO...REVIEW. PM',
+    },
+    {
+      name: 'NAVAIDS', value: 'CLEAR',
+      fcom: '[PRO-NOR-SOP-14] NAVAIDS...CLEAR. PM — Clear manually tuned VORs from RAD NAV page.',
+    },
+    {
+      name: 'OPT FL / REC MAX FL', value: 'CHECK',
+      fcom: '[PRO-NOR-SOP-14] OPT FL/REC MAX FL...CHECK. PM — On the FMS PROG page, check the optimum and recommended maximum flight levels.',
     }
   ]
 },
@@ -1582,25 +1810,38 @@ const PHASES = [
   pf: [
     {
       name: 'ECAM MEMO', value: 'REVIEW',
-      fcom: '[PRO-NOR-SOP-15] ECAM MEMO... REVIEW PF-PM.',
+      fcom: '[PRO-NOR-SOP-15] ECAM MEMO...REVIEW. (PF-PM)',
     },
     {
       name: 'SD PAGES', value: 'REVIEW',
-      fcom: '[PRO-NOR-SOP-15] SD PAGES... REVIEW PF-PM.',
+      fcom: '[PRO-NOR-SOP-15] SD PAGES...REVIEW. (PF-PM) — Periodically review: ENG (oil pressure/temperature), BLEED, ELEC, HYD (slight decrease in qty normal), FUEL distribution, COND (duct vs. zone temp), F/CTL (unusual surface position), DOOR (O2 pressure).',
+    },
+    {
+      name: 'FLIGHT PROGRESS', value: 'CHECK',
+      fcom: '[PRO-NOR-SOP-15] FLIGHT PROGRESS...CHECK. (PF-PM) — Monitor flight progress. At each waypoint or every 30 min: check FOB vs. FMGC prediction and computerized flight plan, check no fuel leak, check sum of FOB + fuel used vs. FOB at departure.',
+      caution: '[PRO-NOR-SOP-15 — CAUTION] This check must also be performed each time a FUEL IMBALANCE procedure is necessary. If a fuel leak is confirmed, apply the FUEL LEAK procedure.',
+    },
+    {
+      name: 'STEP FLIGHT LEVEL', value: 'AS APPROPRIATE',
+      fcom: '[PRO-NOR-SOP-15] STEP FLIGHT LEVEL...AS APPROPRIATE. (PF-PM)',
     },
     {
       name: 'RADAR', value: 'ADJUST AS APPROPRIATE',
-      fcom: '[PRO-NOR-SOP-15] RADAR...ADJUST AS APPROPRIATE PF.',
+      fcom: '[PRO-NOR-SOP-15] RADAR...ADJUST AS APPROPRIATE. (PF)',
     },
     {
       name: 'CRUISE BRIEFING', value: 'PERFORM',
-      fcom: '[PRO-NOR-SOP-15] CRUISE BRIEFING...PERFORM BOTH.',
+      fcom: '[PRO-NOR-SOP-15] CRUISE BRIEFING...PERFORM. (BOTH) — Upon reaching cruise FL, discuss specific operational threats (high terrain, weather, traffic, eng out ceiling), mitigations and special operational rules (e.g. RVSM). Update whenever new threats arise.',
     }
   ],
   pm: [
     {
       name: 'NAVIGATION ACCURACY', value: 'MONITOR',
-      fcom: '[PRO-NOR-SOP-15] NAVIGATION ACCURACY... MONITOR PF-PM.',
+      fcom: '[PRO-NOR-SOP-15] NAVIGATION ACCURACY...MONITOR. (PF-PM) — If GPS PRIMARY LOST: check FMS PROGRESS page that required navigation accuracy is appropriate for the flown airspace.',
+    },
+    {
+      name: 'OXYGEN MASK', value: 'CHECK',
+      fcom: '[PRO-NOR-SOP-15] OXYGEN MASK...CHECK. (PF-PM) — If the oxygen mask has been used: check that the mask has been properly stowed.',
     }
   ]
 },
@@ -1617,52 +1858,120 @@ const PHASES = [
   pf: [
     {
       name: 'BAROMETRIC REFERENCE', value: 'PRESET',
-      fcom: '[PRO-NOR-SOP-16] BAROMETRIC REFERENCE...PRESET PF-PM.',
-      note: '[PRO-NOR-SOP-16] Preset the QNH (QFE) on the ISIS.',
+      fcom: '[PRO-NOR-SOP-16] BAROMETRIC REFERENCE...PRESET. PF-PM — Preset the QNH (QFE) on the ISIS.',
     },
     {
       name: 'FMS ARRIVAL page', value: 'COMPLETE/CHECK',
-      fcom: '[PRO-NOR-SOP-16] FMS ARRIVAL page... COMPLETE/CHECK PF.',
+      fcom: '[PRO-NOR-SOP-16] ARRIVAL page...COMPLETE/CHECK. PF — Insert APPR, STAR, APPR VIA and TRANS if applicable.',
     },
     {
       name: 'F-PLN A page', value: 'CHECK',
-      fcom: '[PRO-NOR-SOP-16] F-PLN A page... CHECK PF.',
+      fcom: '[PRO-NOR-SOP-16] F-PLN A page...CHECK. PF — Check that the F-PLN agrees with the planned approach and missed approach. Check approach and Missed Approach tracks and distances vs. approach charts.',
+    },
+    {
+      name: 'RAD NAV page', value: 'CHECK',
+      fcom: '[PRO-NOR-SOP-16] RAD NAV page...CHECK. PF — Set the navaids as required and check VOR/ADF idents on NDs and ILS/GLS idents on PFDs. For ILS: check frequency and course.',
     },
     {
       name: 'SELECTED NAVAID page', value: 'CHECK/MODIFY',
-      fcom: '[PRO-NOR-SOP-16] SELECTED NAVAID page...CHECK/MODIFY PF.',
+      fcom: '[PRO-NOR-SOP-16] SELECTED NAVAID page...CHECK/MODIFY. PF',
     },
     {
       name: 'PROG page', value: 'CONSIDER',
-      fcom: '[PRO-NOR-SOP-16] PROG page... CONSIDER PF.',
-      note: '[PRO-NOR-SOP-16] Insert the reference waypoint, the landing runway threshold or a NAVAID in the BRG/DIST field.',
+      fcom: '[PRO-NOR-SOP-16] PROG page...CONSIDER. PF — Insert the reference waypoint, the landing runway threshold or a NAVAID in the BRG/DIST field for energy management and position monitoring during descent.',
     },
     {
-      name: 'FUEL PRED page', value: 'CHECK',
-      fcom: '[PRO-NOR-SOP-16] FUEL PRED page...CHECK PF.',
+      name: 'DES WIND page', value: 'CHECK',
+      fcom: '[PRO-NOR-SOP-16] DES WIND page...CHECK. PF — Enter winds for descent before T/D.',
+    },
+    {
+      name: 'PERF CRUISE page', value: 'CHECK',
+      fcom: '[PRO-NOR-SOP-16] PERF CRUISE page...CHECK. PF — Modify the cabin descent rate if different pressure rate is required.',
+    },
+    {
+      name: 'PERF DES page', value: 'CHECK',
+      fcom: '[PRO-NOR-SOP-16] PERF DES page...CHECK. PF — Prior to descent, access PERF DES page and check ECON MACH/SPD.',
+    },
+    {
+      name: 'LANDING CONDITIONS', value: 'CONFIRM',
+      fcom: '[PRO-NOR-SOP-16] LANDING CONDITIONS...CONFIRM. PF-PM — Check if landing conditions changed compared with landing distance computation at dispatch. Check that EFB takes into account MEL and CDL items.',
+    },
+    {
+      name: 'LANDING PERF DATA', value: 'COMPUTE / CROSSCHECK',
+      fcom: '[PRO-NOR-SOP-16] LANDING PERF DATA...COMPUTE. PF-PM — If landing conditions changed, the PF and PM independently compute the landing distance performance data based on the preferential setting for landing, then CROSSCHECK (BOTH).',
+    },
+    {
+      name: 'PERF APPR page', value: 'COMPLETE/CHECK',
+      fcom: '[PRO-NOR-SOP-16-A-00020102] PERF APPR page...COMPLETE/CHECK. (PF) — Enter QNH, temperature and wind at destination. Insert minimum (NPA: MDA+50 ft). Check/modify landing configuration per preferential setting. Check/modify transition altitude/FL.',
+      caution: '[PRO-NOR-SOP-16 — CAUTION] During QFE operations, the flight crew must convert QFE into QNH for the PERF APPR page. Entry of QFE leads to erroneous cabin pressurization profile.',
+    },
+    {
+      name: 'PERF GO AROUND page', value: 'CHECK/MODIFY',
+      fcom: '[PRO-NOR-SOP-16] PERF GO AROUND page...CHECK/MODIFY. (PF) — Check THR RED ALT and ACC ALT, modify if necessary.',
     },
     {
       name: 'GPWS LDG FLAP 3 pb-sw', value: 'AS RQRD',
-      fcom: '[PRO-NOR-SOP-16] GPWS LDG FLAP 3 pb-sw...AS RQRD PF.',
+      fcom: '[PRO-NOR-SOP-16-A-00011554] GPWS LDG FLAP 3 pb-sw...AS RQRD. (PF) — If landing in FLAPS 3, set to ON.',
     },
     {
       name: 'LDG ELEV', value: 'CHECK',
-      fcom: '[PRO-NOR-SOP-16] LDG ELEV... CHECK PF.',
+      fcom: '[PRO-NOR-SOP-16-A-00015490] LDG ELEV...CHECK. (PF) — Check LDG ELEV AUTO is displayed on CRUISE page and check the associated value.',
+    },
+    {
+      name: 'RWY COND selector', value: 'WET/DRY',
+      fcom: '[PRO-NOR-SOP-16-A-00024115] RWY COND selector...WET/DRY. (PF) — Select appropriate runway condition according to weather information. For contaminated runway, select WET.',
+      note: 'Applicable to MSN 10949-12576',
+    },
+    {
+      name: 'AUTO BRK', value: 'AS RQRD',
+      fcom: '[PRO-NOR-SOP-16-A-00011556] AUTO BRK...AS RQRD. (PF) — Firmly press the appropriate pushbutton per the chosen preferential setting for landing, check the ON light comes on.',
+    },
+    {
+      name: 'TCAS TRAFFIC selector / DISPLAY MODE', value: 'BLW',
+      fcom: '[PRO-NOR-SOP-16-A-20800023] TRAFFIC selector...BLW. (PF) — Set TCAS to display traffic below during descent.',
+    },
+    {
+      name: 'RADAR', value: 'ADJUST AS APPROPRIATE',
+      fcom: '[PRO-NOR-SOP-16-A-00011545] RADAR...ADJUST AS APPROPRIATE. (PF)',
+    },
+    {
+      name: 'CLEARED ALTITUDE ON FCU', value: 'SET',
+      fcom: '[PRO-NOR-SOP-16-A-00011557] CLEARED ALTITUDE ON FCU...SET. (PF) — When ATC clearance obtained, set cleared altitude (FL) on FCU taking into account safe altitudes.',
     },
     {
       name: 'ARRIVAL BRIEFING', value: 'PERFORM',
-      fcom: '[PRO-NOR-SOP-16] ARRIVAL BRIEFING...PERFORM BOTH.',
+      fcom: '[PRO-NOR-SOP-16-A-00011555] ARRIVAL BRIEFING...PERFORM. (BOTH) — Must be completed before top of descent.',
     }
   ],
   pm: [
     {
+      name: 'WEATHER AND LANDING INFORMATION', value: 'OBTAIN',
+      fcom: '[PRO-NOR-SOP-16-A-00011552] WEATHER AND LANDING INFORMATION...OBTAIN. (PM) — Check weather reports and runway conditions at destination and alternate airports. Consider altitude corrections for low temperature.',
+    },
+    {
+      name: 'NAVIGATION CHARTS', value: 'PREPARE',
+      fcom: '[PRO-NOR-SOP-16] NAVIGATION CHARTS...PREPARE. (BOTH) — Prepare charts for arrival navigation and expected approach procedure. Verify both flight crewmembers refer to the same chart reference.',
+    },
+    {
       name: 'ECAM STATUS', value: 'CHECK',
-      fcom: '[PRO-NOR-SOP-16] ECAM STATUS...CHECK PM.',
+      fcom: '[PRO-NOR-SOP-16-A-00011548] ECAM STATUS...CHECK. (PM) — Check no status reminder on upper ECAM. Check STATUS page before completing landing distance and arrival briefing. Note any degradation in landing capability.',
+    },
+    {
+      name: 'FMS PREPARATION', value: 'CROSSCHECK',
+      fcom: '[PRO-NOR-SOP-16-A-00023278] FMS PREPARATION...CROSSCHECK. (PM) — Check all data entered in FMS for arrival and approach. PM should have the same mental image of intended arrival/approach as PF.',
     },
     {
       name: 'ENG 1 and 2 ANTI-ICE pb-sw', value: 'AS RQRD',
-      fcom: '[PRO-NOR-SOP-16] ENG 1 and 2 ANTI-ICE pb-sw... AS RQRD PM.',
+      fcom: '[PRO-NOR-SOP-16-A-00011558] ENG 1 and 2 ANTI-ICE pb-sw...AS RQRD. (PM) — Must be ON before and during descent, even if SAT is below -40°C. Higher idle thrust gives better protection against flame-out.',
       caution: '[PRO-NOR-SOP-16 — CAUTION] In icing conditions, the flight crew must turn on the engine anti-ice and should not wait until seeing ice building up.',
+    },
+    {
+      name: 'WING ANTI ICE pb-sw', value: 'AS RQRD',
+      fcom: '[PRO-NOR-SOP-16-A-00011558] WING ANTI ICE pb-sw...AS RQRD. (PM) — Turn on when icing conditions encountered. ANTI ICE ON reduces descent path angle; compensate by increasing descent speed or extending up to half speedbrakes.',
+    },
+    {
+      name: 'DESCENT CLEARANCE', value: 'OBTAIN',
+      fcom: '[PRO-NOR-SOP-16-A-00011557] DESCENT CLEARANCE...OBTAIN. (PM)',
     }
   ]
 },
@@ -1678,27 +1987,79 @@ const PHASES = [
   triggerRef: 'FCOM PRO-NOR-SOP-17',
   pf: [
     {
+      name: 'DESCENT', value: 'INITIATE',
+      fcom: '[PRO-NOR-SOP-17-00011541] DESCENT...INITIATE. (PF) — Standard method: engage DES mode at T/D computed by FMS. If ATC requires early descent: use DES mode with V/S ~1,000 ft/min. If ATC delays descent: T/D REACHED/DECELERATE appears; reduce speed toward Green Dot with ATC permission.',
+    },
+    {
       name: 'PF MCDU', value: 'PROG/PERF DES',
-      fcom: '[PRO-NOR-SOP-17] PF MCDU...PROG/PERF DES PF.',
+      fcom: '[PRO-NOR-SOP-17-00011542] PF MCDU...PROG/PERF DES. (PF) — PROG page for VDEV or RQD DIST TO LAND. PERF DES page for predictions down to any inserted altitude.',
+    },
+    {
+      name: 'DESCENT', value: 'MONITOR/ADJUST',
+      fcom: '[PRO-NOR-SOP-17] DESCENT...MONITOR/ADJUST. (PF) — Monitor VERT DEV on PFD and PROG page. Monitor FMA at level-off symbol. From time to time check FPA = FL/DIST (NM).',
+    },
+    {
+      name: 'RATE of DESCENT', value: 'ADJUST AS RQRD',
+      fcom: '[PRO-NOR-SOP-17-A-00011543] RATE of DESCENT...ADJUST AS RQRD. (PF) — To increase RoD, increase descent speed using selected speed. In OP DES mode, may use speedbrakes. In DES mode on/below path, do not use speedbrakes.',
+    },
+    {
+      name: 'TERR ON ND', value: 'AS RQRD',
+      fcom: '[PRO-NOR-SOP-17-A-00011547] TERR ON ND...AS RQRD. (PF-PM) — In mountainous areas, consider TERR on PM side only if radar is displayed on PF side. Do not use TERR ON ND if NAV ACCURACY is LOW.',
+    },
+    {
+      name: 'BAROMETRIC REFERENCE', value: 'SET/CROSSCHECK',
+      fcom: '[PRO-NOR-SOP-17-A-00011546] BAROMETRIC REFERENCE...SET/CROSSCHECK. (BOTH) — When aircraft approaches transition level and cleared for an altitude: set QNH on EFIS CP and standby altimeter. Note any QNH change on EFIS CPs, standby altimeter and FMS PERF APPR page.',
     },
     {
       name: 'EFIS option pb', value: 'CSTR',
-      fcom: '[PRO-NOR-SOP-17] EFIS option pb...CSTR PF-PM.',
+      fcom: '[PRO-NOR-SOP-17-A-00021715] EFIS option pb...CSTR. (PF-PM) — Select CSTR on both sides at FL 100 / 10,000 ft.',
+      note: 'At FL 100 / 10,000 ft (10,000 ft AFE for airports with elevation at 4,000 ft or above). Do not exceed 250 kt below 10,000 ft MSL.',
+    },
+    {
+      name: 'LS pb', value: 'AS RQRD',
+      fcom: '[PRO-NOR-SOP-17] LS pb...AS RQRD. (PF-PM) — Press if planned approach is ILS, GLS, MLS, ILS G/S out, LOC only, LOC B/C, FLS, or SLS. Check deviation scales displayed and IDENT properly shown on PFD.',
+    },
+    {
+      name: 'NAVAIDS', value: 'AS RQRD/CHECK',
+      fcom: '[PRO-NOR-SOP-17] NAVAIDS...AS RQRD/CHECK. (PF) — Ensure appropriate NAVAIDs are tuned and identified. For NDB approaches, manually select reference NAVAID.',
+    },
+    {
+      name: 'NAVIGATION ACCURACY', value: 'MONITOR',
+      fcom: '[PRO-NOR-SOP-17-A-00015501] NAVIGATION ACCURACY...MONITOR. (PF) — If GPS PRIMARY LOST: check FMS PROGRESS page that required navigation accuracy is appropriate for the flown airspace.',
     }
   ],
   pm: [
     {
       name: 'PM MCDU', value: 'F-PLN',
-      fcom: '[PRO-NOR-SOP-17] PM MCDU... F-PLN PM.',
+      fcom: '[PRO-NOR-SOP-17-00011542] PM MCDU...F-PLN. (PM)',
+    },
+    {
+      name: 'WING sw', value: 'ON',
+      fcom: '[PRO-NOR-SOP-17-A-00021715] WING sw...ON. (PM) — At FL 100 / 10,000 ft.',
+      note: 'At FL 100 / 10,000 ft.',
+    },
+    {
+      name: 'LAND sw', value: 'AS RQRD',
+      fcom: '[PRO-NOR-SOP-17-A-00021715] LAND sw...AS RQRD. (PM) — At FL 100 / 10,000 ft. When operating at AFIS airports, with TCAS inoperative, or if requested by pilot in command, LAND lights must be turned ON.',
+      note: 'At FL 100 / 10,000 ft.',
     },
     {
       name: 'CABIN CREW', value: 'ADVISE',
-      fcom: '[PRO-NOR-SOP-17] CABIN CREW...ADVISE PM.',
-      note: '[PRO-NOR-SOP-17] Passing 10,000 ft. Inform the cabin crew of the beginning of the sterile cockpit.',
+      fcom: '[PRO-NOR-SOP-17] CABIN CREW...ADVISE. (PM) — At FL 100 / 10,000 ft. Inform the cabin crew of the beginning of the sterile cockpit.',
+      note: 'At FL 100 / 10,000 ft.',
     },
     {
       name: 'SEAT BELTS sw', value: 'ON',
-      fcom: '[PRO-NOR-SOP-17] SEAT BELTS sw...ON PM.',
+      fcom: '[PRO-NOR-SOP-17] SEAT BELTS sw...ON. (PM) — At FL 100 / 10,000 ft at the latest (or as low as 5,000 ft AFE when authorized). Turn ON with corresponding callout to cabin crew.',
+      note: 'At FL 100 / 10,000 ft at the latest.',
+    },
+    {
+      name: 'ENG MODE selector', value: 'AS RQRD',
+      fcom: '[PRO-NOR-SOP-17-A-00015500] ENG MODE selector...AS RQRD. (PM) — Select IGN if runway is covered with standing water, or if heavy rain or severe turbulence expected during approach or go-around.',
+    },
+    {
+      name: 'APPROACH C/L', value: 'COMPLETE',
+      fcom: '[PRO-NOR-SOP-17-00014491] APPROACH C/L...COMPLETE. (BOTH)',
     }
   ]
 },
@@ -1903,27 +2264,72 @@ const PHASES = [
   triggerRef: 'FCOM PRO-NOR-SOP-21',
   pf: [
     {
-      name: '(PF controls aircraft)',
-      value: '—',
-      fcom: '[PRO-NOR-SOP-21] PF focuses on aircraft control and taxi during after landing flow.',
+      name: 'GND SPLRS', value: 'DISARM',
+      fcom: '[PRO-NOR-SOP-21] GRND SPLRS...DISARM. PF — When the runway is vacated. In low workload scenarios and with the aircraft at taxi speed, the ground spoilers may be disarmed before vacating the runway.',
+    },
+    {
+      name: 'LAND sw', value: 'RETRACT',
+      fcom: '[PRO-NOR-SOP-21] LAND sw...RETRACT. PF',
+    },
+    {
+      name: 'STROBE sw', value: 'AUTO',
+      fcom: '[PRO-NOR-SOP-21] STROBE sw...AUTO. PF — When leaving the runway.',
+    },
+    {
+      name: 'NOSE sw', value: 'TAXI',
+      fcom: '[PRO-NOR-SOP-21] NOSE sw...TAXI. PF — When leaving the runway.',
+    },
+    {
+      name: 'WING sw', value: 'OFF',
+      fcom: '[PRO-NOR-SOP-21] WING sw...OFF. PF — When leaving the runway.',
+    },
+    {
+      name: 'TERR ON ND', value: 'OFF',
+      fcom: '[PRO-NOR-SOP-21] TERR ON ND...OFF. PF-PM',
     }
   ],
   pm: [
     {
+      name: 'RADAR', value: 'OFF',
+      fcom: '[PRO-NOR-SOP-21] RADAR...OFF. PM — Switching the radar to OFF after landing avoids risk of radiating persons at the gate area.',
+    },
+    {
+      name: 'PREDICTIVE WINDSHEAR SYSTEM', value: 'OFF',
+      fcom: '[PRO-NOR-SOP-21] PREDICTIVE WINDSHEAR SYSTEM...OFF. PM — Switching the predictive windshear system to OFF after landing avoids risk of radiating persons at the gate area.',
+      note: 'Applicable to MSN 01143-01376, 01486-12576',
+    },
+    {
       name: 'ENG MODE selector', value: 'NORM',
-      fcom: '[PRO-NOR-SOP-21] ENG MODE selector...NORM. (PM)',
+      fcom: '[PRO-NOR-SOP-21] ENG MODE selector...NORM. PM',
     },
     {
       name: 'FLAPS', value: 'RETRACT',
-      fcom: '[PRO-NOR-SOP-21] FLAPS...RETRACT. (PM)',
+      fcom: '[PRO-NOR-SOP-21] FLAPS...RETRACT. PM — Set the FLAPS lever to 0. If approach was performed in icing conditions, or runway contaminated with slush/snow, do not retract flaps until after engine shutdown and after ground crew confirmed slats/flaps are clear.',
     },
     {
       name: 'TCAS', value: 'STBY',
-      fcom: '[PRO-NOR-SOP-21] TCAS...STBY. (PM)',
+      fcom: '[PRO-NOR-SOP-21] TCAS...STBY. PM',
+    },
+    {
+      name: 'ATC', value: 'AS RQRD',
+      fcom: '[PRO-NOR-SOP-21] ATC...AS RQRD. PM — ATC is set in accordance with airport requirements.',
+    },
+    {
+      name: 'APU', value: 'START IF USED',
+      fcom: '[PRO-NOR-SOP-21] APU MASTER SW pb-sw...ON / APU START pb-sw...ON. PM — If the APU is used. Start the APU before performing one engine taxi in order to power both ENG 1 fire extinguishing bottles. Otherwise, delay the APU start so that the APU is available just before engine shutdown at parking.',
+    },
+    {
+      name: 'ENG ANTI ICE', value: 'AS RQRD',
+      fcom: '[PRO-NOR-SOP-21] ENG ANTI ICE...AS RQRD. PM — If engine anti-ice is used, carefully control taxi speed, particularly on wet or slippery surfaces because ground idle is increased.',
+      caution: '[PRO-NOR-SOP-21 — CAUTION] In icing conditions, the flight crew must turn on the engine anti-ice and should not wait until seeing ice building up.',
     },
     {
       name: 'BRAKE TEMPERATURE', value: 'MONITOR',
-      fcom: '[PRO-NOR-SOP-21] 14 BRAKE TEMPERATURE BRAKE TEMPERATURE...MONITOR. (PM)',
+      fcom: '[PRO-NOR-SOP-21] BRAKE TEMPERATURE...MONITOR. PM — Check brake temperature for discrepancies and high temperature on the WHEEL SD page.',
+    },
+    {
+      name: 'AFTER LANDING C/L', value: 'COMPLETE',
+      fcom: '[PRO-NOR-SOP-21] AFTER LANDING C/L...COMPLETE. BOTH — Ensure that the after-landing checks are completed after the aircraft has cleared the runway.',
     }
   ]
 },
