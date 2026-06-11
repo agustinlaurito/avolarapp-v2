@@ -834,6 +834,14 @@ const PHASES = [
       caution: '[PRO-NOR-SOP-06 — CAUTION] If the FUEL CTR TK MODE SEL pb-sw is unduly left in the MAN position on ground, there is a possibility of fuel spillage.',
     },
     {
+      name: 'ELEC pb (ECAM CP)', value: 'PRESS',
+      fcom: '[PRO-NOR-SOP-06-A-00011164] ELEC pb (on the ECAM Control Panel)...PRESS. (PF)',
+    },
+    {
+      name: 'BAT 1 pb-sw and BAT 2 pb-sw', value: 'OFF then AUTO',
+      fcom: '[PRO-NOR-SOP-06-A-00011164] BAT 1 pb-sw and BAT 2 pb-sw...OFF then AUTO. (PF) — This action initiates a charging cycle of the batteries. 10 s after setting all BAT pb-sw to AUTO, check on the ELEC SD page that the current charge of the battery is below 60 A and is decreasing. If not, wait until end of charging cycle and check again.',
+    },
+    {
       name: 'ENG 1 & 2 FIRE pb-sw', value: 'CHECK IN and GUARDED',
       fcom: '[PRO-NOR-SOP-06] ENG 1 FIRE pb-sw and ENG 2 FIRE pb-sw...CHECK IN and GUARDED. (PF)',
     },
@@ -937,6 +945,16 @@ const PHASES = [
     {
       name: 'TRAFFIC selector / TCAS DISPLAY MODE', value: 'ABV',
       fcom: '[PRO-NOR-SOP-06] * TRAFFIC selector...ABV. (PF)',
+    },
+    {
+      name: '* MSG (CPDLC)', value: 'ERASE',
+      fcom: '[PRO-NOR-SOP-06-00013746] * MSG...ERASE. (PF) — Erase previous flight CPDLC messages to avoid confusion with current flight messages.',
+      note: 'MSN 04827, 04860, 04953, 04974, 07119, 07260, 08479-08485, 08561-08595, 08657-09104, 12226-12237, 12377-12398 (CPDLC-equipped aircraft).',
+    },
+    {
+      name: '* ADS (CPDLC)', value: 'CHECK ARMED',
+      fcom: '[PRO-NOR-SOP-06-00013746] * ADS...CHECK ARMED. (PF) — Press the ATC COMM key of the MCDU and display the CONNECTION STATUS page. Check if ADS is armed; if not, arm the ADS.',
+      note: 'MSN 08479-08485, 08561-08595, 08657-09104, 12226-12237, 12377-12398 (CPDLC-equipped aircraft).',
     },
     {
       name: 'ENGINE & AIRCRAFT TYPE', value: 'CHECK',
@@ -1390,8 +1408,9 @@ const PHASES = [
       caution: '[PRO-NOR-SOP-10 — CAUTION] If the aircraft was parked in wet conditions for a long time, the first brake application at low speed is less effective.',
     },
     {
-      name: 'NOSE sw', value: 'TAXI',
-      fcom: '[PRO-NOR-SOP-10] NOSE sw...TAXI. PF — During taxi. RWY TURN OFF sw...ON. When the aircraft is stopped on ground, these lights must be turned OFF.',
+      name: 'NOSE sw', value: 'TAXI / RWY TURN OFF: ON',
+      fcom: '[PRO-NOR-SOP-10] NOSE sw...TAXI. RWY TURN OFF sw...ON. PF — During taxi. When aircraft stopped on ground, these lights must be turned OFF.',
+      note: 'When crossing or taxiing along an active runway: NOSE sw T.O., LAND sw ON, STROBE sw ON, WING sw ON.',
     },
     {
       name: 'FLIGHT CONTROLS', value: 'CHECK',
@@ -1438,6 +1457,10 @@ const PHASES = [
     {
       name: 'RADAR', value: 'ON',
       fcom: '[PRO-NOR-SOP-10] RADAR...ON. PM — To check the departure path, set the MULTISCAN sw to MAN. The flight crew can then set the radar to the AUTO position.',
+    },
+    {
+      name: 'PREDICTIVE WINDSHEAR SYSTEM', value: 'AUTO',
+      fcom: '[PRO-NOR-SOP-10-A-00015298] PREDICTIVE WINDSHEAR SYSTEM...AUTO. PM',
     },
     {
       name: 'ATC CODE/MODE', value: 'CONFIRM/SET FOR TAKEOFF',
@@ -1509,6 +1532,21 @@ const PHASES = [
     {
       name: 'PACK 1 pb-sw and PACK 2 pb-sw', value: 'AS RQRD',
       fcom: '[PRO-NOR-SOP-11] PACK 1 pb-sw and PACK 2 pb-sw...AS RQRD. PM — Consider selecting packs OFF, or APU bleed ON to improve performance when using TOGA thrust.',
+    },
+    {
+      name: 'GPS 1+2 on GPS MONITOR page', value: 'CHECK BOTH IN NAV',
+      fcom: '[PRO-NOR-SOP-11-A-00010395] GPS 1+2 on GPS MONITOR page...CHECK BOTH IN NAV. PM — RNP AR DEPARTURE only.',
+      note: 'RNP AR DEPARTURE only. Applicable to MSN 01304-01355, 01491, 01526, 01858-12576 (with RNP AR capability).',
+    },
+    {
+      name: 'GPS PRIMARY on PROG page', value: 'CHECK AVAILABLE',
+      fcom: '[PRO-NOR-SOP-11-A-00010395] GPS PRIMARY on PROG page...CHECK AVAILABLE. PM — RNP AR DEPARTURE only.',
+      note: 'RNP AR DEPARTURE only.',
+    },
+    {
+      name: 'FMA', value: 'CHECK',
+      fcom: '[PRO-NOR-SOP-11-A-00010395] FMA...CHECK. PF-PM — RNP AR DEPARTURE only. Verify NAV is armed.',
+      note: 'RNP AR DEPARTURE only. Verify NAV is armed.',
     },
     {
       name: 'CABIN CREW', value: 'ADVISE',
@@ -1792,6 +1830,15 @@ const PHASES = [
       fcom: '[PRO-NOR-SOP-14] NAVAIDS...CLEAR. PM — Clear manually tuned VORs from RAD NAV page.',
     },
     {
+      name: 'RADIONAV', value: 'SELECT',
+      fcom: '[PRO-NOR-SOP-14-A-00010260] RADIONAV...SELECT. PM — If RNP AR departure was performed: access the SELECTED NAVAIDS PAGE and reselect the RADIONAV position calculation.',
+      note: 'If RNP AR departure was performed.',
+    },
+    {
+      name: 'SEC F-PLN page', value: 'AS RQRD',
+      fcom: '[PRO-NOR-SOP-14-A-00010260] SEC F-PLN page...AS RQRD. PM — Recopy the active flight plan in the secondary if an immediate return flight plan has been constructed previously.',
+    },
+    {
       name: 'OPT FL / REC MAX FL', value: 'CHECK',
       fcom: '[PRO-NOR-SOP-14] OPT FL/REC MAX FL...CHECK. PM — On the FMS PROG page, check the optimum and recommended maximum flight levels.',
     }
@@ -2069,74 +2116,154 @@ const PHASES = [
   id: 'sop18',
   num: 'SOP-18',
   title: 'Approach',
-  sub: 'Activación de la fase de approach',
-  intro: 'El <strong>PF<\/strong> comanda los cambios de configuración. El <strong>PM<\/strong> ejecuta las acciones y monitorea los parámetros de vuelo.',
-  trigger: '<strong>Flow trigger:<\/strong> Activation of the approach phase. — <em>Checklist trigger: APPROACH C/L...COMPLETE.<\/em>',
+  sub: 'Initial approach → config → final → callouts',
+  intro: 'El <strong>PF<\/strong> gestiona la fase de approach, secuencia el F-PLN y ordena los cambios de configuración. El <strong>PM<\/strong> ejecuta las configuraciones, confirma frenos/GND SPLRS y monitorea parámetros.',
+  trigger: '<strong>Flow trigger:<\/strong> Activation of the approach phase. — <em>Checklist trigger: LANDING C/L...COMPLETE.<\/em>',
   triggerRef: 'FCOM PRO-NOR-SOP-18',
   pf: [
     {
+      name: 'F-PLN SEQUENCING', value: 'ADJUST',
+      fcom: '[PRO-NOR-SOP-18-B-A-00014493] F-PLN SEQUENCING...ADJUST. PF — A good clue is the TO waypoint on the upper right of the ND. In NAV mode the F-PLN sequences automatically. In HDG/TRK mode it sequences automatically only if the aircraft flies close to the F-PLN route.',
+    },
+    {
+      name: 'APPROACH PHASE', value: 'CHECK/ACTIVATE',
+      fcom: '[PRO-NOR-SOP-18-B-A-00014493] APPROACH PHASE...CHECK/ACTIVATE. BOTH — If the aircraft overflies the DECEL pseudo waypoint in NAV mode, the APPR phase activates automatically. If in HDG/TRK mode, approximately 15 NM from touchdown, activate and confirm APPR phase on the PERF DES page.',
+    },
+    {
+      name: 'MANAGED SPEED', value: 'CHECK',
+      fcom: '[PRO-NOR-SOP-18-B-A-00014493] MANAGED SPEED...CHECK. PF — If ATC requires a particular speed, use selected speed. When the ATC speed constraint no longer applies, return to managed speed.',
+    },
+    {
+      name: 'FLIGHT PATH', value: 'MONITOR',
+      fcom: '[PRO-NOR-SOP-18-B-A-00014493] FLIGHT PATH...MONITOR. PF — In NAV mode, use V/DEV on PFD and PROG page. In HDG/TRK mode, use the energy circle on ND representing the required distance to land.',
+    },
+    {
+      name: 'SPEED BRAKES lever', value: 'AS RQRD',
+      fcom: '[PRO-NOR-SOP-18-B-A-00014493] SPEED BRAKES lever...AS RQRD. PF — If using speed brakes to increase deceleration or rate of descent, VLS will also increase. Ensure appropriate speed margin before extension and before beginning a turn.',
+    },
+    {
       name: 'RADAR', value: 'ADJUST AS APPROPRIATE',
-      fcom: '[PRO-NOR-SOP-18] RADAR...ADJUST AS APPROPRIATE PF.',
+      fcom: '[PRO-NOR-SOP-18-B-A-00014647] RADAR...ADJUST AS APPROPRIATE. PF',
+    },
+    {
+      name: 'FLAPS 1', value: 'ORDER',
+      fcom: '[PRO-NOR-SOP-18-B-B-00014500] FLAPS 1...ORDER. PF — At Green Dot speed. FLAPS 1 should be selected more than 3 NM before the Final Descent Point. Check aircraft deceleration toward S speed.',
+      note: 'At Green Dot speed.',
     },
     {
       name: 'FLAPS 2', value: 'ORDER',
-      fcom: '[PRO-NOR-SOP-18] FLAPS 2... ORDER PF.',
-      note: '[PRO-NOR-SOP-18] One dot below flight path, prior to VIP, or 2,000 ft AFE, whichever occurs first.',
+      fcom: '[PRO-NOR-SOP-18-B-B-00014499] FLAPS 2...ORDER. PF — One dot below flight path, prior to VIP, or 2,000 ft AFE, whichever occurs first. Check aircraft deceleration toward F speed.',
+      note: 'One dot below flight path, prior to VIP, or 2,000 ft AFE, whichever occurs first.',
+    },
+    {
+      name: 'L/G DOWN', value: 'ORDER',
+      fcom: '[PRO-NOR-SOP-18-B-B-00014498] L/G DOWN...ORDER. PF — At 2,000 ft AFE (1,700 ft AFE minimum). Recommended extension height is 2,000 ft AFE. Can be anticipated or delayed to minimum 1,700 ft AFE depending on weather, speed, and speed trend.',
+      note: 'At 2,000 ft AFE (1,700 ft AFE minimum).',
     },
     {
       name: 'FLAPS 3', value: 'ORDER',
-      fcom: '[PRO-NOR-SOP-18] FLAPS 3...ORDER PF.',
-      note: '[PRO-NOR-SOP-18] When landing gear is down and not below 1,500 ft AFE.',
+      fcom: '[PRO-NOR-SOP-18-B-B-00014497] FLAPS 3...ORDER. PF — When landing gear is down and not below 1,500 ft AFE. Select the correct FLAPS configuration per preferential setting for landing.',
+      note: 'When L/G is DOWN and not below 1,500 ft AFE.',
     },
     {
       name: 'ALL EFB', value: 'STOW',
-      fcom: '[PRO-NOR-SOP-18] ALL EFB (with no mounted equipment)... STOW PF-PM.',
+      fcom: '[PRO-NOR-SOP-11-A-00010394] ALL EFB (with no mounted equipment)...STOW. PF-PM — In flight, both flight crewmembers should not use EFB applications at the same time.',
     },
     {
       name: 'CONTINUE', value: 'ANNOUNCE',
-      fcom: '[PRO-NOR-SOP-18] CONTINUE...ANNOUNCE PF.',
-      note: '[PRO-NOR-SOP-18] If visual references are sufficient.',
+      fcom: '[PRO-NOR-SOP-18] CONTINUE...ANNOUNCE. PF — If visual references are sufficient at minimum.',
+      note: 'If visual references are sufficient.',
     },
     {
       name: 'GO-AROUND', value: 'ANNOUNCE',
-      fcom: '[PRO-NOR-SOP-18] GO-AROUND... ANNOUNCE PF.',
-      note: '[PRO-NOR-SOP-18] If visual references are not sufficient.',
+      fcom: '[PRO-NOR-SOP-18] GO-AROUND...ANNOUNCE. PF — If visual references are not sufficient at minimum.',
+      note: 'If visual references are not sufficient.',
     }
   ],
   pm: [
     {
+      name: 'NAVIGATION ACCURACY', value: 'MONITOR',
+      fcom: '[PRO-NOR-SOP-18-B-A-00014492] NAVIGATION ACCURACY...MONITOR. PM — If GPS PRIMARY LOST: check on FMS PROGRESS page that the required navigation accuracy is appropriate for the flown airspace.',
+      note: 'Only if GPS PRIMARY LOST.',
+    },
+    {
+      name: 'FLAPS 1', value: 'SELECT',
+      fcom: '[PRO-NOR-SOP-18-B-B-00014500] FLAPS 1...SELECT. PM — At Green Dot speed.',
+      note: 'At Green Dot speed.',
+    },
+    {
+      name: 'TCAS Mode selector', value: 'TA or TA/RA',
+      fcom: '[PRO-NOR-SOP-18-B-B-00014500] TCAS Mode selector...TA or TA/RA. PM — FAA recommends TA ONLY mode at specific airports and procedures identified in Flight Operations documents as having potential for unwanted resolution advisories (e.g. closely-spaced parallel runways).',
+    },
+    {
       name: 'FLAPS 2', value: 'SELECT',
-      fcom: '[PRO-NOR-SOP-18] FLAPS 2...SELECT PM.',
+      fcom: '[PRO-NOR-SOP-18-B-B-00014499] FLAPS 2...SELECT. PM',
+    },
+    {
+      name: 'CABIN CREW', value: 'ADVISE',
+      fcom: '[PRO-NOR-SOP-18-B-B-20800025] CABIN CREW...ADVISE. PM — At 2,500 ft AFE.',
+      note: 'At 2,500 ft AFE.',
+    },
+    {
+      name: 'L/G lever', value: 'SELECT DOWN',
+      fcom: '[PRO-NOR-SOP-18-B-B-00014498] L/G lever...SELECT DOWN. PM — At 2,000 ft AFE (1,700 ft AFE minimum).',
+      note: 'At 2,000 ft AFE (1,700 ft AFE minimum).',
+    },
+    {
+      name: 'RWY COND', value: 'CONFIRM',
+      fcom: '[PRO-NOR-SOP-18-B-B-00014498] RWY COND...CONFIRM. PM — If runway conditions have changed from the arrival briefing, consider another braking mode.',
+      note: 'Applicable to MSN 10949-12576.',
+    },
+    {
+      name: 'AUTO BRK', value: 'CONFIRM',
+      fcom: '[PRO-NOR-SOP-18-B-B-00014498] AUTO BRK...CONFIRM. PM — If the runway conditions have changed from the arrival briefing, consider another braking mode.',
+    },
+    {
+      name: 'GND SPLRS', value: 'ARM',
+      fcom: '[PRO-NOR-SOP-18-B-B-00014498] GROUND SPOILERS...ARM. PM',
+    },
+    {
+      name: 'NOSE sw', value: 'T.O',
+      fcom: '[PRO-NOR-SOP-18-B-B-00014498] NOSE sw...T.O. PM — Exterior lights at 2,000 ft AFE.',
+    },
+    {
+      name: 'RWY TURN OFF sw', value: 'ON',
+      fcom: '[PRO-NOR-SOP-18-B-B-00014498] RWY TURN OFF sw...ON. PM',
+    },
+    {
+      name: 'LAND sw', value: 'ON',
+      fcom: '[PRO-NOR-SOP-18-B-B-00014498] LAND sw...ON. PM — LAND LIGHTS must be switched ON according to the SOP sequence or up to 5 NM inbound to the landing runway, whichever occurs first. When operating at AFIS airports, or with TCAS inoperative, LAND lights must be on during the 10,000 ft flow.',
     },
     {
       name: 'FLAPS 3', value: 'SELECT',
-      fcom: '[PRO-NOR-SOP-18] FLAPS 3...SELECT PM.',
+      fcom: '[PRO-NOR-SOP-18-B-B-00014497] FLAPS 3...SELECT. PM — When L/G is down and not below 1,500 ft AFE.',
+      note: 'When L/G is DOWN and not below 1,500 ft AFE.',
     },
     {
       name: 'ECAM WHEEL SD page', value: 'CHECK',
-      fcom: '[PRO-NOR-SOP-18] ECAM WHEEL SD page... CHECK PM.',
+      fcom: '[PRO-NOR-SOP-18-B-B-00014497] ECAM WHEEL SD page...CHECK. PM',
     },
     {
       name: 'LDG MEMO', value: 'CHECK NO BLUE',
-      fcom: '[PRO-NOR-SOP-18] LDG MEMO... CHECK NO BLUE PM.',
+      fcom: '[PRO-NOR-SOP-18] LDG MEMO...CHECK NO BLUE. PM',
     },
     {
       name: 'CABIN REPORT', value: 'RECEIVE',
-      fcom: '[PRO-NOR-SOP-18] CABIN REPORT... RECEIVE PF-PM.',
+      fcom: '[PRO-NOR-SOP-18] CABIN REPORT...RECEIVE. PF-PM',
     },
     {
       name: 'LANDING C/L', value: 'COMPLETE',
-      fcom: '[PRO-NOR-SOP-18] LANDING C/L...COMPLETE BOTH.',
+      fcom: '[PRO-NOR-SOP-18] LANDING C/L...COMPLETE. BOTH',
     },
     {
       name: 'ONE HUNDRED ABOVE', value: 'MONITOR OR ANNOUNCE',
-      fcom: '[PRO-NOR-SOP-18] ONE HUNDRED ABOVE...MONITOR OR ANNOUNCE PM.',
-      note: '[PRO-NOR-SOP-18] At entered minimum + 100 ft.',
+      fcom: '[PRO-NOR-SOP-18] ONE HUNDRED ABOVE...MONITOR OR ANNOUNCE. PM — At entered minimum + 100 ft.',
+      note: 'At entered minimum + 100 ft.',
     },
     {
       name: 'MINIMUM', value: 'MONITOR OR ANNOUNCE',
-      fcom: '[PRO-NOR-SOP-18] MINIMUM...MONITOR OR ANNOUNCE PM.',
-      note: '[PRO-NOR-SOP-18] At entered minimum.',
+      fcom: '[PRO-NOR-SOP-18] MINIMUM...MONITOR OR ANNOUNCE. PM — At entered minimum.',
+      note: 'At entered minimum.',
     }
   ]
 },
@@ -2146,61 +2273,110 @@ const PHASES = [
   id: 'sop19',
   num: 'SOP-19',
   title: 'Landing',
-  sub: 'Flare → rollout → runway vacated',
-  intro: 'El <strong>PF<\/strong> ejecuta el flare y controla el rollout. El <strong>PM<\/strong> monitorea la deceleración y los parámetros de empuje.',
-  trigger: '<strong>Flow trigger:<\/strong> Short final established.',
+  sub: 'Flare → touchdown → rollout → taxi speed',
+  intro: 'El <strong>PF<\/strong> ejecuta el flare, derotación, reversores y frenos. El <strong>PM<\/strong> monitorea el flare, chequea ground spoilers, reversores y anuncia velocidades.',
+  trigger: '<strong>Flow trigger:<\/strong> Short final established. Manual landing: AP OFF.',
   triggerRef: 'FCOM PRO-NOR-SOP-19',
   pf: [
     {
-      name: 'FLARE', value: 'MONITOR',
-      fcom: '[PRO-NOR-SOP-19] FLARE...MONITOR PF.',
+      name: 'AP', value: 'OFF',
+      fcom: '[PRO-NOR-SOP-19-A-00025032] AP...OFF. PF — For manual landing, the AP must be disconnected.',
+    },
+    {
+      name: 'FLARE', value: 'PERFORM',
+      fcom: '[PRO-NOR-SOP-19-A-00010351] FLARE...PERFORM. PF — Around 30 ft RA. In a stabilized approach, the flare height is approximately 30 ft. Begin a gentle progressive flare to enable the aircraft to touch down without a prolonged float.',
+      note: 'Around 30 ft RA.',
     },
     {
       name: 'BOTH THRUST LEVERS', value: 'IDLE',
-      fcom: '[PRO-NOR-SOP-19] BOTH THRUST LEVERS... IDLE PF.',
-      note: '[PRO-NOR-SOP-19] At 10 ft RA.',
+      fcom: '[PRO-NOR-SOP-19-A-00010351] BOTH THRUST LEVERS...IDLE. PF — During flare (~30 ft RA). Move both thrust levers to the IDLE detent. At 20 ft, an automatic "RETARD" callout will trigger as a reminder. If autothrust is engaged, it automatically disconnects when both thrust levers are set to IDLE. Ground spoilers extension is inhibited if one or more thrust levers remain above IDLE detent.',
+      note: 'During flare. Ground spoilers inhibited if TLs above IDLE.',
+    },
+    {
+      name: 'DEROTATION', value: 'INITIATE',
+      fcom: '[PRO-NOR-SOP-19-A-00010352] DEROTATION...INITIATE. PF — As soon as the main landing gear touches down.',
+      note: 'At main gear touchdown.',
+    },
+    {
+      name: 'BOTH THRUST LEVERS', value: 'REV MAX or REV IDLE',
+      fcom: '[PRO-NOR-SOP-19-A-00010352] BOTH THRUST LEVERS...REV MAX or REV IDLE. PF — The flight crew must select reverse thrust immediately after main landing gear touchdown. As soon as reverse thrust is selected, a full-stop landing must be performed. Select REV MAX immediately if: emergency, deceleration not as expected, failure affects landing performance, long flare/touchdown, or unexpected tailwind.',
+      note: 'Immediately after main gear touchdown. Use REV MAX if deceleration is not as expected.',
+    },
+    {
+      name: 'DIRECTIONAL CONTROL', value: 'ENSURE',
+      fcom: '[PRO-NOR-SOP-19-A-00010352] DIRECTIONAL CONTROL...ENSURE. PF — Use rudder pedals for directional control. During rollout, avoid sidestick inputs (lateral or longitudinal). If directional control problems occur, reduce thrust to REV IDLE until directional control is acceptable. Do not use nosewheel steering handle before reaching taxi speed.',
+    },
+    {
+      name: 'BRAKES', value: 'AS RQRD',
+      fcom: '[PRO-NOR-SOP-19-A] BRAKES...AS RQRD. PF — If landing without autobrake. Braking may begin before nosewheel touchdown if required for performance. When comfort is the priority, delay braking until after nosewheel touchdown.',
+      note: 'If landing without autobrake.',
     },
     {
       name: 'BOTH THRUST LEVERS', value: 'REV IDLE',
-      fcom: '[PRO-NOR-SOP-19] BOTH THRUST LEVERS... REV IDLE PF.',
-    },
-    {
-      name: 'LATERAL GUIDANCE', value: 'MONITOR',
-      fcom: '[PRO-NOR-SOP-19] LATERAL GUIDANCE... MONITOR PF.',
+      fcom: '[PRO-NOR-SOP-19-A-00010353] BOTH THRUST LEVERS...REV IDLE. PF — At 70 kt. It is recommended to reduce to reverse idle when passing 70 kt. High levels of reverse thrust may be used in emergencies.',
+      note: 'At 70 kt.',
+      caution: '[PRO-NOR-SOP-19 — CAUTION] Avoid the use of high levels of reverse thrust at low airspeed, unless required due to an emergency. The distortion of the airflow can cause engine stalls resulting in excessive EGT.',
     },
     {
       name: 'REVERSERS', value: 'STOW',
-      fcom: '[PRO-NOR-SOP-19] REVERSERS... STOW PF.',
-      caution: '[PRO-NOR-SOP-19 — CAUTION] Except in an emergency, do not use the reverse thrust to control the aircraft speed during taxi.',
+      fcom: '[PRO-NOR-SOP-19-A-00010354] REVERSERS...STOW. PF — At taxi speed. When the aircraft reaches taxi speed, and before it leaves the runway, stow the reversers. On snow-covered grounds, stow when speed reaches 25 kt. When deselecting reversers, be careful not to apply forward thrust by moving thrust levers beyond FWD IDLE.',
+      note: 'At taxi speed. On snow/ice: stow at 25 kt.',
+      caution: '[PRO-NOR-SOP-19 — CAUTION] Except in an emergency, do not use reverse thrust to control aircraft speed on taxiways. On snow-covered areas, reverse thrust may cause snow to recirculate into the air inlet and cause engine flameout or rollback.',
     },
     {
-      name: 'BOTH REVERSER LEVERS', value: 'STOW',
-      fcom: '[PRO-NOR-SOP-19] BOTH REVERSER LEVERS... STOW PF.',
-      note: '[PRO-NOR-SOP-19] End of roll out.',
+      name: 'AUTO BRK', value: 'DISENGAGE',
+      fcom: '[PRO-NOR-SOP-19-A-00010355] AUTO BRK...DISENGAGE. PF — Before 20 kt. Disengage the autobrake to avoid brake jerks at low speed. Use brake pedals to disengage the autobrake.',
+      note: 'Before 20 kt.',
     }
   ],
   pm: [
     {
+      name: 'ATTITUDE', value: 'MONITOR',
+      fcom: '[PRO-NOR-SOP-19-A-00010351] ATTITUDE...MONITOR. PM — During flare. Monitor aircraft attitude during the flare.',
+      note: 'During flare.',
+    },
+    {
       name: 'THR IDLE ON FMA', value: 'CHECK',
-      fcom: '[PRO-NOR-SOP-19] THR IDLE ON FMA... CHECK PM.',
-      note: '[PRO-NOR-SOP-19] At 30 ft RA.',
+      fcom: '[PRO-NOR-SOP-19-B-00020900] THR IDLE ON FMA...CHECK. PM — At 30 ft RA (Autoland). Check that FMA displays THR IDLE.',
+      note: 'At 30 ft RA — Autoland only.',
     },
     {
       name: 'THRUST IDLE', value: 'CHECK',
-      fcom: '[PRO-NOR-SOP-19] THRUST IDLE...CHECK PM.',
+      fcom: '[PRO-NOR-SOP-19-B-00020900] THRUST IDLE...CHECK. PM — Autoland: check at 30 ft RA.',
+      note: 'Autoland only.',
+    },
+    {
+      name: 'GND SPLRS', value: 'CHECK/ANNOUNCE',
+      fcom: '[PRO-NOR-SOP-19-A-00010352] GND SPLRS...CHECK/ANNOUNCE. PM — Check that the WHEEL SD page displays the ground spoilers extended after touchdown. If no ground spoilers are extended: check both TLs at IDLE, set both reverser levers to MAX REV, and fully press brake pedals. Note: if ground spoilers not armed, they extend at reverse thrust selection.',
+      note: 'At touchdown. If no GND SPLRS extended: set REV MAX + full brake.',
+    },
+    {
+      name: 'REVERSERS', value: 'CHECK/ANNOUNCE',
+      fcom: '[PRO-NOR-SOP-19-A-00010352] REVERSERS...CHECK/ANNOUNCE. PM — Check that the E/WD displays the expected reverser deployment (i.e. REV). If reverser(s) do not deploy as expected, one of the main deceleration means is lost; adapt available deceleration means to stop the aircraft.',
+    },
+    {
+      name: 'AUTO BRK', value: 'CHECK/ANNOUNCE',
+      fcom: '[PRO-NOR-SOP-19-A] AUTO BRK...CHECK/ANNOUNCE. PM — If autobrake is selected: check and announce BRK LO or BRK MED on the FMA. If no ground spoilers extended, autobrake will not activate.',
+      note: 'If autobrake selected.',
+      warning: '[PRO-NOR-SOP-19 — WARNING] Never change the A/BRK selection during rollout.',
+    },
+    {
+      name: 'AUTOBRAKE', value: 'MONITOR',
+      fcom: '[PRO-NOR-SOP-19-A] AUTOBRAKE...MONITOR. PM — During all rollout, monitor that FMA displays BRK LO or BRK MED, and call out if the autobrake mode disengages.',
+      note: 'If autobrake selected.',
     },
     {
       name: 'DECELERATION', value: 'CHECK/ANNOUNCE',
-      fcom: '[PRO-NOR-SOP-19] DECELERATION... CHECK/ANNOUNCE PM.',
+      fcom: '[PRO-NOR-SOP-19-A-00010352] DECELERATION...CHECK/ANNOUNCE. PM — Feel the deceleration and check speed trend on PFD to confirm deceleration.',
     },
     {
       name: 'SEVENTY KNOTS', value: 'ANNOUNCE',
-      fcom: '[PRO-NOR-SOP-19] SEVENTY KNOTS... ANNOUNCE PM.',
-      note: '[PRO-NOR-SOP-19] At 70 kt.',
+      fcom: '[PRO-NOR-SOP-19-A-00010353] SEVENTY KNOTS...ANNOUNCE. PM — At 70 kt.',
+      note: 'At 70 kt.',
     },
     {
       name: 'BRAKE TEMPERATURE', value: 'MONITOR',
-      fcom: '[PRO-NOR-SOP-19] BRAKE TEMPERATURE... MONITOR PM.',
+      fcom: '[PRO-NOR-SOP-19-A] BRAKE TEMPERATURE...MONITOR. PM',
     }
   ]
 },
@@ -2339,83 +2515,147 @@ const PHASES = [
   id: 'sop22',
   num: 'SOP-22',
   title: 'Parking',
-  sub: 'En el gate · Engine shutdown',
-  intro: 'El <strong>PF<\/strong> anuncia slides disarm, apaga luces exteriores y gestiona el parking brake. El <strong>PM<\/strong> setea el ATC en STBY, verifica IRS y combustible, y cierra el APU.',
+  sub: 'Parking brake → eng shutdown → slides → logbook',
+  intro: 'El <strong>PF<\/strong> frena, apaga motores, anuncia slides disarm y gestiona las luces. El <strong>PM<\/strong> configura anti-ice, APU bleed, fuel pumps, ATC y verifica IRS/fuel.',
   trigger: '<strong>Flow trigger:<\/strong> Aircraft stopped at the gate. — <em>Checklist trigger: PARKING C/L...COMPLETE.<\/em>',
   triggerRef: 'FCOM PRO-NOR-SOP-22',
   pf: [
     {
-      name: 'SLIDES DISARM', value: 'ANNOUNCE',
-      fcom: '[PRO-NOR-SOP-22] 3 SLIDES DISARM...ANNOUNCE. (CM1)',
+      name: 'ACCU PRESS indicator', value: 'CHECK',
+      fcom: '[PRO-NOR-SOP-22-A-00011853] ACCU PRESS indicator...CHECK. PF — The ACCU PRESS indication must be in the green band. In case of low accumulator pressure, chocks are required before engine 1 shutdown.',
     },
     {
-      name: 'EXTERIOR LIGHTS', value: 'OFF',
-      fcom: '[PRO-NOR-SOP-22] WING sw...OFF / BEACON sw...OFF. (PF)',
+      name: 'PARK BRK handle', value: 'ON',
+      fcom: '[PRO-NOR-SOP-22-A-00011853] PARK BRK handle...ON. PF — If the temperature of one brake is above 500°C (or above 350°C with brake fans ON), avoid applying the parking brake unless operationally necessary.',
+      caution: '[PRO-NOR-SOP-22 — CAUTION] Keep the brake pedals pressed until both needles of the brakes pressure indicator are above the green area, to avoid inadvertent movement of the aircraft. If the aircraft starts to move with the parking brake ON, immediately restore braking with pedals.',
+    },
+    {
+      name: 'BRAKES PRESS indicator', value: 'CHECK',
+      fcom: '[PRO-NOR-SOP-22-A-00011853] BRAKES PRESS indicator...CHECK. PF',
+    },
+    {
+      name: 'YELLOW ELEC PUMP pb-sw', value: 'OFF',
+      fcom: '[PRO-NOR-SOP-22-A-00026845] YELLOW ELEC PUMP pb-sw...OFF. PF — In the case of one engine taxi, set the YELLOW ELEC PUMP pb-sw to OFF before Engine 1 shutdown.',
+      note: 'One engine taxi case only.',
+    },
+    {
+      name: 'EXT PWR pb', value: 'CHECK AVAIL / ON',
+      fcom: '[PRO-NOR-SOP-22-A-00011856] EXT PWR pb...CHECK AVAIL then ON. PF — If the APU is not used and EXT PWR is available. If the APU is used: APU START pb-sw CHECK AVAIL.',
+      note: 'If APU not used: EXT PWR CHECK AVAIL then ON. If APU used: APU START pb-sw CHECK AVAIL.',
+    },
+    {
+      name: 'All ENG MASTER levers', value: 'OFF',
+      fcom: '[PRO-NOR-SOP-22-A-00011856] All ENG MASTER levers...OFF. PF — No less than 3 min after high thrust operations. After high thrust operations, operate engines at or near idle for 3 min cooling period. Approach thrust, idle reverse thrust, and normal taxi thrust are not considered high thrust operations.',
+      note: '3 min after high thrust operations. Approach/idle reverse/normal taxi = NOT high thrust.',
+    },
+    {
+      name: 'ENGINE PARAMETERS', value: 'CHECK',
+      fcom: '[PRO-NOR-SOP-22-A-00011856] ENGINE PARAMETERS...CHECK. PF — Check that engine parameters decrease.',
+    },
+    {
+      name: 'SLIDES DISARM', value: 'ANNOUNCE',
+      fcom: '[PRO-NOR-SOP-22-A-20800078] SLIDES DISARM...ANNOUNCE. CM1 — The CM1 will perform the slides disarming announcement.',
+    },
+    {
+      name: 'WING sw', value: 'OFF',
+      fcom: '[PRO-NOR-SOP-22-A-00011859] WING sw...OFF. PF',
+    },
+    {
+      name: 'BEACON sw', value: 'OFF',
+      fcom: '[PRO-NOR-SOP-22-A-00011859] BEACON sw...OFF. PF — Turn off the beacon lights when all engines have spooled down.',
+      note: 'When all engines spooled down.',
+    },
+    {
+      name: 'OTHER EXTERIOR LIGHTS', value: 'AS RQRD',
+      fcom: '[PRO-NOR-SOP-22-A-00011859] OTHER EXTERIOR LIGHTS...AS RQRD. PF',
     },
     {
       name: 'SLIDES', value: 'CHECK DISARMED',
-      fcom: '[PRO-NOR-SOP-22] SLIDES...CHECK DISARMED. (PF)',
+      fcom: '[PRO-NOR-SOP-22-A-00011858] SLIDES...CHECK DISARMED. PF — Check slides disarmed on the DOOR/OXY SD page. Warn the cabin crew if any slide is not disarmed.',
     },
     {
       name: 'SEAT BELTS sw', value: 'OFF',
-      fcom: '[PRO-NOR-SOP-22] SEAT BELTS sw... OFF PF.',
+      fcom: '[PRO-NOR-SOP-22-A-00011860] SEAT BELTS sw...OFF. PF',
     },
     {
       name: 'GROUND CONTACT', value: 'ESTABLISH',
-      fcom: '[PRO-NOR-SOP-22] GROUND CONTACT...ESTABLISH PF.',
-      note: '[PRO-NOR-SOP-22] The flight crew should establish communication with the ground crew. Check that chocks are in place.',
+      fcom: '[PRO-NOR-SOP-22-A-00011857] GROUND CONTACT...ESTABLISH. PF — Establish communication with the ground crew. Check that chocks are in place. Check if external power will be available, in order to shut down the APU as soon as possible when no longer required.',
+      note: 'If no ground staff connected, may establish communication later.',
     },
     {
       name: 'PARK BRK handle', value: 'AS RQRD',
-      fcom: '[PRO-NOR-SOP-22] PARK BRK handle... AS RQRD PF.',
-      note: '[PRO-NOR-SOP-22] The parking brake should be released after chocks are in place, if a temperature of one brake is above 300°C.',
+      fcom: '[PRO-NOR-SOP-22-A-00011869] PARK BRK handle...AS RQRD. PF — Release after chocks are in place if one brake temperature is above 300°C (or 150°C with brake fans ON). This prevents critical structures from high temperature exposure. Do not press pedals before releasing. If slippery tarmac, parking brake may remain applied.',
+      note: 'Release if brake temp >300°C (>150°C with fans ON) after chocks placed.',
+    },
+    {
+      name: 'ALL EFB transmitting mode', value: 'AS RQRD',
+      fcom: '[PRO-NOR-SOP-22-A-00014395] ALL EFB transmitting mode...AS RQRD. PF-PM — In accordance with Operator policy or as required by operational regulations.',
+    },
+    {
+      name: 'EFB', value: 'CLOSE FLIGHT',
+      fcom: '[PRO-NOR-SOP-22-A-00014395] EFB...CLOSE FLIGHT. PF-PM',
+    },
+    {
+      name: 'DUs', value: 'DIM',
+      fcom: '[PRO-NOR-SOP-22-A-00011870] DUs...DIM. PF-PM — Dim EFIS, ECAM and MCDU display units.',
     }
   ],
   pm: [
     {
-      name: 'ATC MODE', value: 'STBY',
-      fcom: '[PRO-NOR-SOP-22] 5 ATC MODE...STBY. (PM)',
+      name: 'ANTI-ICE', value: 'OFF',
+      fcom: '[PRO-NOR-SOP-22-A-00011854] ANTI-ICE...OFF. PM',
+    },
+    {
+      name: 'APU BLEED pb-sw', value: 'AS RQRD',
+      fcom: '[PRO-NOR-SOP-22-A-00011855] APU BLEED pb-sw...AS RQRD. PM — If the APU is used, set the APU BLEED pb-sw to ON immediately before engine shutdown to prevent engine exhaust fumes from entering the air conditioning.',
+      note: 'If APU used: set to ON immediately before engine shutdown to prevent exhaust fumes.',
+    },
+    {
+      name: 'FUEL PUMPS / CTR XFR VALVES', value: 'OFF',
+      fcom: '[PRO-NOR-SOP-22-A-00011862] FUEL PUMPS...OFF. PM — MSN 01143-03211: switch off fuel pumps. MSN 03222+: switch off fuel pumps AND center tank transfer valves.',
+      note: 'MSN 01143-03211: FUEL PUMPS OFF. MSN 03222-12576: FUEL PUMPS / CTR XFR VALVES OFF.',
+    },
+    {
+      name: 'ATC', value: 'STBY',
+      fcom: '[PRO-NOR-SOP-22-A-00011864] ATC...STBY. PM — MSN 01143-11293: ATC STBY. MSN 11482-12576: ATC MODE STBY.',
     },
     {
       name: 'IRS PERFORMANCE', value: 'CHECK',
-      fcom: '[PRO-NOR-SOP-22] IRS PERFORMANCE... CHECK PM.',
-      note: '[PRO-NOR-SOP-22] On the POSITION/MONITOR page, check that the deviation does not exceed the acceptable limit.',
+      fcom: '[PRO-NOR-SOP-22-A-00011865] IRS PERFORMANCE...CHECK. PM — On the POSITION/MONITOR page, check that the deviation does not exceed the acceptable limit for accumulated block time since last IRS alignment.',
     },
     {
       name: 'FUEL QUANTITY', value: 'CHECK',
-      fcom: '[PRO-NOR-SOP-22] FUEL QUANTITY... CHECK PM.',
-      note: '[PRO-NOR-SOP-22] Check that the sum of the fuel on board and the fuel used is consistent with the fuel on board at departure.',
+      fcom: '[PRO-NOR-SOP-22-A-00011866] FUEL QUANTITY...CHECK. PM — Check that the sum of the fuel on board and the fuel used is consistent with the fuel on board at departure. If a discrepancy is detected, maintenance action is due.',
     },
     {
       name: 'BRK FAN pb', value: 'AS RQRD',
-      fcom: '[PRO-NOR-SOP-22] BRK FAN pb... AS RQRD PM.',
-      note: '[PRO-NOR-SOP-22] Turn off the brake fans when they are no longer necessary.',
+      fcom: '[PRO-NOR-SOP-22-A-00011868] BRK FAN pb...AS RQRD. PM — Turn off the brake fans when they are no longer necessary.',
     },
     {
       name: 'PARKING C/L', value: 'COMPLETE',
-      fcom: '[PRO-NOR-SOP-22] PARKING C/L... COMPLETE BOTH.',
+      fcom: '[PRO-NOR-SOP-22-A-00011873] PARKING C/L...COMPLETE. BOTH',
     },
     {
       name: 'STATUS page', value: 'CHECK',
-      fcom: '[PRO-NOR-SOP-22] STATUS page... CHECK CM1.',
+      fcom: '[PRO-NOR-SOP-22-A-00022328] STATUS page...CHECK. CM1 — Press the STS pb on the ECAM control panel.',
     },
     {
       name: 'LOGBOOK', value: 'COMPLETE',
-      fcom: '[PRO-NOR-SOP-22] LOGBOOK...COMPLETE CM1.',
+      fcom: '[PRO-NOR-SOP-22-A-00022328] LOGBOOK...COMPLETE. CM1 — Complete the logbook according to the STATUS page. In icing conditions (OAT ≤+3°C): record taxi-in time in logbook (used to determine max time to next engine acceleration for next flight).',
+      note: 'If icing conditions (OAT ≤+3°C): record taxi-in time in logbook.',
     },
     {
       name: 'EXT PWR pb', value: 'ON',
-      fcom: '[PRO-NOR-SOP-22] EXT PWR pb...ON PM.',
-      note: '[PRO-NOR-SOP-22] If EXT PWR is AVAIL.',
+      fcom: '[PRO-NOR-SOP-22-A-20800077] EXT PWR pb...ON. PM — If EXT PWR is AVAIL.',
+      note: 'If EXT PWR is AVAIL.',
     },
     {
       name: 'APU BLEED pb-sw', value: 'OFF',
-      fcom: '[PRO-NOR-SOP-22] APU BLEED pb-sw...OFF PM.',
+      fcom: '[PRO-NOR-SOP-22-A-20800077] APU BLEED pb-sw...OFF. PM — After EXT PWR is connected.',
     },
     {
       name: 'APU MASTER SW pb-sw', value: 'OFF',
-      fcom: '[PRO-NOR-SOP-22] APU MASTER SW pb-sw...OFF PM.',
-      note: '[PRO-NOR-SOP-22] Before leaving the aircraft, always check if the external power is available to shut down the APU.',
+      fcom: '[PRO-NOR-SOP-22-A-20800077] APU MASTER SW pb-sw...OFF. PM — Before leaving the aircraft, always check if external power is available to shut down the APU as soon as possible.',
     }
   ]
 }
