@@ -8,6 +8,7 @@ async function getHeaders() {
 	};
 };
 
+
 async function checkResponseStatus(response) {
 
 	if (!response.ok) {
