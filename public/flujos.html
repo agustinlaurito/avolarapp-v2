@@ -666,64 +666,114 @@ const PHASES = [
   id: 'sop04',
   num: 'SOP-04',
   title: 'Preliminary Cockpit Preparation',
-  sub: 'Safety checks · FMGS init · Performance',
-  intro: 'El <strong>CM1 (PF)<\/strong> realiza la inicialización del FMGS y cómputo de performance. El <strong>CM2 (PM)<\/strong> efectúa el scan de seguridad inicial de los controles y sistemas.',
-  trigger: '<strong>Flow trigger:<\/strong> The flight crew performs the preliminary cockpit preparation to ensure that all required safety checks are completed.',
+  sub: 'Safety setup · Batteries · APU · ADIRS · FMGS pre-init · Performance',
+  intro: 'El <strong>CM1 (PF)<\/strong> realiza inicialización ACARS/EFB/FMGS, aircraft acceptance y cómputo preliminar de performance. El <strong>CM2 (PM)<\/strong> efectúa el safety scan, energiza la aeronave (BAT/EXT PWR), arranca APU, alinea ADIRS y completa el before-walkaround scan.',
+  trigger: '<strong>Flow trigger:<\/strong> Tripulación entra al cockpit (new crew o transit stop). Items marcados con * son los únicos a completar tras transit stop sin cambio de tripulación; otros casos, full procedure.',
   triggerRef: 'FCOM PRO-NOR-SOP-04',
   pf: [
     {
       name: 'COCKPIT LIGHTS', value: 'AS RQRD',
-      fcom: '[PRO-NOR-SOP-04] * COCKPIT LIGHTS...AS RQRD. (CM1-CM2)',
+      fcom: '[PRO-NOR-SOP-04-00010172] * COCKPIT LIGHTS...AS RQRD. (CM1-CM2) — Set INT LT, FLOOD LT, INTEG LT (incl. glareshield and FCU).',
     },
     {
       name: 'ALL EFB', value: 'START',
-      fcom: '[PRO-NOR-SOP-04] 7 EFB START ALL EFB...START. (CM1-CM2)',
+      fcom: '[PRO-NOR-SOP-04-B-00021913] ALL EFB...START. (CM1-CM2)',
+    },
+    {
+      name: 'EFB Version and Database', value: 'CHECK',
+      fcom: '[PRO-NOR-SOP-04-B-00021913] EFB Version and Database...CHECK. (CM1-CM2) — In accordance with Operator policy or if required by regulation. Check all EFB software versions and databases match the EFB Administrator reference.',
+    },
+    {
+      name: 'ACARS', value: 'INITIALIZE',
+      fcom: '[PRO-NOR-SOP-04-B-00026475] * ACARS...INITIALIZE. (CM1) — Initialize ACARS using INIT REQ prompt on AOC PREFLIGHT INIT page. Verify correct initialization including crewmember IDs.',
+    },
+    {
+      name: 'FMGS PRE-INITIALIZATION', value: 'PERFORM',
+      fcom: '[PRO-NOR-SOP-04-B-00014422] FMGS PRE-INITIALIZATION...PERFORM. (CM1) — Performed in case of ACARS operations or EFB operations with avionics SYNCHRO. Allow 3 min for FMGS/FCU internal tests at power-up; do not press MCDU keys while "PLEASE WAIT" displayed.',
     },
     {
       name: 'ENGINE & AIRCRAFT TYPE', value: 'CHECK',
-      fcom: '[PRO-NOR-SOP-04] * ENGINE & AIRCRAFT TYPE...CHECK. (CM1)',
+      fcom: '[PRO-NOR-SOP-04-B-00014423] * ENGINE & AIRCRAFT TYPE...CHECK. (CM1)',
     },
     {
       name: 'FM database validity', value: 'CHECK',
-      fcom: '[PRO-NOR-SOP-04] * FM database validity...CHECK. (CM1)',
+      fcom: '[PRO-NOR-SOP-04-B-00014424] * FM database validity...CHECK. (CM1) — Check DATA BASE validity and stored WPT/NAVAIDS/RWY/ROUTES. On Day 1 of AIRAC Cycle #2, select Cycle #2 prior to first flight of the day.',
+      note: 'MSN 01143-04773, 04839, 04871-07098, 07126-07239, 07287-12205, 12259-12371, 12488-12576.',
     },
     {
       name: 'FLT NBR', value: 'INSERT/CHECK',
-      fcom: '[PRO-NOR-SOP-04] * FLT NBR...INSERT/CHECK. (CM1)',
+      fcom: '[PRO-NOR-SOP-04-B-00014425] * FLT NBR...INSERT/CHECK. (CM1) — Insert only if company flight plan not received via ACARS.',
     },
     {
       name: 'FROM/TO', value: 'INSERT/CHECK',
-      fcom: '[PRO-NOR-SOP-04] * FROM/TO...INSERT/CHECK. (CM1)',
+      fcom: '[PRO-NOR-SOP-04-B-00014425] * FROM/TO...INSERT/CHECK. (CM1) — Insert only if company flight plan not received via ACARS.',
+    },
+    {
+      name: 'EFB', value: 'INITIALIZE',
+      fcom: '[PRO-NOR-SOP-04-B-00021927] * EFB...INITIALIZE. (CM1-CM2) — Check EFB init: ACFT TYPE, ACFT REG, FLT NBR, FROM/TO in agreement with FMS INIT A page. If avionics SYNCHRO available, sync EFB; otherwise enter manually.',
     },
     {
       name: 'All EFB Transmitting mode', value: 'ON',
-      fcom: '[PRO-NOR-SOP-04] * All EFB Transmitting mode...ON. (CM1-CM2)',
+      fcom: '[PRO-NOR-SOP-04-B-00021927] * All EFB Transmitting mode...ON. (CM1-CM2)',
     },
     {
       name: 'RCL pb', value: 'PRESS 3 s',
-      fcom: '[PRO-NOR-SOP-04] * RCL pb...PRESS 3 s. (CM1)',
+      fcom: '[PRO-NOR-SOP-04-00021915] * RCL pb...PRESS 3 s. (CM1) — Recalls warnings cleared/cancelled during last flight.',
     },
     {
       name: 'LOGBOOK AND MEL/CDL ITEMS', value: 'CHECK',
-      fcom: '[PRO-NOR-SOP-04] * LOGBOOK AND MEL/CDL ITEMS...CHECK. (BOTH)',
+      fcom: '[PRO-NOR-SOP-04-00021915] * LOGBOOK AND MEL/CDL ITEMS...CHECK. (BOTH) — Check deferred items, technical condition vs planned flight, daily check completed, fluid quantities (fuel, oil, hydraulic), engine oil quantity recorded in logbook at end of previous flight.',
+    },
+    {
+      name: 'AIRCRAFT CONFIGURATION SUMMARY', value: 'CHECK',
+      fcom: '[PRO-NOR-SOP-04-00021915] AIRCRAFT CONFIGURATION SUMMARY...CHECK. (BOTH) — Both crewmembers discuss the optional installed systems/functions and their influence on the flight.',
+      note: 'MSN 06286, 07126, 07844-08172, 08495-08529, 08596-08635, 09190-12576.',
+    },
+    {
+      name: 'OEB', value: 'CHECK',
+      fcom: '[PRO-NOR-SOP-04-00021915] * OEB...CHECK. (BOTH) — Review and discuss all OEBs and associated procedures applicable to the aircraft.',
+      note: 'MSN 06286, 07126, 07844-08172, 08495-08529, 08596-08635, 09190-12576.',
+    },
+    {
+      name: 'MAX TIME TO NEXT ENG ACCELERATION', value: 'DETERMINE',
+      fcom: '[PRO-NOR-SOP-04-00021915] MAXIMUM TIME TO NEXT ENGINE ACCELERATION...DETERMINE. (BOTH) — Diff between 30 min and taxi-in time of previous flight (logbook). In freezing rain/drizzle/fog or heavy snow: 30 min regardless of previous taxi-in.',
+      note: 'MSN 01143-02904, 03032, 03156, 03222-03229, 03280, 03294, 03319, 03535-03556, 03588-03595, 03663-03710, 03761-04439, 04476-04543, 04546-04697, 04773, 05345, 05528, 05947, 05987-06121, 06163-06165.',
+    },
+    {
+      name: 'AIRCRAFT ACCEPTANCE', value: 'PERFORM',
+      fcom: '[PRO-NOR-SOP-04-00021915] * AIRCRAFT ACCEPTANCE...PERFORM. (CM1) — May be performed later but must be completed by end of Cockpit Preparation.',
+    },
+    {
+      name: 'USE OF EXTENDED FORWARD', value: 'CHECK LOADSHEET',
+      fcom: '[PRO-NOR-SOP-04-20800071] USE OF EXTENDED FORWARD...CHECK LOADSHEET. (BOTH) — A320: if loadsheet CG is "T1" use Basic (T1) for FlySmart; otherwise use Ext Fwd. A319/A321: certified only with Ext Fwd; T1 option not available.',
+    },
+    {
+      name: 'AIRFIELD DATA', value: 'OBTAIN',
+      fcom: '[PRO-NOR-SOP-04-00021916] AIRFIELD DATA...OBTAIN. (CM1-CM2) — Runway in use, altimeter setting, weather data.',
+      note: 'In short turnaround, PRELIMINARY PERFORMANCE DETERMINATION may be done after returning from exterior walkaround.',
     },
     {
       name: 'PRELIMINARY TAKEOFF PERF DATA', value: 'COMPUTE',
-      fcom: '[PRO-NOR-SOP-04] * PRELIMINARY TAKEOFF PERF DATA...COMPUTE. (CM1-CM2)',
+      fcom: '[PRO-NOR-SOP-04-00021916] PRELIMINARY TAKEOFF PERF DATA...COMPUTE. (CM1-CM2) — Both crew discuss/decide: RWY in use, RWY intersection, flaps setting, anti-ice use, packs use, takeoff thrust setting (FLEX/TOGA/DERATE). PF and PM independently compute.',
     },
     {
       name: 'PRELIMINARY TAKEOFF PERF DATA', value: 'CROSSCHECK',
-      fcom: '[PRO-NOR-SOP-04] * PRELIMINARY TAKEOFF PERF DATA...CROSSCHECK. (BOTH)',
+      fcom: '[PRO-NOR-SOP-04-00021916] PRELIMINARY TAKEOFF PERF DATA...CROSSCHECK. (BOTH) — PF and PM compare and ensure computations match.',
     }
   ],
   pm: [
     {
-      name: 'ENG 1, 2 MASTER LEVERS', value: 'OFF',
-      fcom: '[PRO-NOR-SOP-04] ENG 1, 2 MASTER LEVERS...OFF. (CM2)',
+      name: 'HYD/ELEC POWER-UP', value: 'CHECK',
+      fcom: '[PRO-NOR-SOP-04-A-00021906] HYD/ELEC POWER-UP...CHECK. (CM2)',
+      warning: '[PRO-NOR-SOP-04 — WARNING] Do not pressurize hydraulic systems until clearance is obtained from ground personnel. If aircraft is not electrically powered, check MLB first or consult maintenance to ensure aircraft can be powered up.',
+    },
+    {
+      name: 'ENG 1, 2 MASTER levers', value: 'OFF',
+      fcom: '[PRO-NOR-SOP-04-A-00010165] ENG 1, 2 MASTER levers...OFF. (CM2)',
     },
     {
       name: 'ENG MODE selector', value: 'NORM',
-      fcom: '[PRO-NOR-SOP-04] ENG MODE selector...NORM. (CM2)',
+      fcom: '[PRO-NOR-SOP-04-A-00010165] ENG MODE selector...NORM. (CM2)',
     },
     {
       name: '* RADAR sw', value: 'OFF',
@@ -731,7 +781,7 @@ const PHASES = [
     },
     {
       name: '* WINDSHEAR / PWS sw', value: 'OFF',
-      fcom: '[PRO-NOR-SOP-04-A-00011188] * WINDSHEAR / PWS sw...OFF. (CM2)',
+      fcom: '[PRO-NOR-SOP-04-A-00011188] * WINDSHEAR / PWS sw...OFF. (CM2) — If installed.',
     },
     {
       name: '* GAIN knob', value: 'AUTO/CAL',
@@ -743,37 +793,134 @@ const PHASES = [
     },
     {
       name: 'L/G lever', value: 'DOWN',
-      fcom: '[PRO-NOR-SOP-04] L/G lever...DOWN. (CM2)',
+      fcom: '[PRO-NOR-SOP-04-A-00010166] L/G lever...DOWN. (CM2)',
     },
     {
       name: 'WIPER selectors', value: 'OFF',
-      fcom: '[PRO-NOR-SOP-04] Both WIPER selectors...OFF. (CM2)',
+      fcom: '[PRO-NOR-SOP-04-A-00010167] Both WIPER selectors...OFF. (CM2)',
       caution: '[PRO-NOR-SOP-04 — CAUTION] Never use rain repellent to wash the windshield and never use it on a dry windshield.',
     },
     {
-      name: 'OXY', value: 'CHECK PRESSURE',
-      fcom: '[PRO-NOR-SOP-04] * OXY...CHECK PRESSURE. (PM)',
+      name: 'BAT 1 and BAT 2 pb-sw', value: 'CHECK OFF',
+      fcom: '[PRO-NOR-SOP-04-00010168] BAT 1 pb-sw and BAT 2 pb-sw...CHECK OFF. (CM2) — Conditional check.',
+      note: 'If aircraft has not been electrically supplied for 6 h or more.',
+    },
+    {
+      name: 'BAT 1 and 2 VOLTAGE', value: 'CHECK ABOVE 25.5 V',
+      fcom: '[PRO-NOR-SOP-04-00010168] BAT 1 and 2 VOLTAGE...CHECK ABOVE 25.5 V. (CM2) — Voltage above 25.5 V ensures charge above 50 %. If at or below 25.5 V, charging cycle of ~20 min required (EXT PWR, BAT pb-sw AUTO).',
+    },
+    {
+      name: 'BAT 1 and BAT 2 pb-sw', value: 'AUTO',
+      fcom: '[PRO-NOR-SOP-04-00010168] BAT 1 pb-sw and BAT 2 pb-sw...AUTO. (CM2) — If APU started on batteries only, must start within 30 min after selection to AUTO (at 35 min battery charge <25 % of max).',
+    },
+    {
+      name: 'EXT PWR pb-sw', value: 'ON',
+      fcom: '[PRO-NOR-SOP-04-00010168] EXT PWR pb-sw...ON. (CM2) — If AVAIL light is on.',
+    },
+    {
+      name: 'RMP 1 and 2', value: 'CHECK ON / SET',
+      fcom: '[PRO-NOR-SOP-04-C-00025088] RMP 1 and 2...CHECK ON/SET. (CM1-CM2)',
+      note: 'MSN 01143-11293 and MSN 11482-12576 variants.',
+    },
+    {
+      name: 'INT Reception knob', value: 'PRESS OUT / VOLUME CHECK',
+      fcom: '[PRO-NOR-SOP-04-C-00025088] INT Reception knob...PRESS OUT/VOLUME CHECK. (CM1-CM2) — Ensure INT and speaker volume increased to enable contact with ground crew.',
+      note: 'MSN 11482-12576.',
+    },
+    {
+      name: 'STBY NAV', value: 'CHECK OFF',
+      fcom: '[PRO-NOR-SOP-04-C-00025088] STBY NAV...CHECK OFF. (CM1-CM2)',
+      note: 'MSN 11482-12576.',
+    },
+    {
+      name: 'APU FIRE pb-sw', value: 'CHECK IN and GUARDED',
+      fcom: '[PRO-NOR-SOP-04-C-00010170] APU FIRE pb-sw...CHECK IN and GUARDED. (CM2)',
+    },
+    {
+      name: 'APU AGENT light', value: 'CHECK OFF',
+      fcom: '[PRO-NOR-SOP-04-C-00010170] APU AGENT light...CHECK OFF. (CM2)',
+    },
+    {
+      name: 'APU FIRE TEST pb', value: 'PRESS and MAINTAIN',
+      fcom: '[PRO-NOR-SOP-04-C-00010170] APU FIRE TEST pb...PRESS and MAINTAIN. (CM2) — Check: APU FIRE warning ECAM, CRC, MASTER WARN, APU FIRE pb-sw lighted red, SQUIB and DISCH lights on.',
+      warning: '[PRO-NOR-SOP-04 — WARNING] Automatic shutdown of the APU and discharge of the APU fire extinguisher bottle may occur if the flight crew presses the APU FIRE test pb for more than 3 seconds.',
+    },
+    {
+      name: 'APU MASTER SW pb-sw', value: 'ON',
+      fcom: '[PRO-NOR-SOP-04-C-00010171] APU MASTER SW pb-sw...ON. (CM2) — APU start should be delayed until 5 min before ETD or door close, whichever first. Earlier if: no EXT PWR available, no ACU available and cockpit/cabin temp ≥26°C or ≤17°C.',
+      note: 'If EXT PWR pb light is ON.',
+    },
+    {
+      name: 'APU START pb-sw', value: 'ON',
+      fcom: '[PRO-NOR-SOP-04-C-00010171] APU START pb-sw...ON. (CM2) — Wait at least 3 s before selecting. Refer to LIM-APU APU Start and APU Start/Shutdown during Refueling/Defueling.',
+    },
+    {
+      name: 'APU BLEED pb-sw', value: 'ON',
+      fcom: '[PRO-NOR-SOP-04-C-00010171] APU BLEED pb-sw...ON. (CM2) — When APU AVAIL.',
+    },
+    {
+      name: '* ALL IR MODE selectors', value: 'NAV',
+      fcom: '[PRO-NOR-SOP-04-00011159 / 00022626] * ALL IR MODE selectors...NAV. (CM2) — Align or realign IRS as appropriate. Complete alignment required: before first flight of the day, both pilots changed, departure between 2°N and 2°S, GPS unavailable with poor NAVAID coverage, or GPS unavailable with flight time >3 h.',
+      note: 'Wait at least 12 min after power-up before selecting NAV to prevent erroneous data initialization. MSN variants per ident 0009001 and 0014001.',
+      caution: '[PRO-NOR-SOP-04 — CAUTION] Always check QRH AIRCRAFT CONFIGURATION SUMMARY to confirm if SLATS/FLAPS should be retracted before ADIRS alignment, to avoid damage to RTLU mechanical stop. If applicable, after alignment and if OAT >30°C, extend slats to CONF 1 to avoid AIR L(R) WING LEAK warning.',
+    },
+    {
+      name: '* HYD pb', value: 'PRESS',
+      fcom: '[PR-NP-SOP-40-00018703] * HYD pb...PRESS. (PM) — To check liquid levels: oil, hydraulic and oxygen pressure.',
+    },
+    {
+      name: '* OXY', value: 'CHECK PRESSURE',
+      fcom: '[PRO-NOR-SOP-04-E-00021917] * OXY...CHECK PRESSURE. (PM) — Check on DOOR SD page. If OXY pressure half-boxed in amber, verify pressure sufficient for scheduled flight (LIM-OXY Minimum Flight Crew Oxygen Pressure).',
+    },
+    {
+      name: '* ENG OIL QUANTITY', value: 'CHECK',
+      fcom: '[PRO-NOR-SOP-04-E-00021917] * ENG OIL QUANTITY...CHECK. (PM) — Check on ENG SD page; quantity above minimum (LIM-ENG Oil).',
     },
     {
       name: 'F/CTL FLAPS', value: 'CHECK POSITION',
-      fcom: '[PRO-NOR-SOP-04] F/CTL FLAPS...CHECK POSITION. (PM)',
+      fcom: '[PRO-NOR-SOP-04-E-00010174] FLAPS...CHECK POSITION. (PM) — Check upper ECAM that FLAPS position agrees with handle position.',
+      warning: '[PRO-NOR-SOP-04 — WARNING] If flight control surface positions do not agree with the control handle positions, check with the maintenance crew before applying hydraulic power.',
     },
     {
-      name: 'SPEEDBRAKE lever', value: 'CHECK RETRACTED and DISARMED',
-      fcom: '[PRO-NOR-SOP-04] * SPEEDBRAKE lever...CHECK RETRACTED and DISARMED. (PM)',
+      name: '* SPEEDBRAKE lever', value: 'CHECK RETRACTED and DISARMED',
+      fcom: '[PRO-NOR-SOP-04-E-00010174] * SPEEDBRAKE lever...CHECK RETRACTED and DISARMED. (PM)',
+    },
+    {
+      name: '* ACCU PRESS', value: 'CHECK',
+      fcom: '[PRO-NOR-SOP-04-E-00010174] * ACCU PRESS...CHECK. (PM) — Pointer in green band. If not, use yellow electric pump to pressurize accumulator.',
+      warning: '[PRO-NOR-SOP-04 — WARNING] Yellow and green hydraulic systems are pressurized from yellow electric pump. Get ground crew clearance before using the electric pump.',
+    },
+    {
+      name: 'ALTN BRAKING', value: 'CHECK',
+      fcom: '[PRO-NOR-SOP-04-E-00010175] ALTN BRAKING...CHECK. (PM) — PARK BRK OFF, BRAKES press indicator at zero; press pedals, check simultaneous L/R pressure. Full pedal deflection: 2 000–2 700 PSI.',
+      note: 'MSN 01143-02321. Purpose: verify efficiency of alternate braking system.',
+    },
+    {
+      name: 'BRAKE PEDALS', value: 'RELEASE',
+      fcom: '[PRO-NOR-SOP-04-E-00010175] BRAKE PEDALS...RELEASE. (PM)',
+      note: 'MSN 01143-02321.',
+    },
+    {
+      name: 'PARK BRK handle', value: 'ON',
+      fcom: '[PRO-NOR-SOP-04-E-00010175] PARK BRK handle...ON. (PM) — Parking brake must be ON during exterior inspection to allow check of brake wear indicators.',
+      note: 'MSN 01143-02321.',
+    },
+    {
+      name: 'EMER EQPT', value: 'CHECK',
+      fcom: '[PRO-NOR-SOP-04-E-00010206] EMER EQPT...CHECK. (PM) — Fire extinguisher (pressure in green band, lead seal), PBE (condition), oxygen masks/boxes, flashlights (LED flashing), life vests, ax, ropes, gloves.',
     },
     {
       name: 'RAIN RPLNT indicators', value: 'CHECK PRESSURE and QUANTITY',
-      fcom: '[PRO-NOR-SOP-04] RAIN RPLNT indicators...CHECK PRESSURE and QUANTITY. (PM)',
+      fcom: '[PRO-NOR-SOP-04-E-00010207] RAIN RPLNT indicators...CHECK PRESSURE and QUANTITY. (PM) — If installed.',
+      caution: '[PRO-NOR-SOP-04 — CAUTION] Never use rain repellent to wash the windshield and never use it on a dry windshield.',
     },
     {
       name: 'REAR and OVERHEAD C/B PANELS', value: 'CHECK',
-      fcom: '[PRO-NOR-SOP-04] REAR and OVERHEAD CIRCUIT BREAKERS panels...CHECK. (PM)',
+      fcom: '[PRO-NOR-SOP-04-E-00010208] REAR and OVERHEAD CIRCUIT BREAKERS panels...CHECK. (PM) — Check all c/b set; reset as necessary.',
     },
     {
-      name: 'GEAR PINS', value: 'CHECK ONBOARD and STOWED',
-      fcom: '[PRO-NOR-SOP-04] * GEAR PINS...CHECK ONBOARD and STOWED. (PM)',
-      warning: '[PRO-NOR-SOP-04 — WARNING] Do not pressurize the hydraulic systems until clearance is obtained from ground personnel.',
+      name: '* GEAR PINS', value: 'CHECK ONBOARD and STOWED',
+      fcom: '[PRO-NOR-SOP-04-E-00010209] * GEAR PINS...CHECK ONBOARD and STOWED. (PM) — Check the three gear pins are onboard and stowed.',
     }
   ]
 },
